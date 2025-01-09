@@ -12,6 +12,8 @@ struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [Item]
 
+    @State private var isAddItemPresented = false;
+    
     var body: some View {
         NavigationSplitView {
             List {
@@ -23,7 +25,14 @@ struct ContentView: View {
                     }
                 }
                 .onDelete(perform: deleteItems)
-            }
+            }.popover(isPresented: $isAddItemPresented, content: {
+                VStack {
+                    Text("hello")
+                    Button("Close") {
+                        isAddItemPresented = false
+                    }
+                }
+            })
 #if os(macOS)
             .navigationSplitViewColumnWidth(min: 180, ideal: 200)
 #endif
@@ -45,16 +54,28 @@ struct ContentView: View {
     }
 
     private func addItem() {
-        withAnimation {
-            let newItem = Item(name: "hello", timestamp: Date())
-            modelContext.insert(newItem)
-        }
+        isAddItemPresented = true
+//        withAnimation {
+//            let newItem = Item(name: "hello", timestamp: Date())
+//            modelContext.insert(newItem)
+//        }
     }
 
     private func deleteItems(offsets: IndexSet) {
         withAnimation {
             for index in offsets {
                 modelContext.delete(items[index])
+            }
+        }
+    }
+}
+
+struct AddItemPopup: View {
+    var body: some View {
+        VStack {
+            Text("hello")
+            Button("Close") {
+                print("Close tapped!")
             }
         }
     }
