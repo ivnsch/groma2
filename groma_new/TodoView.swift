@@ -8,7 +8,7 @@
 import SwiftUI
 import SwiftData
 
-struct ContentView: View {
+struct TodoView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [Item]
 
@@ -84,6 +84,6 @@ struct AddItemPopup: View {
 }
 
 #Preview {
-    ContentView()
+    TodoView()
         .modelContainer(for: Item.self, inMemory: true)
 }

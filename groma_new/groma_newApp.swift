@@ -25,7 +25,14 @@ struct groma_newApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            TabView {
+                Tab("Todo", systemImage: "tray.and.arrow.down.fill") {
+                    TodoView()
+                }
+                Tab("Cart", systemImage: "tray.and.arrow.up.fill") {
+                    CartView()
+                }
+            }
         }
         .modelContainer(sharedModelContainer)
     }
