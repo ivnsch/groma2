@@ -32,6 +32,9 @@ struct groma_newApp: App {
                 Tab("Cart", systemImage: "tray.and.arrow.up.fill") {
                     CartView()
                 }
+                Tab("Stats", systemImage: "tray.and.arrow.up.fill") {
+                    StatsView()
+                }
             }
         }
         .modelContainer(sharedModelContainer)
