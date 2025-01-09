@@ -11,6 +11,19 @@ import SwiftData
 @Model
 final class Item {
     var name: String?
+    
+    var timestamp: Date?
+    
+    init(name: String, timestamp: Date) {
+        self.name = name
+        self.timestamp = timestamp
+    }
+}
+
+@Model
+final class CartItem {
+    var name: String?
+    
     var timestamp: Date?
     
     init(name: String, timestamp: Date) {
