@@ -18,11 +18,7 @@ struct CartView: View {
         NavigationSplitView {
             List {
                 ForEach(items) { item in
-                    NavigationLink {
-                        Text("name: \(item.name ?? ""), time: \(item.timestamp ?? Date(), format: Date.FormatStyle(date: .numeric, time: .standard))")
-                    } label: {
-                        Text(item.name ?? "unnamed")
-                    }
+                    Text(item.name ?? "unnamed")
                 }
             }
 #if os(macOS)

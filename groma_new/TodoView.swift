@@ -19,10 +19,10 @@ struct TodoView: View {
         NavigationSplitView {
             List {
                 ForEach(items) { item in
-                    NavigationLink {
-                        Text("name: \(item.name ?? ""), time: \(item.timestamp ?? Date(), format: Date.FormatStyle(date: .numeric, time: .standard))")
-                    } label: {
-                        Text(item.name ?? "unnamed")
+                    Button(action: {
+                        moveItemToCart(item: item)
+                    }) {
+                        Label(item.name ?? "unnamed", systemImage: "plus")
                     }
                 }
                 .onDelete(perform: deleteItems)
@@ -61,6 +61,12 @@ struct TodoView: View {
 
     private func showAddItem() {
         isAddItemPresented = true
+    }
+    
+    private func moveItemToCart(item: Item) {
+        let cartItem = CartItem(name: item.name ?? "", timestamp: Date())
+        modelContext.insert(cartItem)
+        modelContext.delete(item)
     }
 
     private func deleteItems(offsets: IndexSet) {
