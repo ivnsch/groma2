@@ -17,7 +17,7 @@ struct ContentView: View {
             List {
                 ForEach(items) { item in
                     NavigationLink {
-                        Text("Item at \(item.timestamp ?? Date(), format: Date.FormatStyle(date: .numeric, time: .standard))")
+                        Text("name: \(item.name ?? ""), time: \(item.timestamp ?? Date(), format: Date.FormatStyle(date: .numeric, time: .standard))")
                     } label: {
                         Text(item.timestamp ?? Date(), format: Date.FormatStyle(date: .numeric, time: .standard))
                     }
@@ -46,7 +46,7 @@ struct ContentView: View {
 
     private func addItem() {
         withAnimation {
-            let newItem = Item(timestamp: Date())
+            let newItem = Item(name: "hello", timestamp: Date())
             modelContext.insert(newItem)
         }
     }
