@@ -14,6 +14,7 @@ struct TodoView: View {
 
     @State private var isAddItemPresented = false;
     @State private var itemName: String = ""
+    @State private var itemPrice: String = ""
 
     var body: some View {
         NavigationSplitView {
@@ -22,7 +23,11 @@ struct TodoView: View {
                     Button(action: {
                         moveItemToCart(item: item)
                     }) {
-                        Label(item.name ?? "unnamed", systemImage: "plus")
+                        HStack {
+                            Text(item.name ?? "unnamed")
+                            Spacer()
+                            Text(item.price.description)
+                        }
                     }
                 }
                 .onDelete(perform: deleteItems)
@@ -30,10 +35,13 @@ struct TodoView: View {
                 VStack {
                     Text("Add item")
                     TextField("", text: $itemName)
+                    TextField("", text: $itemPrice)
                     Button("Add") {
                         isAddItemPresented = false
                         withAnimation {
-                            let newItem = Item(name: itemName, timestamp: Date())
+                            // TODO validate, remove unwrap
+                            let price = Float(itemPrice)!
+                            let newItem = Item(name: itemName, timestamp: Date(), price: price)
                             modelContext.insert(newItem)
                         }
                     }
@@ -64,7 +72,7 @@ struct TodoView: View {
     }
     
     private func moveItemToCart(item: Item) {
-        let cartItem = CartItem(name: item.name ?? "", timestamp: Date())
+        let cartItem = CartItem(name: item.name ?? "", timestamp: Date(), price: item.price)
         modelContext.insert(cartItem)
         modelContext.delete(item)
     }

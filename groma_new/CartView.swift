@@ -18,7 +18,11 @@ struct CartView: View {
         NavigationSplitView {
             List {
                 ForEach(items) { item in
-                    Text(item.name ?? "unnamed")
+                    HStack {
+                        Text(item.name ?? "unnamed")
+                        Spacer()
+                        Text(item.price.description)
+                    }
                 }
             }
 #if os(macOS)
