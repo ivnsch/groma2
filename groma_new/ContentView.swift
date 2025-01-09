@@ -13,7 +13,8 @@ struct ContentView: View {
     @Query private var items: [Item]
 
     @State private var isAddItemPresented = false;
-    
+    @State private var itemName: String = ""
+
     var body: some View {
         NavigationSplitView {
             List {
@@ -27,9 +28,14 @@ struct ContentView: View {
                 .onDelete(perform: deleteItems)
             }.popover(isPresented: $isAddItemPresented, content: {
                 VStack {
-                    Text("hello")
-                    Button("Close") {
+                    Text("Add item")
+                    TextField("", text: $itemName)
+                    Button("Add") {
                         isAddItemPresented = false
+                        withAnimation {
+                            let newItem = Item(name: itemName, timestamp: Date())
+                            modelContext.insert(newItem)
+                        }
                     }
                 }
             })
@@ -43,7 +49,7 @@ struct ContentView: View {
                 }
 #endif
                 ToolbarItem {
-                    Button(action: addItem) {
+                    Button(action: showAddItem) {
                         Label("Add Item", systemImage: "plus")
                     }
                 }
@@ -53,12 +59,8 @@ struct ContentView: View {
         }
     }
 
-    private func addItem() {
+    private func showAddItem() {
         isAddItemPresented = true
-//        withAnimation {
-//            let newItem = Item(name: "hello", timestamp: Date())
-//            modelContext.insert(newItem)
-//        }
     }
 
     private func deleteItems(offsets: IndexSet) {
