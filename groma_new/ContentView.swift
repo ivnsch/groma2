@@ -22,7 +22,7 @@ struct ContentView: View {
                     NavigationLink {
                         Text("name: \(item.name ?? ""), time: \(item.timestamp ?? Date(), format: Date.FormatStyle(date: .numeric, time: .standard))")
                     } label: {
-                        Text(item.timestamp ?? Date(), format: Date.FormatStyle(date: .numeric, time: .standard))
+                        Text(item.name ?? "unnamed")
                     }
                 }
                 .onDelete(perform: deleteItems)
