@@ -33,7 +33,7 @@ struct groma_newApp: App {
                     CartView()
                 }
                 Tab("Stats", systemImage: "tray.and.arrow.up.fill") {
-                    StatsView()
+                    StatsView(modelContext: sharedModelContainer.mainContext)
                 }
                 Tab("History", systemImage: "tray.and.arrow.up.fill") {
                     HistoryView()
