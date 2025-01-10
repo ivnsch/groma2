@@ -12,7 +12,7 @@ import SwiftData
 struct groma_newApp: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            Item.self, CartItem.self
+            Item.self, CartItem.self, BoughtItem.self
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
@@ -34,6 +34,9 @@ struct groma_newApp: App {
                 }
                 Tab("Stats", systemImage: "tray.and.arrow.up.fill") {
                     StatsView()
+                }
+                Tab("History", systemImage: "tray.and.arrow.up.fill") {
+                    HistoryView()
                 }
             }
         }
