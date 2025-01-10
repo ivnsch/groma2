@@ -16,12 +16,24 @@ struct CartView: View {
 
     var body: some View {
         NavigationSplitView {
-            List {
-                ForEach(items) { item in
-                    HStack {
-                        Text(item.name ?? "unnamed")
-                        Spacer()
-                        Text(item.price.description)
+            VStack {
+                List {
+                    ForEach(items) { item in
+                        HStack {
+                            Text(item.name ?? "unnamed")
+                            Spacer()
+                            Text(item.price.description)
+                        }
+                    }
+                }
+                Button("Buy") {
+                    withAnimation {
+                        // TODO all items in one transaction
+                        items.forEach { item in
+                            let bought = BoughtItem(name: item.name ?? "", boughtDate: Date(), price: item.price)
+                            modelContext.insert(bought)
+                            modelContext.delete(item)
+                        }
                     }
                 }
             }

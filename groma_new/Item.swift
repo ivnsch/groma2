@@ -35,3 +35,17 @@ final class CartItem {
         self.price = price
     }
 }
+
+@Model
+final class BoughtItem {
+    var name: String?
+    var price: Float = 0
+
+    var boughtDate: Date?
+    
+    init(name: String, boughtDate: Date, price: Float) {
+        self.name = name
+        self.boughtDate = boughtDate
+        self.price = price
+    }
+}
