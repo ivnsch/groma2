@@ -55,3 +55,14 @@ final class BoughtItem {
         self.quantity = quantity
     }
 }
+
+@Model
+final class PredefItem {
+    var name: String?
+    var price: Float = 0
+    
+    init(name: String, price: Float) {
+        self.name = name
+        self.price = price
+    }
+}

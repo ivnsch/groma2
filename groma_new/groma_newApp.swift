@@ -12,7 +12,7 @@ import SwiftData
 struct groma_newApp: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            Item.self, CartItem.self, BoughtItem.self
+            Item.self, CartItem.self, BoughtItem.self, PredefItem.self
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
@@ -23,11 +23,15 @@ struct groma_newApp: App {
         }
     }()
 
+    init() {
+        checkAndPopulateData(modelContext: sharedModelContainer.mainContext)
+    }
+    
     var body: some Scene {
         WindowGroup {
             TabView {
                 Tab("Todo", systemImage: "tray.and.arrow.down.fill") {
-                    TodoView()
+                    TodoView(sharedModelContainer: sharedModelContainer)
                 }
                 Tab("Cart", systemImage: "tray.and.arrow.up.fill") {
                     CartView()

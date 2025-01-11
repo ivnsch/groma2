@@ -14,6 +14,12 @@ struct TodoView: View {
 
     @State private var isAddItemPresented = false;
 
+    var sharedModelContainer: ModelContainer;
+        
+    init(sharedModelContainer: ModelContainer) {
+        self.sharedModelContainer = sharedModelContainer
+    }
+    
     var body: some View {
         NavigationSplitView {
             List {
@@ -33,8 +39,11 @@ struct TodoView: View {
                 }
                 .onDelete(perform: deleteItems)
             }.popover(isPresented: $isAddItemPresented, content: {
-                AddNewItemView { newItem in
-                    modelContext.insert(newItem)
+                AddItemView(modelContext: sharedModelContainer.mainContext) { itemsToAdd in
+                    for item in itemsToAdd {
+                        print("adding item: " + (item.name ?? ""))
+                        modelContext.insert(item)
+                    }
                     isAddItemPresented = false
                 }
             })
@@ -86,9 +95,4 @@ struct AddItemPopup: View {
             }
         }
     }
-}
-
-#Preview {
-    TodoView()
-        .modelContainer(for: Item.self, inMemory: true)
 }
