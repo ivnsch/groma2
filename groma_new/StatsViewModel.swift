@@ -23,19 +23,25 @@ extension StatsView {
                 let descriptor = FetchDescriptor<BoughtItem>(sortBy: [SortDescriptor(\.name)])
                 let items = try modelContext.fetch(descriptor)
                 
-                // group by month
-                let groupedItems = groupItemsByMonth(items: items)
-                for (month, items) in groupedItems {
-                    let totalPrice = items.map(\.price).reduce(0, +);
-                    monthlyExpenses.append(MonthlyExpensesItem(month: month, spent: totalPrice.description))
-                }
+                monthlyExpenses = toMonthlyExpenses(items: items)
             } catch {
                 print("Fetch failed")
             }
         }
     }
+}
+
+func toMonthlyExpenses(items: [BoughtItem]) -> [MonthlyExpensesItem] {
+    var monthlyExpenses = [MonthlyExpensesItem]()
+
+    // group by month
+    let groupedItems = groupItemsByMonth(items: items)
+    for (month, items) in groupedItems {
+        let totalPrice = items.map(\.price).reduce(0, +);
+        monthlyExpenses.append(MonthlyExpensesItem(month: month, spent: totalPrice.description))
+    }
     
-   
+    return monthlyExpenses
 }
 
 
