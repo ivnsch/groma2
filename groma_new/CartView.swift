@@ -37,6 +37,11 @@ struct CartView: View {
                             modelContext.insert(bought)
                             modelContext.delete(item)
                         }
+                        do {
+                            try modelContext.save()
+                        } catch {
+                            print("error saving: \(error)")
+                        }
                     }
                 }
             }

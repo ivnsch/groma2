@@ -47,6 +47,11 @@ struct TodoView: View {
                         print("adding item: " + (item.name ?? ""))
                         modelContext.insert(item)
                     }
+                    do {
+                        try modelContext.save()
+                    } catch {
+                        print("error saving: \(error)")
+                    }
                     isAddItemPresented = false
                 }
             })
@@ -78,12 +83,22 @@ struct TodoView: View {
         let cartItem = CartItem(name: item.name ?? "", timestamp: Date(), price: item.price, quantity: item.quantity, tags: item.tags)
         modelContext.insert(cartItem)
         modelContext.delete(item)
+        do {
+            try modelContext.save()
+        } catch {
+            print("error saving: \(error)")
+        }
     }
 
     private func deleteItems(offsets: IndexSet) {
         withAnimation {
             for index in offsets {
                 modelContext.delete(items[index])
+            }
+            do {
+                try modelContext.save()
+            } catch {
+                print("error saving: \(error)")
             }
         }
     }
