@@ -19,7 +19,10 @@ struct HistoryView: View {
                 HStack {
                     Text(item.name ?? "unnamed")
                     Spacer()
-                    Text(item.price.description)
+                    VStack {
+                        Text(item.quantity.description)
+                        Text(item.price.description)
+                    }
                 }
             }
         }

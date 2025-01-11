@@ -12,13 +12,15 @@ import SwiftData
 final class Item {
     var name: String?
     var price: Float = 0
+    var quantity: Int = 0
     
     var timestamp: Date?
     
-    init(name: String, timestamp: Date, price: Float) {
+    init(name: String, timestamp: Date, price: Float, quantity: Int) {
         self.name = name
         self.timestamp = timestamp
         self.price = price
+        self.quantity = quantity
     }
 }
 
@@ -26,13 +28,15 @@ final class Item {
 final class CartItem {
     var name: String?
     var price: Float = 0
+    var quantity: Int = 0
 
     var timestamp: Date?
     
-    init(name: String, timestamp: Date, price: Float) {
+    init(name: String, timestamp: Date, price: Float, quantity: Int) {
         self.name = name
         self.timestamp = timestamp
         self.price = price
+        self.quantity = quantity
     }
 }
 
@@ -40,12 +44,14 @@ final class CartItem {
 final class BoughtItem {
     var name: String?
     var price: Float = 0
+    var quantity: Int = 0
 
     var boughtDate: Date?
     
-    init(name: String, boughtDate: Date, price: Float) {
+    init(name: String, boughtDate: Date, price: Float, quantity: Int) {
         self.name = name
         self.boughtDate = boughtDate
         self.price = price
+        self.quantity = quantity
     }
 }

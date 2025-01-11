@@ -22,7 +22,10 @@ struct CartView: View {
                         HStack {
                             Text(item.name ?? "unnamed")
                             Spacer()
-                            Text(item.price.description)
+                            VStack {
+                                Text(item.quantity.description)
+                                Text(item.price.description)
+                            }
                         }
                     }
                 }
@@ -30,7 +33,7 @@ struct CartView: View {
                     withAnimation {
                         // TODO all items in one transaction
                         items.forEach { item in
-                            let bought = BoughtItem(name: item.name ?? "", boughtDate: Date(), price: item.price)
+                            let bought = BoughtItem(name: item.name ?? "", boughtDate: Date(), price: item.price, quantity: item.quantity)
                             modelContext.insert(bought)
                             modelContext.delete(item)
                         }

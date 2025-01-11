@@ -13,8 +13,10 @@ struct TodoView: View {
     @Query private var items: [Item]
 
     @State private var isAddItemPresented = false;
+    
     @State private var itemName: String = ""
     @State private var itemPrice: String = ""
+    @State private var itemQuantity: String = ""
 
     var body: some View {
         NavigationSplitView {
@@ -26,7 +28,10 @@ struct TodoView: View {
                         HStack {
                             Text(item.name ?? "unnamed")
                             Spacer()
-                            Text(item.price.description)
+                            VStack {
+                                Text(item.quantity.description)
+                                Text(item.price.description)
+                            }
                         }
                     }
                 }
@@ -36,12 +41,14 @@ struct TodoView: View {
                     Text("Add item")
                     TextField("", text: $itemName)
                     TextField("", text: $itemPrice)
+                    TextField("", text: $itemQuantity)
                     Button("Add") {
                         isAddItemPresented = false
                         withAnimation {
                             // TODO validate, remove unwrap
                             let price = Float(itemPrice)!
-                            let newItem = Item(name: itemName, timestamp: Date(), price: price)
+                            let quantity = Int(itemQuantity)!
+                            let newItem = Item(name: itemName, timestamp: Date(), price: price, quantity: quantity)
                             modelContext.insert(newItem)
                         }
                     }
@@ -72,7 +79,7 @@ struct TodoView: View {
     }
     
     private func moveItemToCart(item: Item) {
-        let cartItem = CartItem(name: item.name ?? "", timestamp: Date(), price: item.price)
+        let cartItem = CartItem(name: item.name ?? "", timestamp: Date(), price: item.price, quantity: item.quantity)
         modelContext.insert(cartItem)
         modelContext.delete(item)
     }
