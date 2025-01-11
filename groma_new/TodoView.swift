@@ -39,6 +39,7 @@ struct TodoView: View {
                 }
                 .onDelete(perform: deleteItems)
             }
+            .scrollContentBackground(.hidden)
             .navigationTitle("To do")
             .navigationBarTitleDisplayMode(.inline)
             .popover(isPresented: $isAddItemPresented, content: {
@@ -69,10 +70,10 @@ struct TodoView: View {
                         Label("Add Item", systemImage: "plus")
                     }
                 }
+
             }
+            .background(Color.yellow.opacity(0.6).ignoresSafeArea())
         }
-        
-      
     }
 
     private func showAddItem() {

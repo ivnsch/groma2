@@ -27,8 +27,10 @@ struct HistoryView: View {
                     }
                 }
             }
+            .scrollContentBackground(.hidden)
             .navigationTitle("History")
             .navigationBarTitleDisplayMode(.inline)
+            .background(Color.yellow.opacity(0.6).ignoresSafeArea())
         }
     }
 }

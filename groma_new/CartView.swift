@@ -29,6 +29,7 @@ struct CartView: View {
                         }
                     }
                 }
+                .scrollContentBackground(.hidden)
                 Button("Buy") {
                     withAnimation {
                         // TODO all items in one transaction
@@ -52,6 +53,7 @@ struct CartView: View {
             }
             .navigationTitle("Cart")
             .navigationBarTitleDisplayMode(.inline)
+            .background(Color.yellow.opacity(0.6).ignoresSafeArea())
         }
     }
 }
