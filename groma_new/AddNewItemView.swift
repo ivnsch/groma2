@@ -5,6 +5,7 @@ struct AddNewItemView: View {
     @State private var itemName: String = ""
     @State private var itemPrice: String = ""
     @State private var itemQuantity: String = ""
+    @State private var itemTag: String = "" // only 1 tag supported for now
 
     private let didAddItem: ((Item) -> Void)?
     
@@ -18,12 +19,13 @@ struct AddNewItemView: View {
             TextField("", text: $itemName)
             TextField("", text: $itemPrice)
             TextField("", text: $itemQuantity)
+            TextField("", text: $itemTag)
             Button("Add") {
                 withAnimation {
                     // TODO validate, remove unwrap
                     let price = Float(itemPrice)!
                     let quantity = Int(itemQuantity)!
-                    let newItem = Item(name: itemName, timestamp: Date(), price: price, quantity: quantity)
+                    let newItem = Item(name: itemName, timestamp: Date(), price: price, quantity: quantity, tags: [itemTag])
                     
                     self.didAddItem?(newItem)
                 }

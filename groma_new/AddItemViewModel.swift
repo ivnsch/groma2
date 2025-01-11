@@ -16,7 +16,7 @@ extension AddItemView {
         }
         
         func addItem(predefItem: PredefItem) throws {
-            let item = Item(name: predefItem.name ?? "", timestamp: Date(), price: predefItem.price, quantity: 1)
+            let item = Item(name: predefItem.name ?? "", timestamp: Date(), price: predefItem.price, quantity: 1, tags: predefItem.tags)
             
             let matchingItems = itemsToAdd.filter { $0.name == item.name }
             
