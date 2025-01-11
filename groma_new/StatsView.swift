@@ -24,14 +24,26 @@ struct StatsView: View {
 //                    }
 //                }
 //            }
+//            List {
+//                ForEach(viewModel.itemAggregates) { item in
+//                    HStack {
+//                        Text(item.name)
+//                        Spacer()
+//                        VStack {
+//                            Text(item.totalPrice.description)
+//                            Text(item.totalQuantity.description)
+//                        }
+//                    }
+//                }
+//            }
             List {
-                ForEach(viewModel.itemAggregates) { item in
+                ForEach(viewModel.tagAggregates) { tag in
                     HStack {
-                        Text(item.name)
+                        Text(tag.name)
                         Spacer()
                         VStack {
-                            Text(item.totalPrice.description)
-                            Text(item.totalQuantity.description)
+                            Text(tag.totalPrice.description)
+                            Text(tag.totalQuantity.description)
                         }
                     }
                 }

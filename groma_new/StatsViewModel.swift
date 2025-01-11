@@ -12,7 +12,8 @@ extension StatsView {
     class ViewModel {
         var modelContext: ModelContext
         var monthlyExpenses = [MonthlyExpensesItem]()
-        var itemAggregates = [BoughtItemAggregate]()
+        var itemAggregates = [BoughtItemsTagAggregate]()
+        var tagAggregates = [BoughtItemsTagAggregate]()
 
         init(modelContext: ModelContext) {
             self.modelContext = modelContext
@@ -26,6 +27,7 @@ extension StatsView {
                 
                 monthlyExpenses = toMonthlyExpenses(items: items)
                 itemAggregates = toAllTimeExpensesByItem(items: items)
+                tagAggregates = toAllTimeExpensesByTag(items: items)
             } catch {
                 print("Fetch failed")
             }
@@ -46,8 +48,8 @@ func toMonthlyExpenses(items: [BoughtItem]) -> [MonthlyExpensesItem] {
     return monthlyExpenses
 }
 
-func toAllTimeExpensesByItem(items: [BoughtItem]) -> [BoughtItemAggregate] {
-    var aggregates = [BoughtItemAggregate]()
+func toAllTimeExpensesByItem(items: [BoughtItem]) -> [BoughtItemsTagAggregate] {
+    var aggregates = [BoughtItemsTagAggregate]()
 
     let groupedItems = Dictionary(grouping: items) { item in
         item.name ?? ""
@@ -56,10 +58,30 @@ func toAllTimeExpensesByItem(items: [BoughtItem]) -> [BoughtItemAggregate] {
     for (name, items) in groupedItems {
         let totalPrice = items.map(\.price).reduce(0, +);
         let totalQuantity = items.map(\.quantity).reduce(0, +);
-        aggregates.append(BoughtItemAggregate(totalQuantity: totalQuantity, totalPrice: totalPrice, name: name))
+        aggregates.append(BoughtItemsTagAggregate(totalQuantity: totalQuantity, totalPrice: totalPrice, name: name))
     }
     
     aggregates.sort(by: { $0.totalPrice > $1.totalPrice })
+    return aggregates
+}
+
+func toAllTimeExpensesByTag(items: [BoughtItem]) -> [BoughtItemsTagAggregate] {
+    var aggregates = [BoughtItemsTagAggregate]()
+
+    var tagsWithItems = Dictionary<String, [BoughtItem]>();
+    for item in items {
+        for tag in item.tags {
+            let updatedItems = tagsWithItems[tag] ?? []
+            tagsWithItems[tag] = updatedItems + [item]
+        }
+    }
+
+    for (tag, items) in tagsWithItems {
+        let totalPrice = items.map(\.price).reduce(0, +);
+        let totalQuantity = items.map(\.quantity).reduce(0, +);
+        aggregates.append(BoughtItemsTagAggregate(totalQuantity: totalQuantity, totalPrice: totalPrice, name: tag))
+    }
+    
     return aggregates
 }
 
@@ -75,10 +97,23 @@ class MonthlyExpensesItem {
 }
 
 @Model
-class BoughtItemAggregate {
+class BoughtItemsTagAggregate {
     var totalQuantity: Int
     var totalPrice: Float
     var name: String
+    
+    init(totalQuantity: Int, totalPrice: Float, name: String) {
+        self.totalQuantity = totalQuantity
+        self.totalPrice = totalPrice
+        self.name = name
+    }
+}
+
+@Model
+class BoughtTagAggregate {
+    var totalQuantity: Int
+    var totalPrice: Float
+    var name: String // tag name
     
     init(totalQuantity: Int, totalPrice: Float, name: String) {
         self.totalQuantity = totalQuantity
