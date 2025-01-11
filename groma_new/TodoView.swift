@@ -13,10 +13,6 @@ struct TodoView: View {
     @Query private var items: [Item]
 
     @State private var isAddItemPresented = false;
-    
-    @State private var itemName: String = ""
-    @State private var itemPrice: String = ""
-    @State private var itemQuantity: String = ""
 
     var body: some View {
         NavigationSplitView {
@@ -37,21 +33,9 @@ struct TodoView: View {
                 }
                 .onDelete(perform: deleteItems)
             }.popover(isPresented: $isAddItemPresented, content: {
-                VStack {
-                    Text("Add item")
-                    TextField("", text: $itemName)
-                    TextField("", text: $itemPrice)
-                    TextField("", text: $itemQuantity)
-                    Button("Add") {
-                        isAddItemPresented = false
-                        withAnimation {
-                            // TODO validate, remove unwrap
-                            let price = Float(itemPrice)!
-                            let quantity = Int(itemQuantity)!
-                            let newItem = Item(name: itemName, timestamp: Date(), price: price, quantity: quantity)
-                            modelContext.insert(newItem)
-                        }
-                    }
+                AddNewItemView { newItem in
+                    modelContext.insert(newItem)
+                    isAddItemPresented = false
                 }
             })
 #if os(macOS)
