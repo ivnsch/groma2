@@ -15,7 +15,7 @@ struct CartView: View {
     @State private var itemName: String = ""
 
     var body: some View {
-        NavigationSplitView {
+        NavigationStack {
             VStack {
                 List {
                     ForEach(items) { item in
@@ -45,8 +45,8 @@ struct CartView: View {
 #endif
             .toolbar {
             }
-        } detail: {
-            Text("Select an item")
+            .navigationTitle("Cart")
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }

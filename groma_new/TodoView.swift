@@ -21,7 +21,7 @@ struct TodoView: View {
     }
     
     var body: some View {
-        NavigationSplitView {
+        NavigationStack {
             List {
                 ForEach(items) { item in
                     Button(action: {
@@ -38,7 +38,10 @@ struct TodoView: View {
                     }
                 }
                 .onDelete(perform: deleteItems)
-            }.popover(isPresented: $isAddItemPresented, content: {
+            }
+            .navigationTitle("To do")
+            .navigationBarTitleDisplayMode(.inline)
+            .popover(isPresented: $isAddItemPresented, content: {
                 AddItemView(modelContext: sharedModelContainer.mainContext) { itemsToAdd in
                     for item in itemsToAdd {
                         print("adding item: " + (item.name ?? ""))
@@ -47,24 +50,24 @@ struct TodoView: View {
                     isAddItemPresented = false
                 }
             })
-#if os(macOS)
+    #if os(macOS)
             .navigationSplitViewColumnWidth(min: 180, ideal: 200)
-#endif
+    #endif
             .toolbar {
-#if os(iOS)
+    #if os(iOS)
                 ToolbarItem(placement: .navigationBarTrailing) {
                     EditButton()
                 }
-#endif
+    #endif
                 ToolbarItem {
                     Button(action: showAddItem) {
                         Label("Add Item", systemImage: "plus")
                     }
                 }
             }
-        } detail: {
-            Text("Select an item")
         }
+        
+      
     }
 
     private func showAddItem() {

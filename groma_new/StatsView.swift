@@ -14,14 +14,18 @@ struct StatsView: View {
     @State private var viewModel: ViewModel
 
     var body: some View {
-        List {
-            ForEach(viewModel.monthlyExpenses) { item in
-                HStack {
-                    Text(item.month.description)
-                    Spacer()
-                    Text(item.spent)
+        NavigationStack {
+            List {
+                ForEach(viewModel.monthlyExpenses) { item in
+                    HStack {
+                        Text(item.month.description)
+                        Spacer()
+                        Text(item.spent)
+                    }
                 }
             }
+            .navigationTitle("Stats")
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
     

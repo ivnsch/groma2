@@ -14,17 +14,21 @@ struct HistoryView: View {
     @Query private var items: [BoughtItem]
 
     var body: some View {
-        List {
-            ForEach(items) { item in
-                HStack {
-                    Text(item.name ?? "unnamed")
-                    Spacer()
-                    VStack {
-                        Text(item.quantity.description)
-                        Text(item.price.description)
+        NavigationStack {
+            List {
+                ForEach(items) { item in
+                    HStack {
+                        Text(item.name ?? "unnamed")
+                        Spacer()
+                        VStack {
+                            Text(item.quantity.description)
+                            Text(item.price.description)
+                        }
                     }
                 }
             }
+            .navigationTitle("History")
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
