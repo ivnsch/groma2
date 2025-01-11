@@ -15,12 +15,24 @@ struct StatsView: View {
 
     var body: some View {
         NavigationStack {
+//            List {
+//                ForEach(viewModel.monthlyExpenses) { item in
+//                    HStack {
+//                        Text(item.month.description)
+//                        Spacer()
+//                        Text(item.spent)
+//                    }
+//                }
+//            }
             List {
-                ForEach(viewModel.monthlyExpenses) { item in
+                ForEach(viewModel.itemAggregates) { item in
                     HStack {
-                        Text(item.month.description)
+                        Text(item.name)
                         Spacer()
-                        Text(item.spent)
+                        VStack {
+                            Text(item.totalPrice.description)
+                            Text(item.totalQuantity.description)
+                        }
                     }
                 }
             }

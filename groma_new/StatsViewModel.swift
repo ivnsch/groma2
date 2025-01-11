@@ -12,6 +12,7 @@ extension StatsView {
     class ViewModel {
         var modelContext: ModelContext
         var monthlyExpenses = [MonthlyExpensesItem]()
+        var itemAggregates = [BoughtItemAggregate]()
 
         init(modelContext: ModelContext) {
             self.modelContext = modelContext
@@ -24,6 +25,7 @@ extension StatsView {
                 let items = try modelContext.fetch(descriptor)
                 
                 monthlyExpenses = toMonthlyExpenses(items: items)
+                itemAggregates = toAllTimeExpensesByItem(items: items)
             } catch {
                 print("Fetch failed")
             }
@@ -44,6 +46,22 @@ func toMonthlyExpenses(items: [BoughtItem]) -> [MonthlyExpensesItem] {
     return monthlyExpenses
 }
 
+func toAllTimeExpensesByItem(items: [BoughtItem]) -> [BoughtItemAggregate] {
+    var aggregates = [BoughtItemAggregate]()
+
+    let groupedItems = Dictionary(grouping: items) { item in
+        item.name ?? ""
+    };
+    
+    for (name, items) in groupedItems {
+        let totalPrice = items.map(\.price).reduce(0, +);
+        let totalQuantity = items.map(\.quantity).reduce(0, +);
+        aggregates.append(BoughtItemAggregate(totalQuantity: totalQuantity, totalPrice: totalPrice, name: name))
+    }
+    
+    aggregates.sort(by: { $0.totalPrice > $1.totalPrice })
+    return aggregates
+}
 
 @Model
 class MonthlyExpensesItem {
@@ -56,6 +74,19 @@ class MonthlyExpensesItem {
     }
 }
 
+@Model
+class BoughtItemAggregate {
+    var totalQuantity: Int
+    var totalPrice: Float
+    var name: String
+    
+    init(totalQuantity: Int, totalPrice: Float, name: String) {
+        self.totalQuantity = totalQuantity
+        self.totalPrice = totalPrice
+        self.name = name
+    }
+}
+
 func groupItemsByMonth(items: [BoughtItem]) -> [Int: [BoughtItem]] {
     let calendar = Calendar.current
     return Dictionary(grouping: items) { item in
@@ -63,3 +94,10 @@ func groupItemsByMonth(items: [BoughtItem]) -> [Int: [BoughtItem]] {
         calendar.component(.month, from: item.boughtDate ?? Date.distantPast)
     }
 }
+
+func groupItemsByName(items: [BoughtItem]) -> [String: [BoughtItem]] {
+    return Dictionary(grouping: items) { item in
+        item.name ?? ""
+    }
+}
+
