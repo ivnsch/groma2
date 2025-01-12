@@ -81,7 +81,7 @@ struct TodoView: View {
     }
     
     private func moveItemToCart(item: Item) {
-        let cartItem = CartItem(name: item.name ?? "", timestamp: Date(), price: item.price, quantity: item.quantity, tags: item.tags)
+        let cartItem = CartItem(name: item.name ?? "", price: item.price, quantity: item.quantity, tags: item.tags)
         modelContext.insert(cartItem)
         modelContext.delete(item)
         do {

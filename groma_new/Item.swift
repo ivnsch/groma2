@@ -15,11 +15,8 @@ final class Item {
     var quantity: Int = 0
     var tags: [String] = []
 
-    var timestamp: Date?
-    
-    init(name: String, timestamp: Date, price: Float, quantity: Int, tags: [String]) {
+    init(name: String, price: Float, quantity: Int, tags: [String]) {
         self.name = name
-        self.timestamp = timestamp
         self.price = price
         self.quantity = quantity
         self.tags = tags
@@ -33,11 +30,8 @@ final class CartItem {
     var quantity: Int = 0
     var tags: [String] = []
 
-    var timestamp: Date?
-    
-    init(name: String, timestamp: Date, price: Float, quantity: Int, tags: [String]) {
+    init(name: String, price: Float, quantity: Int, tags: [String]) {
         self.name = name
-        self.timestamp = timestamp
         self.price = price
         self.quantity = quantity
         self.tags = tags

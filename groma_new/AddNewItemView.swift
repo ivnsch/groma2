@@ -25,7 +25,7 @@ struct AddNewItemView: View {
                     // TODO validate, remove unwrap
                     let price = Float(itemPrice)!
                     let quantity = Int(itemQuantity)!
-                    let newItem = Item(name: itemName, timestamp: Date(), price: price, quantity: quantity, tags: [itemTag])
+                    let newItem = Item(name: itemName, price: price, quantity: quantity, tags: [itemTag])
                     
                     self.didAddItem?(newItem)
                 }
