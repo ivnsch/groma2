@@ -37,7 +37,7 @@ struct groma_newApp: App {
                     StatsView(modelContext: sharedModelContainer.mainContext)
                 }
                 Tab("History", systemImage: "tray.and.arrow.up.fill") {
-                    HistoryView(modelContext: sharedModelContainer.mainContext)
+                    HistoryView()
                 }
             }
             .accentColor(Color(red: 101 / 255, green: 67 / 255, blue: 33 / 255))

@@ -11,17 +11,22 @@ import SwiftData
 struct HistoryView: View {
     @Environment(\.modelContext) private var modelContext
     
-    @State private var viewModel: ViewModel
+    @Query(sort: [SortDescriptor(\BoughtItem.boughtDate, order: .reverse)])
+    private var allItems: [BoughtItem]
 
+    var sections: [HistorySection] {
+      toSections(items: allItems)
+    }
+       
     var body: some View {
         NavigationStack {
             List {
-                ForEach(viewModel.sections) { item in
+                ForEach(sections) { section in
                     Section(header: HStack {
-                        Text(item.date.description)
+                        Text(section.date.description)
                         Spacer()
                     }) {
-                        ForEach(item.boughtItems) { boughtItem in
+                        ForEach(section.boughtItems) { boughtItem in
                             HStack {
                                 Text(boughtItem.name ?? "")
                                 Spacer()
@@ -31,10 +36,11 @@ struct HistoryView: View {
                                 }
                             }
                         }
-                        .onDelete(perform: deleteItems)
+                        .onDelete { indexSet in
+                            deleteItem(section: section, at: indexSet)
+                        }
                     }
                 }
-                .onDelete(perform: deleteItems)
             }
             .scrollContentBackground(.hidden)
             .navigationTitle("History")
@@ -50,22 +56,65 @@ struct HistoryView: View {
         }
     }
     
-    init(modelContext: ModelContext) {
-        let viewModel = ViewModel(modelContext: modelContext)
-        _viewModel = State(initialValue: viewModel)
+    private func deleteItem(section: HistorySection, at offsets: IndexSet) {
+        for index in offsets {
+            let boughtItem = section.boughtItems[index]
+            modelContext.delete(boughtItem)
+        }
+        do {
+            try modelContext.save()
+        } catch {
+            print("error saving: \(error)")
+        }
     }
     
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            for index in offsets {
-//                modelContext.delete(items[index])
-            }
-            do {
-                try modelContext.save()
-            } catch {
-                print("error saving: \(error)")
-            }
-        }
+//    private func deleteItem(in sectionIndex: Int, at offsets: IndexSet) {
+//        withAnimation {
+//            let section = sections[sectionIndex]
+//            print("will delete: " + sectionIndex.description + ", offsets: " + offsets.description)
+//            for index in offsets {
+//                let boughtItem = section.boughtItems[index]
+//                modelContext.delete(boughtItem)
+//                
+//            }
+//
+//            do {
+//                try modelContext.save()
+//            } catch {
+//                print("error saving: \(error)")
+//            }
+//        }
+//    }
+}
+
+
+func toSections(items: [BoughtItem]) -> [HistorySection] {
+    var sections = [HistorySection]()
+
+    let groupedItems = groupItemsByDate(items: items)
+    for (date, items) in groupedItems {
+        sections.append(HistorySection(date: date, boughtItems: items))
+    }
+    
+    return sections
+}
+
+
+@Model
+class HistorySection {
+    var date: Date
+    var boughtItems: [BoughtItem]
+    
+    init (date: Date, boughtItems: [BoughtItem]) {
+        self.date = date
+        self.boughtItems = boughtItems
+    }
+}
+
+
+func groupItemsByDate(items: [BoughtItem]) -> [Date: [BoughtItem]] {
+    return Dictionary(grouping: items) { item in
+        item.boughtDate ?? Date.distantPast
     }
 }
 
