@@ -39,6 +39,9 @@ struct groma_newApp: App {
                 Tab("History", systemImage: "tray.and.arrow.up.fill") {
                     HistoryView()
                 }
+                Tab("More", systemImage: "tray.and.arrow.up.fill") {
+                    MoreView()
+                }
             }
             .accentColor(Color(red: 101 / 255, green: 67 / 255, blue: 33 / 255))
         }
