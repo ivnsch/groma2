@@ -12,7 +12,7 @@ import SwiftData
 struct groma_newApp: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            Item.self, CartItem.self, BoughtItem.self, PredefItem.self
+            TodoItem.self, CartItem.self, BoughtItem.self, PredefItem.self
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 

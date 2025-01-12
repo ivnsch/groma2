@@ -7,9 +7,9 @@ struct AddNewItemView: View {
     @State private var itemQuantity: String = ""
     @State private var itemTag: String = "" // only 1 tag supported for now
 
-    private let didAddItem: ((Item) -> Void)?
+    private let didAddItem: ((TodoItem) -> Void)?
     
-    init(didAddItem: ((Item) -> Void)?) {
+    init(didAddItem: ((TodoItem) -> Void)?) {
         self.didAddItem = didAddItem
     }
     
@@ -25,7 +25,7 @@ struct AddNewItemView: View {
                     // TODO validate, remove unwrap
                     let price = Float(itemPrice)!
                     let quantity = Int(itemQuantity)!
-                    let newItem = Item(name: itemName, price: price, quantity: quantity, tags: [itemTag])
+                    let newItem = TodoItem(name: itemName, price: price, quantity: quantity, tags: [itemTag])
                     
                     self.didAddItem?(newItem)
                 }
@@ -37,5 +37,5 @@ struct AddNewItemView: View {
 
 #Preview {
     HistoryView()
-        .modelContainer(for: Item.self, inMemory: true)
+        .modelContainer(for: TodoItem.self, inMemory: true)
 }

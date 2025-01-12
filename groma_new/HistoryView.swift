@@ -58,5 +58,5 @@ struct HistoryView: View {
 
 #Preview {
     HistoryView()
-        .modelContainer(for: Item.self, inMemory: true)
+        .modelContainer(for: TodoItem.self, inMemory: true)
 }

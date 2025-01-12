@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 @Model
-final class Item {
+final class TodoItem {
     var name: String?
     var price: Float = 0
     var quantity: Int = 0

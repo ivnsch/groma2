@@ -10,7 +10,7 @@ import SwiftData
 
 struct TodoView: View {
     @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
+    @Query private var items: [TodoItem]
 
     @State private var isAddItemPresented = false;
 
@@ -80,7 +80,7 @@ struct TodoView: View {
         isAddItemPresented = true
     }
     
-    private func moveItemToCart(item: Item) {
+    private func moveItemToCart(item: TodoItem) {
         let cartItem = CartItem(name: item.name ?? "", price: item.price, quantity: item.quantity, tags: item.tags)
         modelContext.insert(cartItem)
         modelContext.delete(item)

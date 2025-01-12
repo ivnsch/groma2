@@ -6,13 +6,13 @@ struct AddItemView: View {
     @State private var itemPrice: String = ""
     @State private var itemQuantity: String = ""
 
-    private let didAddItems: (([Item]) -> Void)?
+    private let didAddItems: (([TodoItem]) -> Void)?
     
     @Query private var items: [PredefItem]
 
     @State private var viewModel: ViewModel
 
-    init(modelContext: ModelContext, didAddItems: (([Item]) -> Void)?) {
+    init(modelContext: ModelContext, didAddItems: (([TodoItem]) -> Void)?) {
         self.didAddItems = didAddItems
         
         let viewModel = ViewModel(modelContext: modelContext)
@@ -52,5 +52,5 @@ struct AddItemView: View {
 
 #Preview {
     HistoryView()
-        .modelContainer(for: Item.self, inMemory: true)
+        .modelContainer(for: TodoItem.self, inMemory: true)
 }

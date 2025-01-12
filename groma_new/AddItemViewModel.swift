@@ -5,7 +5,7 @@ extension AddItemView {
     @Observable
     class ViewModel {
         var modelContext: ModelContext
-        var itemsToAdd = [Item]()
+        var itemsToAdd = [TodoItem]()
 
         init(modelContext: ModelContext) {
             self.modelContext = modelContext
@@ -16,7 +16,7 @@ extension AddItemView {
         }
         
         func addItem(predefItem: PredefItem) throws {
-            let item = Item(name: predefItem.name ?? "", price: predefItem.price, quantity: 1, tags: predefItem.tags)
+            let item = TodoItem(name: predefItem.name ?? "", price: predefItem.price, quantity: 1, tags: predefItem.tags)
             
             let matchingItems = itemsToAdd.filter { $0.name == item.name }
             
