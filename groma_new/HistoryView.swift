@@ -11,19 +11,27 @@ import SwiftData
 struct HistoryView: View {
     @Environment(\.modelContext) private var modelContext
     
-    @Query private var items: [BoughtItem]
-    
+    @State private var viewModel: ViewModel
+
     var body: some View {
         NavigationStack {
             List {
-                ForEach(items) { item in
-                    HStack {
-                        Text(item.name ?? "unnamed")
+                ForEach(viewModel.sections) { item in
+                    Section(header: HStack {
+                        Text(item.date.description)
                         Spacer()
-                        VStack {
-                            Text(item.quantity.description)
-                            Text(item.price.description)
+                    }) {
+                        ForEach(item.boughtItems) { boughtItem in
+                            HStack {
+                                Text(boughtItem.name ?? "")
+                                Spacer()
+                                VStack {
+                                    Text(boughtItem.quantity.description)
+                                    Text(boughtItem.price.description)
+                                }
+                            }
                         }
+                        .onDelete(perform: deleteItems)
                     }
                 }
                 .onDelete(perform: deleteItems)
@@ -42,10 +50,15 @@ struct HistoryView: View {
         }
     }
     
+    init(modelContext: ModelContext) {
+        let viewModel = ViewModel(modelContext: modelContext)
+        _viewModel = State(initialValue: viewModel)
+    }
+    
     private func deleteItems(offsets: IndexSet) {
         withAnimation {
             for index in offsets {
-                modelContext.delete(items[index])
+//                modelContext.delete(items[index])
             }
             do {
                 try modelContext.save()
@@ -56,7 +69,3 @@ struct HistoryView: View {
     }
 }
 
-#Preview {
-    HistoryView()
-        .modelContainer(for: TodoItem.self, inMemory: true)
-}

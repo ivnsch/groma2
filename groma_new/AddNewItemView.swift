@@ -34,8 +34,3 @@ struct AddNewItemView: View {
     }
 }
 
-
-#Preview {
-    HistoryView()
-        .modelContainer(for: TodoItem.self, inMemory: true)
-}
