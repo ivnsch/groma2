@@ -56,6 +56,8 @@ func populatePredefinedData(modelContext: ModelContext) {
         PredefItem(name: "Chicken slices", price: 3, tag: "Meat"),
         PredefItem(name: "Tooth paste", price: 5, tag: "hygiene"),
         PredefItem(name: "Turkey", price: 10, tag: "Meat"),
+        PredefItem(name: "Garlic", price: 2, tag: "Veggies"),
+        PredefItem(name: "Avocado", price: 3, tag: "Fruits"),
     ]
     
     for data in predefinedData {
