@@ -52,6 +52,9 @@ struct StatsView: View {
             .navigationTitle("Stats")
             .navigationBarTitleDisplayMode(.inline)
             .background(Color.yellow.opacity(0.6).ignoresSafeArea())
+            .onAppear() {
+                self.viewModel.fetchData()
+            }
         }
     }
     
