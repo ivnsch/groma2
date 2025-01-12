@@ -16,28 +16,39 @@ struct TodoView: View {
 
     var sharedModelContainer: ModelContainer;
         
+    @State private var showingCart = false
+
     init(sharedModelContainer: ModelContainer) {
         self.sharedModelContainer = sharedModelContainer
     }
     
     var body: some View {
         NavigationStack {
-            List {
-                ForEach(items) { item in
-                    Button(action: {
-                        moveItemToCart(item: item)
-                    }) {
-                        HStack {
-                            Text(item.name ?? "unnamed")
-                            Spacer()
-                            VStack {
-                                Text(item.quantity.description)
-                                Text(item.price.description)
+            VStack {
+                List {
+                    ForEach(items) { item in
+                        Button(action: {
+                            moveItemToCart(item: item)
+                        }) {
+                            HStack {
+                                Text(item.name ?? "unnamed")
+                                Spacer()
+                                VStack {
+                                    Text(item.quantity.description)
+                                    Text(item.price.description)
+                                }
                             }
                         }
                     }
+                    .onDelete(perform: deleteItems)
                 }
-                .onDelete(perform: deleteItems)
+                Button("Cart") {
+                   showingCart.toggle()
+               }
+                .sheet(isPresented: $showingCart) {
+                    CartView()
+                        .presentationDetents([.large])
+                }
             }
             .scrollContentBackground(.hidden)
             .navigationTitle("To do")
@@ -72,7 +83,9 @@ struct TodoView: View {
                 }
 
             }
+            
             .background(Color.yellow.opacity(0.6).ignoresSafeArea())
+
         }
     }
 

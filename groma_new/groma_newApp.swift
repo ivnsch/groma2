@@ -33,9 +33,6 @@ struct groma_newApp: App {
                 Tab("Todo", systemImage: "tray.and.arrow.down.fill") {
                     TodoView(sharedModelContainer: sharedModelContainer)
                 }
-                Tab("Cart", systemImage: "tray.and.arrow.up.fill") {
-                    CartView()
-                }
                 Tab("Stats", systemImage: "tray.and.arrow.up.fill") {
                     StatsView(modelContext: sharedModelContainer.mainContext)
                 }
