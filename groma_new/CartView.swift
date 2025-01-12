@@ -13,7 +13,13 @@ struct CartView: View {
     @Query private var items: [CartItem]
 
     @State private var itemName: String = ""
+    private let didBuy: (() -> Void)?
 
+
+    init(didBuy: (() -> Void)? = nil) {
+        self.didBuy = didBuy
+    }
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -44,6 +50,7 @@ struct CartView: View {
                         } catch {
                             print("error saving: \(error)")
                         }
+                        self.didBuy?()
                     }
                 }
             }

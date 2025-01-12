@@ -46,7 +46,9 @@ struct TodoView: View {
                    showingCart.toggle()
                }
                 .sheet(isPresented: $showingCart) {
-                    CartView()
+                    CartView(didBuy: {
+                        showingCart = false
+                    })
                         .presentationDetents([.large])
                 }
             }
