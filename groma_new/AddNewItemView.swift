@@ -5,7 +5,7 @@ struct AddNewItemView: View {
     @State private var itemName: String = ""
     @State private var itemPrice: String = ""
     @State private var itemQuantity: String = ""
-    @State private var itemTag: String = "" // only 1 tag supported for now
+    @State private var itemTag: String = ""
 
     private let didAddItem: ((TodoItem) -> Void)?
     
@@ -25,7 +25,7 @@ struct AddNewItemView: View {
                     // TODO validate, remove unwrap
                     let price = Float(itemPrice)!
                     let quantity = Int(itemQuantity)!
-                    let newItem = TodoItem(name: itemName, price: price, quantity: quantity, tags: [itemTag])
+                    let newItem = TodoItem(name: itemName, price: price, quantity: quantity, tag: itemTag)
                     
                     self.didAddItem?(newItem)
                 }

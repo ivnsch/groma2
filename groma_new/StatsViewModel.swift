@@ -70,10 +70,8 @@ func toAllTimeExpensesByTag(items: [BoughtItem]) -> [BoughtItemsTagAggregate] {
 
     var tagsWithItems = Dictionary<String, [BoughtItem]>();
     for item in items {
-        for tag in item.tags {
-            let updatedItems = tagsWithItems[tag] ?? []
-            tagsWithItems[tag] = updatedItems + [item]
-        }
+        let updatedItems = tagsWithItems[item.tag] ?? []
+        tagsWithItems[item.tag] = updatedItems + [item]
     }
 
     for (tag, items) in tagsWithItems {

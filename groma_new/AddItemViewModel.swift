@@ -16,7 +16,7 @@ extension AddItemView {
         }
         
         func addItem(predefItem: PredefItem) throws {
-            let item = TodoItem(name: predefItem.name ?? "", price: predefItem.price, quantity: 1, tags: predefItem.tags)
+            let item = TodoItem(name: predefItem.name ?? "", price: predefItem.price, quantity: 1, tag: predefItem.tag)
             
             let matchingItems = itemsToAdd.filter { $0.name == item.name }
             
