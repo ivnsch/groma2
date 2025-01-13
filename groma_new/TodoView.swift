@@ -66,18 +66,7 @@ struct TodoView: View {
             .navigationBarTitleDisplayMode(.inline)
             .popover(isPresented: $isAddItemPresented, content: {
                 AddItemView(modelContext: sharedModelContainer.mainContext) { itemsToAdd in
-                    let currentCount = items.count
-                    for (index, item) in itemsToAdd.enumerated() {
-                        // note that we don't assign just items.count as order, because the query doesn't update immediately for the items we're adding
-                        let todoItem = TodoItem(name: item.name ?? "", price: item.price,
-                                                quantity: item.quantity, tag: item.tag, order: currentCount + index)
-                        modelContext.insert(todoItem)
-                    }
-                    do {
-                        try modelContext.save()
-                    } catch {
-                        print("error saving: \(error)")
-                    }
+                    updateQuantityOrAddNewItem(items: items, itemsToAdd: itemsToAdd, modelContext: modelContext)
                     isAddItemPresented = false
                 }
             })
@@ -143,5 +132,31 @@ struct AddItemPopup: View {
                 print("Close tapped!")
             }
         }
+    }
+}
+
+private func updateQuantityOrAddNewItem(items: [TodoItem], itemsToAdd: [TodoItemToAdd], modelContext: ModelContext) {
+    let currentCount = items.count
+    for (index, itemToAdd) in itemsToAdd.enumerated() {
+        // see if there's an item with same name to just increase quantity
+        var updatedExistingItem = false
+        for existingItem in items {
+            if existingItem.name == itemToAdd.name {
+                let newQuantity = existingItem.quantity + itemToAdd.quantity
+                existingItem.quantity = newQuantity
+                updatedExistingItem = true
+            }
+        }
+        if !updatedExistingItem {
+            // note that we don't assign just items.count as order, because the query doesn't update immediately for the items we're adding
+            let todoItem = TodoItem(name: itemToAdd.name ?? "", price: itemToAdd.price,
+                                    quantity: itemToAdd.quantity, tag: itemToAdd.tag, order: currentCount + index)
+            modelContext.insert(todoItem)
+        }
+    }
+    do {
+        try modelContext.save()
+    } catch {
+        print("error saving: \(error)")
     }
 }
