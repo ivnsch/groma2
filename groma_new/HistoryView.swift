@@ -96,6 +96,7 @@ func toSections(items: [BoughtItem]) -> [HistorySection] {
         sections.append(HistorySection(date: date, boughtItems: items))
     }
     
+    sections.sort { $0.date > $1.date }
     return sections
 }
 
