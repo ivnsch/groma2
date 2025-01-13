@@ -11,6 +11,9 @@ import SwiftData
 struct HistoryView: View {
     @Environment(\.modelContext) private var modelContext
     
+    @State private var showingConfirmDelete = false
+    @State private var editMode: EditMode = EditMode.inactive
+
     @Query(sort: [SortDescriptor(\BoughtItem.boughtDate, order: .reverse)])
     private var allItems: [BoughtItem]
 
@@ -20,26 +23,36 @@ struct HistoryView: View {
        
     var body: some View {
         NavigationStack {
-            List {
-                ForEach(sections) { section in
-                    Section(header: HStack {
-                        Text(section.date.description)
-                        Spacer()
-                    }) {
-                        ForEach(section.boughtItems) { boughtItem in
-                            HStack {
-                                Text(boughtItem.name ?? "")
-                                Spacer()
-                                VStack {
-                                    Text(boughtItem.quantity.description)
-                                    Text(boughtItem.price.description)
+            VStack {
+                if $editMode.wrappedValue == .active {
+                   Text("Editing Mode Activated")
+                       .padding()
+                       .background(Color.yellow)
+                       .cornerRadius(8)
+               }
+               List {
+                    ForEach(sections) { section in
+                        Section(header: HStack {
+                            Text(section.date.description)
+                            Spacer()
+                        }) {
+                            ForEach(section.boughtItems) { boughtItem in
+                                HStack {
+                                    Text(boughtItem.name ?? "")
+                                    Spacer()
+                                    VStack {
+                                        Text(boughtItem.quantity.description)
+                                        Text(boughtItem.price.description)
+                                    }
                                 }
                             }
-                        }
-                        .onDelete { indexSet in
-                            deleteItem(section: section, at: indexSet)
+                            .onDelete { indexSet in
+                                deleteItem(section: section, at: indexSet)
+                            }
                         }
                     }
+                    .onDelete(perform: { _ in  })
+                    .onMove(perform: { _, _ in  })
                 }
             }
             .scrollContentBackground(.hidden)
@@ -47,12 +60,29 @@ struct HistoryView: View {
             .navigationBarTitleDisplayMode(.inline)
             .background(Color.yellow.opacity(0.6).ignoresSafeArea())
             .toolbar {
-#if os(iOS)
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
+                Button("Delete") {
+                    showingConfirmDelete = true
                 }
-#endif
             }
+            .confirmationDialog("Delete all history?", isPresented: $showingConfirmDelete) {
+                Button("Yes, delete") { deleteAllItems() }
+                Button("Cancel", role: .cancel) { }
+            } message: {
+                Text("This will delete all your history and stats")
+            }
+        }
+        .environment(\.editMode, $editMode)
+
+    }
+    
+    private func deleteAllItems() {
+        for item in allItems {
+            modelContext.delete(item)
+        }
+        do {
+            try modelContext.save()
+        } catch {
+            print("error saving: \(error)")
         }
     }
     
