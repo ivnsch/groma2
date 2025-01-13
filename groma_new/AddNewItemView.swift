@@ -25,9 +25,11 @@ struct AddNewItemView: View {
                     // TODO validate, remove unwrap
                     let price = Float(itemPrice)!
                     let quantity = Int(itemQuantity)!
-                    let newItem = TodoItem(name: itemName, price: price, quantity: quantity, tag: itemTag)
-                    
-                    self.didAddItem?(newItem)
+                    // TODO add predef item
+                    // TODO add list item - has to query items to get order
+//                    let newItem = TodoItem(name: itemName, price: price, quantity: quantity, tag: itemTag)
+//                    
+//                    self.didAddItem?(newItem)
                 }
             }
         }

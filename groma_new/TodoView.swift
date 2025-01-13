@@ -10,7 +10,9 @@ import SwiftData
 
 struct TodoView: View {
     @Environment(\.modelContext) private var modelContext
-    @Query private var items: [TodoItem]
+    
+    @Query(sort: [SortDescriptor(\TodoItem.order, order: .forward)])
+    private var items: [TodoItem]
 
     @State private var isAddItemPresented = false;
 
@@ -20,6 +22,13 @@ struct TodoView: View {
 
     init(sharedModelContainer: ModelContainer) {
         self.sharedModelContainer = sharedModelContainer
+    }
+    
+    func printItems() {
+        print("will print items")
+        for item in items {
+            print(item.name ?? "" + ", ", item.order)
+        }
     }
     
     var body: some View {
@@ -57,9 +66,12 @@ struct TodoView: View {
             .navigationBarTitleDisplayMode(.inline)
             .popover(isPresented: $isAddItemPresented, content: {
                 AddItemView(modelContext: sharedModelContainer.mainContext) { itemsToAdd in
-                    for item in itemsToAdd {
-                        print("adding item: " + (item.name ?? ""))
-                        modelContext.insert(item)
+                    let currentCount = items.count
+                    for (index, item) in itemsToAdd.enumerated() {
+                        // note that we don't assign just items.count as order, because the query doesn't update immediately for the items we're adding
+                        let todoItem = TodoItem(name: item.name ?? "", price: item.price,
+                                                quantity: item.quantity, tag: item.tag, order: currentCount + index)
+                        modelContext.insert(todoItem)
                     }
                     do {
                         try modelContext.save()
@@ -89,6 +101,9 @@ struct TodoView: View {
             .background(Color.yellow.opacity(0.6).ignoresSafeArea())
 
         }
+//        .onAppear {
+//            printItems()
+//        }
     }
 
     private func showAddItem() {

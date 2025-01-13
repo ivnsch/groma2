@@ -8,8 +8,7 @@
 import Foundation
 import SwiftData
 
-@Model
-final class TodoItem {
+final class TodoItemToAdd {
     var name: String?
     var price: Float = 0
     var quantity: Int = 0
@@ -20,6 +19,24 @@ final class TodoItem {
         self.price = price
         self.quantity = quantity
         self.tag = tag
+    }
+}
+
+
+@Model
+final class TodoItem {
+    var name: String?
+    var price: Float = 0
+    var quantity: Int = 0
+    var tag: String = ""
+    var order: Int = 0
+
+    init(name: String, price: Float, quantity: Int, tag: String, order: Int) {
+        self.name = name
+        self.price = price
+        self.quantity = quantity
+        self.tag = tag
+        self.order = order
     }
 }
 

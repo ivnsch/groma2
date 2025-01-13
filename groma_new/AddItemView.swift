@@ -6,13 +6,13 @@ struct AddItemView: View {
     @State private var itemPrice: String = ""
     @State private var itemQuantity: String = ""
 
-    private let didAddItems: (([TodoItem]) -> Void)?
+    private let didAddItems: (([TodoItemToAdd]) -> Void)?
     
     @Query private var items: [PredefItem]
 
     @State private var viewModel: ViewModel
 
-    init(modelContext: ModelContext, didAddItems: (([TodoItem]) -> Void)?) {
+    init(modelContext: ModelContext, didAddItems: (([TodoItemToAdd]) -> Void)?) {
         self.didAddItems = didAddItems
         
         let viewModel = ViewModel(modelContext: modelContext)
