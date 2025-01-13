@@ -12,6 +12,8 @@ struct AddItemView: View {
 
     @State private var viewModel: ViewModel
 
+    @State private var isAddEditItemPresented = false;
+
     init(modelContext: ModelContext, didAddItems: (([TodoItemToAdd]) -> Void)?) {
         self.didAddItems = didAddItems
         
@@ -39,6 +41,13 @@ struct AddItemView: View {
                 }
             }
             Button(action: {
+                isAddEditItemPresented = true
+            }) {
+                HStack {
+                    Text("Add new item")
+                }
+            }
+            Button(action: {
                 didAddItems?(viewModel.itemsToAdd)
             }) {
                 HStack {
@@ -46,5 +55,15 @@ struct AddItemView: View {
                 }
             }
         }
+        .popover(isPresented: $isAddEditItemPresented, content: {
+            AddEditItemView() { predefItem in
+                do {
+                    try viewModel.addItem(predefItem: predefItem)
+                } catch {
+                    print("Error adding item: \(error)")
+                }
+                isAddEditItemPresented = false
+            }
+        })
     }
 }

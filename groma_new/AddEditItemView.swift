@@ -2,14 +2,16 @@ import SwiftUI
 import SwiftData
 
 struct AddEditItemView: View {
+    @Environment(\.modelContext) private var modelContext
+
     @State private var itemName: String = ""
     @State private var itemPrice: String = ""
     @State private var itemQuantity: String = ""
     @State private var itemTag: String = ""
 
-    private let didAddItem: ((TodoItem) -> Void)?
+    private let didAddItem: ((PredefItem) -> Void)?
     
-    init(didAddItem: ((TodoItem) -> Void)?) {
+    init(didAddItem: ((PredefItem) -> Void)?) {
         self.didAddItem = didAddItem
     }
     
@@ -24,12 +26,10 @@ struct AddEditItemView: View {
                 withAnimation {
                     // TODO validate, remove unwrap
                     let price = Float(itemPrice)!
-                    let quantity = Int(itemQuantity)!
-                    // TODO add predef item
-                    // TODO add list item - has to query items to get order
-//                    let newItem = TodoItem(name: itemName, price: price, quantity: quantity, tag: itemTag)
-//                    
-//                    self.didAddItem?(newItem)
+                    let predefItem = PredefItem(name: itemName, price: price, tag: itemTag)
+                    modelContext.insert(predefItem)
+                    
+                    didAddItem?(predefItem)
                 }
             }
         }
