@@ -139,14 +139,7 @@ private func updateQuantityOrAddNewItem(items: [TodoItem], itemsToAdd: [TodoItem
     let currentCount = items.count
     for (index, itemToAdd) in itemsToAdd.enumerated() {
         // see if there's an item with same name to just increase quantity
-        var updatedExistingItem = false
-        for existingItem in items {
-            if existingItem.name == itemToAdd.name {
-                let newQuantity = existingItem.quantity + itemToAdd.quantity
-                existingItem.quantity = newQuantity
-                updatedExistingItem = true
-            }
-        }
+        let updatedExistingItem = updateQuantityIfAlreadyExistent(items: items, itemToAdd: itemToAdd)
         if !updatedExistingItem {
             // note that we don't assign just items.count as order, because the query doesn't update immediately for the items we're adding
             let todoItem = TodoItem(name: itemToAdd.name ?? "", price: itemToAdd.price,
@@ -159,4 +152,18 @@ private func updateQuantityOrAddNewItem(items: [TodoItem], itemsToAdd: [TodoItem
     } catch {
         print("error saving: \(error)")
     }
+}
+
+// returns whether quantity for existing item was updated
+// also means that there was an existing item (quantity is always updated if this is true)
+private func updateQuantityIfAlreadyExistent(items: [TodoItem], itemToAdd: TodoItemToAdd) -> Bool {
+    var updatedExistingItem = false
+    for existingItem in items {
+        if existingItem.name == itemToAdd.name {
+            let newQuantity = existingItem.quantity + itemToAdd.quantity
+            existingItem.quantity = newQuantity
+            updatedExistingItem = true
+        }
+    }
+    return updatedExistingItem
 }
