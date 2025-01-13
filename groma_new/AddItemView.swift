@@ -22,41 +22,46 @@ struct AddItemView: View {
     }
     
     var body: some View {
-        VStack {
-            Text(viewModel.currentItemsText())
-            List {
-                ForEach(items) { item in
-                    Button(action: {
-                        do {
-                            try viewModel.addItem(predefItem: item)
-                        } catch {
-                            // TODO error popups
-                            print("Error adding item: \(error)")
-                        }
-                    }) {
-                        HStack {
-                            Text(item.name ?? "unnamed")
+        NavigationStack {
+            
+            VStack {
+                Text(viewModel.currentItemsText())
+                List {
+                    ForEach(items) { item in
+                        Button(action: {
+                            do {
+                                try viewModel.addItem(predefItem: item)
+                            } catch {
+                                // TODO error popups
+                                print("Error adding item: \(error)")
+                            }
+                        }) {
+                            HStack {
+                                Text(item.name ?? "unnamed")
+                            }
                         }
                     }
                 }
-            }
-            .scrollContentBackground(.hidden)
-            Button(action: {
-                isAddEditItemPresented = true
-            }) {
-                HStack {
-                    Text("Add new item")
+                .scrollContentBackground(.hidden)
+                Button(action: {
+                    isAddEditItemPresented = true
+                }) {
+                    HStack {
+                        Text("Add new item")
+                    }
+                }
+                Button(action: {
+                    didAddItems?(viewModel.itemsToAdd)
+                }) {
+                    HStack {
+                        Text("Add items")
+                    }
                 }
             }
-            Button(action: {
-                didAddItems?(viewModel.itemsToAdd)
-            }) {
-                HStack {
-                    Text("Add items")
-                }
-            }
+            .navigationTitle("Add item")
+            .navigationBarTitleDisplayMode(.inline)
+            .background(Color.yellow.opacity(0.6).ignoresSafeArea())
         }
-        .background(Color.yellow.opacity(0.6).ignoresSafeArea())
         .popover(isPresented: $isAddEditItemPresented, content: {
             AddEditItemView() { predefItem in
                 do {

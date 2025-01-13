@@ -15,36 +15,39 @@ struct AddEditItemView: View {
     }
     
     var body: some View {
-        ZStack {
-            Color.yellow.opacity(0.6).ignoresSafeArea()
+        NavigationStack {
 
-            VStack {
-                Text("Add item")
+            ZStack {
+                Color.yellow.opacity(0.6).ignoresSafeArea()
                 
-                Text("Name:")
-                TextField("", text: $itemName)
-                    .textFieldStyle(.roundedBorder)
-
-                Text("Price:")
-                TextField("", text: $itemPrice)
-                    .textFieldStyle(.roundedBorder)
-
-                Text("Category:")
-                TextField("", text: $itemTag)
-                    .textFieldStyle(.roundedBorder)
-
-                Button("Add") {
-                    withAnimation {
-                        // TODO validate, remove unwrap
-                        let price = Float(itemPrice)!
-                        let predefItem = PredefItem(name: itemName, price: price, tag: itemTag)
-                        modelContext.insert(predefItem)
-                        
-                        didAddItem?(predefItem)
+                VStack {
+                    Text("Name:")
+                    TextField("", text: $itemName)
+                        .textFieldStyle(.roundedBorder)
+                    
+                    Text("Price:")
+                    TextField("", text: $itemPrice)
+                        .textFieldStyle(.roundedBorder)
+                    
+                    Text("Category:")
+                    TextField("", text: $itemTag)
+                        .textFieldStyle(.roundedBorder)
+                    
+                    Button("Add") {
+                        withAnimation {
+                            // TODO validate, remove unwrap
+                            let price = Float(itemPrice)!
+                            let predefItem = PredefItem(name: itemName, price: price, tag: itemTag)
+                            modelContext.insert(predefItem)
+                            
+                            didAddItem?(predefItem)
+                        }
                     }
                 }
+                .padding(.horizontal, 100)
             }
-            .padding(.horizontal, 100)
+            .navigationTitle("Add new item")
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
