@@ -6,7 +6,6 @@ struct AddEditItemView: View {
 
     @State private var itemName: String = ""
     @State private var itemPrice: String = ""
-    @State private var itemQuantity: String = ""
     @State private var itemTag: String = ""
 
     private let didAddItem: ((PredefItem) -> Void)?
@@ -21,10 +20,19 @@ struct AddEditItemView: View {
 
             VStack {
                 Text("Add item")
+                
+                Text("Name:")
                 TextField("", text: $itemName)
+                    .textFieldStyle(.roundedBorder)
+
+                Text("Price:")
                 TextField("", text: $itemPrice)
-                TextField("", text: $itemQuantity)
+                    .textFieldStyle(.roundedBorder)
+
+                Text("Category:")
                 TextField("", text: $itemTag)
+                    .textFieldStyle(.roundedBorder)
+
                 Button("Add") {
                     withAnimation {
                         // TODO validate, remove unwrap
@@ -36,6 +44,7 @@ struct AddEditItemView: View {
                     }
                 }
             }
+            .padding(.horizontal, 100)
         }
     }
 }
