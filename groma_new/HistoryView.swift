@@ -60,7 +60,7 @@ struct HistoryView: View {
             .navigationBarTitleDisplayMode(.inline)
             .background(Color.yellow.opacity(0.6).ignoresSafeArea())
             .toolbar {
-                Button("Delete") {
+                Button("Clear") {
                     showingConfirmDelete = true
                 }
             }
