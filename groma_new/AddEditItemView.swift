@@ -1,7 +1,7 @@
 import SwiftUI
 import SwiftData
 
-struct AddNewItemView: View {
+struct AddEditItemView: View {
     @State private var itemName: String = ""
     @State private var itemPrice: String = ""
     @State private var itemQuantity: String = ""
