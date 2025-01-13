@@ -9,10 +9,21 @@ struct AddItemView: View {
     private let didAddItems: (([TodoItemToAdd]) -> Void)?
     
     @Query private var items: [PredefItem]
+    var filteredItems: [PredefItem] {
+        if searchText.isEmpty {
+            items
+        } else {
+            items.filter { item in
+                item.name?.lowercased().contains(searchText.lowercased()) ?? true
+            }
+        }
+    }
 
     @State private var viewModel: ViewModel
 
     @State private var isAddEditItemPresented = false;
+
+    @State private var searchText = ""
 
     init(modelContext: ModelContext, didAddItems: (([TodoItemToAdd]) -> Void)?) {
         self.didAddItems = didAddItems
@@ -27,7 +38,7 @@ struct AddItemView: View {
             VStack {
                 Text(viewModel.currentItemsText())
                 List {
-                    ForEach(items) { item in
+                    ForEach(filteredItems) { item in
                         Button(action: {
                             do {
                                 try viewModel.addItem(predefItem: item)
@@ -62,6 +73,7 @@ struct AddItemView: View {
             .navigationBarTitleDisplayMode(.inline)
             .background(Color.yellow.opacity(0.6).ignoresSafeArea())
         }
+        .searchable(text: $searchText)
         .popover(isPresented: $isAddEditItemPresented, content: {
             AddEditItemView() { predefItem in
                 do {
