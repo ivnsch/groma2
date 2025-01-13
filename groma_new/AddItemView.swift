@@ -40,6 +40,7 @@ struct AddItemView: View {
                     }
                 }
             }
+            .scrollContentBackground(.hidden)
             Button(action: {
                 isAddEditItemPresented = true
             }) {
@@ -55,6 +56,7 @@ struct AddItemView: View {
                 }
             }
         }
+        .background(Color.yellow.opacity(0.6).ignoresSafeArea())
         .popover(isPresented: $isAddEditItemPresented, content: {
             AddEditItemView() { predefItem in
                 do {

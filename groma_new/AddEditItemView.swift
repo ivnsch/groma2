@@ -16,20 +16,24 @@ struct AddEditItemView: View {
     }
     
     var body: some View {
-        VStack {
-            Text("Add item")
-            TextField("", text: $itemName)
-            TextField("", text: $itemPrice)
-            TextField("", text: $itemQuantity)
-            TextField("", text: $itemTag)
-            Button("Add") {
-                withAnimation {
-                    // TODO validate, remove unwrap
-                    let price = Float(itemPrice)!
-                    let predefItem = PredefItem(name: itemName, price: price, tag: itemTag)
-                    modelContext.insert(predefItem)
-                    
-                    didAddItem?(predefItem)
+        ZStack {
+            Color.yellow.opacity(0.6).ignoresSafeArea()
+
+            VStack {
+                Text("Add item")
+                TextField("", text: $itemName)
+                TextField("", text: $itemPrice)
+                TextField("", text: $itemQuantity)
+                TextField("", text: $itemTag)
+                Button("Add") {
+                    withAnimation {
+                        // TODO validate, remove unwrap
+                        let price = Float(itemPrice)!
+                        let predefItem = PredefItem(name: itemName, price: price, tag: itemTag)
+                        modelContext.insert(predefItem)
+                        
+                        didAddItem?(predefItem)
+                    }
                 }
             }
         }
