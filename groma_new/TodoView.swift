@@ -13,6 +13,8 @@ struct TodoView: View {
     
     @Query(sort: [SortDescriptor(\TodoItem.order, order: .forward)])
     private var items: [TodoItem]
+    
+    @Query private var cartItems: [CartItem]
 
     @State private var isAddItemPresented = false;
 
@@ -37,7 +39,7 @@ struct TodoView: View {
                 List {
                     ForEach(items) { item in
                         Button(action: {
-                            moveItemToCart(item: item)
+                            moveToCart(cartItems: cartItems, todoItem: item, modelContext: modelContext)
                         }) {
                             HStack {
                                 Text(item.name ?? "unnamed")
@@ -99,17 +101,6 @@ struct TodoView: View {
         isAddItemPresented = true
     }
     
-    private func moveItemToCart(item: TodoItem) {
-        let cartItem = CartItem(name: item.name ?? "", price: item.price, quantity: item.quantity, tag: item.tag)
-        modelContext.insert(cartItem)
-        modelContext.delete(item)
-        do {
-            try modelContext.save()
-        } catch {
-            print("error saving: \(error)")
-        }
-    }
-
     private func deleteItems(offsets: IndexSet) {
         withAnimation {
             for index in offsets {
@@ -159,6 +150,35 @@ private func updateQuantityOrAddNewItem(items: [TodoItem], itemsToAdd: [TodoItem
 private func updateQuantityIfAlreadyExistent(items: [TodoItem], itemToAdd: TodoItemToAdd) -> Bool {
     var updatedExistingItem = false
     for existingItem in items {
+        if existingItem.name == itemToAdd.name {
+            let newQuantity = existingItem.quantity + itemToAdd.quantity
+            existingItem.quantity = newQuantity
+            updatedExistingItem = true
+        }
+    }
+    return updatedExistingItem
+}
+
+private func moveToCart(cartItems: [CartItem], todoItem: TodoItem, modelContext: ModelContext) {
+    // see if there's an item with same name to just increase quantity
+    let updatedExistingItem = updateCartQuantityIfAlreadyExistent(cartItems: cartItems, itemToAdd: todoItem)
+        if !updatedExistingItem {
+            let cartItem = CartItem(name: todoItem.name ?? "", price: todoItem.price, quantity: todoItem.quantity, tag: todoItem.tag)
+            modelContext.insert(cartItem)
+    }
+    modelContext.delete(todoItem)
+    do {
+        try modelContext.save()
+    } catch {
+        print("error saving: \(error)")
+    }
+}
+
+// returns whether quantity for existing item was updated
+// also means that there was an existing item (quantity is always updated if this is true)
+private func updateCartQuantityIfAlreadyExistent(cartItems: [CartItem], itemToAdd: TodoItem) -> Bool {
+    var updatedExistingItem = false
+    for existingItem in cartItems {
         if existingItem.name == itemToAdd.name {
             let newQuantity = existingItem.quantity + itemToAdd.quantity
             existingItem.quantity = newQuantity
