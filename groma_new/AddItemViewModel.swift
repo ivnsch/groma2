@@ -30,6 +30,8 @@ extension AddItemView {
             if !foundExistingItem {
                 itemsToAdd.append(item)
             }
+            
+            itemsToAdd = itemsToAdd
         }
     }
 }
