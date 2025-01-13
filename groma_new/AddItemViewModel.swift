@@ -18,19 +18,17 @@ extension AddItemView {
         func addItem(predefItem: PredefItem) throws {
             let item = TodoItemToAdd(name: predefItem.name ?? "", price: predefItem.price, quantity: 1, tag: predefItem.tag)
             
-            let matchingItems = itemsToAdd.filter { $0.name == item.name }
-            
-            if matchingItems.count > 1 {
-                // there should be only one item per name
-                throw MyError.invalidState("Names must be unique")
-            } else {
-                if let matchingItem = matchingItems.first {
-                    // already an item there, increase quantity
-                    matchingItem.quantity += 1
-                } else {
-                    // not there yet, add item
-                    itemsToAdd.append(item)
+            var foundExistingItem = false
+            for itemToAdd in itemsToAdd {
+                // if there's more than one item for name this increments quantity for all, but there should be always just 1 item
+                if itemToAdd.name == item.name {
+                    itemToAdd.quantity += 1
+                    foundExistingItem = true
                 }
+            }
+            
+            if !foundExistingItem {
+                itemsToAdd.append(item)
             }
         }
     }
