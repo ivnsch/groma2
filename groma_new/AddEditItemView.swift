@@ -1,6 +1,12 @@
 import SwiftUI
 import SwiftData
 
+struct EditingItemInputs {
+    let name: String
+    let price: Float
+    let tag: String
+}
+
 struct AddEditItemView: View {
     @Environment(\.modelContext) private var modelContext
 
@@ -8,10 +14,14 @@ struct AddEditItemView: View {
     @State private var itemPrice: String = ""
     @State private var itemTag: String = ""
 
-    private let didAddItem: ((PredefItem) -> Void)?
+    private let didSubmitItem: ((PredefItem) -> Void)?
     
-    init(didAddItem: ((PredefItem) -> Void)?) {
-        self.didAddItem = didAddItem
+    private let editingInputs: EditingItemInputs?
+    
+    // didSubmitItem is called after the predef item was added/edited and saved to data store
+    init(editingInputs: EditingItemInputs? = nil, didSubmitItem: ((PredefItem) -> Void)?) {
+        self.editingInputs = editingInputs
+        self.didSubmitItem = didSubmitItem
     }
     
     var body: some View {
@@ -37,10 +47,17 @@ struct AddEditItemView: View {
                         withAnimation {
                             // TODO validate, remove unwrap
                             let price = Float(itemPrice)!
+                            // here predefItem acts essentially as inputs holder
                             let predefItem = PredefItem(name: itemName, price: price, tag: itemTag)
-                            modelContext.insert(predefItem)
                             
-                            didAddItem?(predefItem)
+                            do {
+                                try addOrEditItemAndSave(editingInputs: editingInputs, predefItem: predefItem, modelContext: modelContext)
+                            } catch {
+                                // TODO error handling
+                                print("error in addOrEditItemAndSave")
+                            }
+                            
+                            didSubmitItem?(predefItem)
                         }
                     }
                 }
@@ -52,3 +69,27 @@ struct AddEditItemView: View {
     }
 }
 
+private func addOrEditItemAndSave(editingInputs: EditingItemInputs?, predefItem: PredefItem, modelContext: ModelContext) throws {
+    // if we're editing, we just remove the old item (and insert a new one, like when we're not editing)
+    if let editingInputs = editingInputs {
+        try deleteItemsWithName(name: editingInputs.name, modelContext: modelContext)
+    }
+    modelContext.insert(predefItem)
+
+    do {
+        try modelContext.save()
+    } catch {
+        print("error saving: \(error)")
+    }
+    
+}
+
+private func deleteItemsWithName(name: String, modelContext: ModelContext) throws {
+    let descriptor = FetchDescriptor<PredefItem>()
+    let items = try modelContext.fetch(descriptor)
+    for item in items {
+        if item.name == name {
+            modelContext.delete(item)
+        }
+    }
+}

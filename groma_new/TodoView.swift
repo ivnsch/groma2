@@ -22,6 +22,9 @@ struct TodoView: View {
         
     @State private var showingCart = false
 
+    @State private var editingItem: TodoItem?
+    @State private var isAddEditItemPresented = false
+
     init(sharedModelContainer: ModelContainer) {
         self.sharedModelContainer = sharedModelContainer
     }
@@ -39,7 +42,6 @@ struct TodoView: View {
                 List {
                     ForEach(items) { item in
                         Button(action: {
-                            moveToCart(cartItems: cartItems, todoItem: item, modelContext: modelContext)
                         }) {
                             HStack {
                                 Text(item.name ?? "unnamed")
@@ -48,6 +50,14 @@ struct TodoView: View {
                                     Text(item.quantity.description)
                                     Text(item.price.description)
                                 }
+                            }
+                            .contentShape(Rectangle())
+                            .onTapGesture(perform: {
+                                moveToCart(cartItems: cartItems, todoItem: item, modelContext: modelContext)
+                            })
+                            .onLongPressGesture {
+                                editingItem = item
+                                isAddEditItemPresented = true
                             }
                         }
                     }
@@ -72,6 +82,22 @@ struct TodoView: View {
                     isAddItemPresented = false
                 }
             })
+            .popover(isPresented: $isAddEditItemPresented, content: {
+                if let editingItem = editingItem {
+                    let editingItemInputs = EditingItemInputs(name: editingItem.name ?? "", price: editingItem.price, tag: editingItem.tag)
+                    AddEditItemView(editingInputs: editingItemInputs, didSubmitItem: { predefItem in
+                        do {
+                            try editItem(editingItem: editingItem, predefItem: predefItem)
+                        } catch {
+                            print("Error adding item: \(error)")
+                        }
+                        isAddEditItemPresented = false
+                    })
+                } else {
+                    Text("Invalid state: if isAddEditItemPresented is true, editingItem must not be nil" + editingItem.debugDescription)
+                }
+                
+            })
     #if os(macOS)
             .navigationSplitViewColumnWidth(min: 180, ideal: 200)
     #endif
@@ -86,15 +112,27 @@ struct TodoView: View {
                         Label("Add Item", systemImage: "plus")
                     }
                 }
-
             }
-            
             .background(Color.yellow.opacity(0.6).ignoresSafeArea())
-
         }
 //        .onAppear {
 //            printItems()
 //        }
+    }
+
+    // called when user submits an edit. note that predef item is already saved
+    func editItem(editingItem: TodoItem, predefItem: PredefItem) throws {
+        for item in items {
+            if item.name == editingItem.name {
+                item.name = predefItem.name
+                item.price = predefItem.price
+            }
+        }
+        do {
+            try modelContext.save()
+        } catch {
+            print("error saving: \(error)")
+        }
     }
 
     private func showAddItem() {
