@@ -20,6 +20,10 @@ struct StatsView: View {
     @Environment(\.modelContext) private var modelContext
     
     @State private var viewModel: ViewModel
+    
+    @State private var selection = "Red"
+    let colors = ["Red", "Green", "Blue", "Black", "Tartan"]
+
 
     var body: some View {
         NavigationStack {
@@ -44,7 +48,15 @@ struct StatsView: View {
 //                    }
 //                }
 //            }
+      
             VStack {
+                Picker("Select a paint color", selection: $selection) {
+                    ForEach(colors, id: \.self) { t in
+                        Text(t)
+                    }
+                }
+                Text("Selected color: \(selection)")
+                .pickerStyle(.menu)
                 ChartView(sections: viewModel.sections)
                 List {
                     ForEach(viewModel.sections) { section in
