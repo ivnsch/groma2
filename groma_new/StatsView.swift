@@ -65,14 +65,7 @@ struct StatsView: View {
                 .padding()
                 List {
                     ForEach(viewModel.tagAggregates) { tag in
-                        HStack {
-                            Text(tag.name)
-                            Spacer()
-                            VStack {
-                                Text(tag.totalPrice.description)
-                                Text(tag.totalQuantity.description)
-                            }
-                        }
+                        ListItemView(tag: tag)
                     }
                 }
             }
@@ -93,3 +86,17 @@ struct StatsView: View {
     }
 }
 
+private struct ListItemView: View {
+    let tag: BoughtItemsTagAggregate
+    
+    var body: some View {
+        HStack {
+            Text(tag.name)
+            Spacer()
+            VStack {
+                Text(tag.totalPrice.description)
+                Text(tag.totalQuantity.description)
+            }
+        }
+    }
+}
