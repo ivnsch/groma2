@@ -16,10 +16,15 @@ struct AddEditItemView: View {
 
     private let didSubmitItem: ((PredefItem) -> Void)?
     
+    private let nameInput: String?
     private let editingInputs: EditingItemInputs?
-    
+
     // didSubmitItem is called after the predef item was added/edited and saved to data store
-    init(editingInputs: EditingItemInputs? = nil, didSubmitItem: ((PredefItem) -> Void)?) {
+    // editingInput is todo list item context, nameInput is didn't find item in search context,
+    // note that we assume editingInputs and nameInput are not set at same time..,
+    // ideally we just pass general agnostic inputs but I'm too lazy to refactor now (should be easy)
+    init(editingInputs: EditingItemInputs? = nil, nameInput: String? = nil, didSubmitItem: ((PredefItem) -> Void)?) {
+        self.nameInput = nameInput
         self.editingInputs = editingInputs
         self.didSubmitItem = didSubmitItem
     }
@@ -71,6 +76,8 @@ struct AddEditItemView: View {
                     itemName = inputs.name
                     itemPrice = inputs.price.description
                     itemTag = inputs.tag
+                } else if let name = nameInput {
+                    itemName = name
                 }
             }
         }

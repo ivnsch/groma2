@@ -81,7 +81,7 @@ struct AddItemView: View {
         }
         .searchable(text: $searchText)
         .popover(isPresented: $isAddEditItemPresented, content: {
-            AddEditItemView() { predefItem in
+            AddEditItemView(nameInput: searchText) { predefItem in
                 do {
                     try viewModel.addItem(predefItem: predefItem)
                 } catch {
