@@ -37,29 +37,35 @@ struct AddItemView: View {
             
             VStack {
                 Text(viewModel.currentItemsText())
-                List {
-                    ForEach(filteredItems) { item in
+                if filteredItems.isEmpty {
+                    VStack {
+                        Text("No items!")
                         Button(action: {
-                            do {
-                                try viewModel.addItem(predefItem: item)
-                            } catch {
-                                // TODO error popups
-                                print("Error adding item: \(error)")
-                            }
+                            isAddEditItemPresented = true
                         }) {
                             HStack {
-                                Text(item.name ?? "unnamed")
+                                Text("Add new item")
                             }
                         }
                     }
-                }
-                .scrollContentBackground(.hidden)
-                Button(action: {
-                    isAddEditItemPresented = true
-                }) {
-                    HStack {
-                        Text("Add new item")
+                } else {
+                    List {
+                        ForEach(filteredItems) { item in
+                            Button(action: {
+                                do {
+                                    try viewModel.addItem(predefItem: item)
+                                } catch {
+                                    // TODO error popups
+                                    print("Error adding item: \(error)")
+                                }
+                            }) {
+                                HStack {
+                                    Text(item.name ?? "unnamed")
+                                }
+                            }
+                        }
                     }
+                    .scrollContentBackground(.hidden)
                 }
                 Button(action: {
                     didAddItems?(viewModel.itemsToAdd)
