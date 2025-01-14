@@ -15,11 +15,6 @@ struct MoreView: View {
             VStack {
                 List {
                     NavigationLink {
-                        ManageItemsView()
-                    } label: {
-                       Text("Manage items")
-                    }
-                    NavigationLink {
                         AboutView()
                     } label: {
                         Text("About")
