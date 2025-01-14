@@ -7,6 +7,14 @@
 
 import SwiftUI
 import SwiftData
+import Charts
+
+struct ChartData: Identifiable, Equatable {
+    let type: String
+    let count: Int
+
+    var id: String { return type }
+}
 
 struct StatsView: View {
     @Environment(\.modelContext) private var modelContext
@@ -36,18 +44,39 @@ struct StatsView: View {
 //                    }
 //                }
 //            }
-            List {
-                ForEach(viewModel.tagAggregates) { tag in
-                    HStack {
-                        Text(tag.name)
-                        Spacer()
-                        VStack {
-                            Text(tag.totalPrice.description)
-                            Text(tag.totalQuantity.description)
+            VStack {
+                Chart(viewModel.tagAggregates) { tag in
+                    BarMark(x: .value("Price", tag.totalPrice),
+                            y: .value("Category", tag.name))
+                    .foregroundStyle(by: .value("Type", tag.name))
+                    .annotation(position: .trailing) {
+                        Text(String(tag.totalPrice.description))
+                            .foregroundColor(.gray)
+                    }
+                }
+                .chartLegend(.hidden)
+                .chartXAxis(.hidden)
+                .chartYAxis {
+                    AxisMarks { _ in
+                        AxisValueLabel()
+                    }
+                }
+                .aspectRatio(1, contentMode: .fit)
+                .padding()
+                List {
+                    ForEach(viewModel.tagAggregates) { tag in
+                        HStack {
+                            Text(tag.name)
+                            Spacer()
+                            VStack {
+                                Text(tag.totalPrice.description)
+                                Text(tag.totalQuantity.description)
+                            }
                         }
                     }
                 }
             }
+          
             .scrollContentBackground(.hidden)
             .navigationTitle("Stats")
             .navigationBarTitleDisplayMode(.inline)
