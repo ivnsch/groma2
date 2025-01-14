@@ -45,27 +45,19 @@ struct StatsView: View {
 //                }
 //            }
             VStack {
-                Chart(viewModel.tagAggregates) { tag in
-                    BarMark(x: .value("Price", tag.totalPrice),
-                            y: .value("Category", tag.name))
-                    .foregroundStyle(by: .value("Type", tag.name))
-                    .annotation(position: .trailing) {
-                        Text(String(tag.totalPrice.description))
-                            .foregroundColor(.gray)
-                    }
-                }
-                .chartLegend(.hidden)
-                .chartXAxis(.hidden)
-                .chartYAxis {
-                    AxisMarks { _ in
-                        AxisValueLabel()
-                    }
-                }
-                .aspectRatio(1, contentMode: .fit)
-                .padding()
+                ChartView(sections: viewModel.sections)
                 List {
-                    ForEach(viewModel.tagAggregates) { tag in
-                        ListItemView(tag: tag)
+                    ForEach(viewModel.sections) { section in
+                        Section(header: HStack {
+                            ListHeaderView(tag: section.header)
+//                            ListHeaderView(section: section)
+                        }) {
+                            ForEach(section.items) { item in
+                                ListItemView(item: item)
+                            }
+                        }
+                        
+//                        ListItemView(tag: section.header)
                     }
                 }
             }
@@ -86,7 +78,33 @@ struct StatsView: View {
     }
 }
 
-private struct ListItemView: View {
+private struct ChartView: View {
+    let sections: [BoughtItemsByTagSection]
+    
+    var body: some View {
+        Chart(sections) { section in
+            BarMark(x: .value("Price", section.header.totalPrice),
+                    y: .value("Category", section.header.name))
+            .foregroundStyle(by: .value("Type", section.header.name))
+            .annotation(position: .trailing) {
+                Text(String(section.header.totalPrice.description))
+                    .foregroundColor(.gray)
+            }
+        }
+        .chartLegend(.hidden)
+        .chartXAxis(.hidden)
+        .chartYAxis {
+            AxisMarks { _ in
+                AxisValueLabel()
+            }
+        }
+        .aspectRatio(1, contentMode: .fit)
+        .padding()
+    }
+}
+
+
+private struct ListHeaderView: View {
     let tag: BoughtItemsTagAggregate
     
     var body: some View {
@@ -96,6 +114,21 @@ private struct ListItemView: View {
             VStack {
                 Text(tag.totalPrice.description)
                 Text(tag.totalQuantity.description)
+            }
+        }
+    }
+}
+
+private struct ListItemView: View {
+    let item: BoughtItem
+    
+    var body: some View {
+        HStack {
+            Text(item.name ?? "")
+            Spacer()
+            VStack {
+                Text(item.quantity.description)
+                Text(item.price.description)
             }
         }
     }

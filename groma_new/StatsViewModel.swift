@@ -13,7 +13,8 @@ extension StatsView {
         var modelContext: ModelContext
         var monthlyExpenses = [MonthlyExpensesItem]()
         var itemAggregates = [BoughtItemsTagAggregate]()
-        var tagAggregates = [BoughtItemsTagAggregate]()
+        
+        var sections = [BoughtItemsByTagSection]()
 
         init(modelContext: ModelContext) {
             self.modelContext = modelContext
@@ -27,7 +28,8 @@ extension StatsView {
                 
                 monthlyExpenses = toMonthlyExpenses(items: items)
                 itemAggregates = toAllTimeExpensesByItem(items: items)
-                tagAggregates = toAllTimeExpensesByTag(items: items)
+                
+                sections = toAllTimeSectionsByTag(items: items)
             } catch {
                 print("Fetch failed")
             }
@@ -65,8 +67,8 @@ func toAllTimeExpensesByItem(items: [BoughtItem]) -> [BoughtItemsTagAggregate] {
     return aggregates
 }
 
-func toAllTimeExpensesByTag(items: [BoughtItem]) -> [BoughtItemsTagAggregate] {
-    var aggregates = [BoughtItemsTagAggregate]()
+func toAllTimeSectionsByTag(items: [BoughtItem]) -> [BoughtItemsByTagSection] {
+    var sections = [BoughtItemsByTagSection]()
 
     var tagsWithItems = Dictionary<String, [BoughtItem]>();
     for item in items {
@@ -77,11 +79,12 @@ func toAllTimeExpensesByTag(items: [BoughtItem]) -> [BoughtItemsTagAggregate] {
     for (tag, items) in tagsWithItems {
         let totalPrice = items.map(\.price).reduce(0, +);
         let totalQuantity = items.map(\.quantity).reduce(0, +);
-        aggregates.append(BoughtItemsTagAggregate(totalQuantity: totalQuantity, totalPrice: totalPrice, name: tag))
+        let aggregate = BoughtItemsTagAggregate(totalQuantity: totalQuantity, totalPrice: totalPrice, name: tag)
+        sections.append(BoughtItemsByTagSection(header: aggregate, items: items))
     }
     
-    aggregates.sort { $0.totalPrice > $1.totalPrice }
-    return aggregates
+    sections.sort { $0.header.totalPrice > $1.header.totalPrice }
+    return sections
 }
 
 @Model
@@ -92,6 +95,17 @@ class MonthlyExpensesItem {
     init(month: Int, spent: String) {
         self.month = month
         self.spent = spent
+    }
+}
+
+@Model
+class BoughtItemsByTagSection {
+    var header: BoughtItemsTagAggregate
+    var items: [BoughtItem]
+    
+    init(header: BoughtItemsTagAggregate, items: [BoughtItem]) {
+        self.header = header
+        self.items = items
     }
 }
 
