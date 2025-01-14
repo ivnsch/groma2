@@ -23,7 +23,6 @@ struct TodoView: View {
     @State private var showingCart = false
 
     @State private var editingItem: TodoItem?
-    @State private var isAddEditItemPresented = false
 
     init(sharedModelContainer: ModelContainer) {
         self.sharedModelContainer = sharedModelContainer
@@ -57,7 +56,6 @@ struct TodoView: View {
                             })
                             .onLongPressGesture {
                                 editingItem = item
-                                isAddEditItemPresented = true
                             }
                         }
                     }
@@ -82,21 +80,16 @@ struct TodoView: View {
                     isAddItemPresented = false
                 }
             })
-            .popover(isPresented: $isAddEditItemPresented, content: {
-                if let editingItem = editingItem {
-                    let editingItemInputs = EditingItemInputs(name: editingItem.name ?? "", price: editingItem.price, tag: editingItem.tag)
-                    AddEditItemView(editingInputs: editingItemInputs, didSubmitItem: { predefItem in
-                        do {
-                            try editItem(editingItem: editingItem, predefItem: predefItem)
-                        } catch {
-                            print("Error adding item: \(error)")
-                        }
-                        isAddEditItemPresented = false
-                    })
-                } else {
-                    Text("Invalid state: if isAddEditItemPresented is true, editingItem must not be nil" + editingItem.debugDescription)
-                }
-                
+            .popover(item: $editingItem, content: { item in
+                let editingItemInputs = EditingItemInputs(name: item.name ?? "", price: item.price, tag: item.tag)
+                AddEditItemView(editingInputs: editingItemInputs, didSubmitItem: { predefItem in
+                    do {
+                        try editItem(editingItem: item, predefItem: predefItem)
+                    } catch {
+                        print("Error adding item: \(error)")
+                    }
+                    editingItem = nil
+                })
             })
     #if os(macOS)
             .navigationSplitViewColumnWidth(min: 180, ideal: 200)
