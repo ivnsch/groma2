@@ -25,14 +25,9 @@ struct CartView: View {
             VStack {
                 List {
                     ForEach(items) { item in
-                        HStack {
-                            Text(item.name ?? "unnamed")
-                            Spacer()
-                            VStack {
-                                Text(item.quantity.description)
-                                Text(item.price.description)
-                            }
-                        }
+                        TodoListItemView(item: toItemForView(item), onTap: {
+                        }, onLongPress: {
+                        })
                     }
                 }
                 .scrollContentBackground(.hidden)
@@ -63,6 +58,10 @@ struct CartView: View {
             .navigationBarTitleDisplayMode(.inline)
             .background(Color.yellow.opacity(0.6).ignoresSafeArea())
         }
+    }
+    
+    func toItemForView(_ item: CartItem) -> TodoItemForView {
+        TodoItemForView(name: item.name ?? "", price: item.price, quantity: item.quantity, tag: item.tag)
     }
 }
 

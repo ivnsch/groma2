@@ -40,24 +40,11 @@ struct TodoView: View {
             VStack {
                 List {
                     ForEach(items) { item in
-                        Button(action: {
-                        }) {
-                            HStack {
-                                Text(item.name ?? "unnamed")
-                                Spacer()
-                                VStack {
-                                    Text(item.quantity.description)
-                                    Text(item.price.description)
-                                }
-                            }
-                            .contentShape(Rectangle())
-                            .onTapGesture(perform: {
-                                moveToCart(cartItems: cartItems, todoItem: item, modelContext: modelContext)
-                            })
-                            .onLongPressGesture {
-                                editingItem = item
-                            }
-                        }
+                        TodoListItemView(item: toItemForView(item), onTap: {
+                            moveToCart(cartItems: cartItems, todoItem: item, modelContext: modelContext)
+                        }, onLongPress: {
+                            editingItem = item
+                        })
                     }
                     .onDelete(perform: deleteItems)
                 }
@@ -141,6 +128,52 @@ struct TodoView: View {
                 try modelContext.save()
             } catch {
                 print("error saving: \(error)")
+            }
+        }
+    }
+}
+
+// just a (common) lightweight model to be able to share the row view between todo and cart
+struct TodoItemForView {
+    var name: String
+    var price: Float
+    var quantity: Int
+    var tag: String
+
+    init(name: String, price: Float, quantity: Int, tag: String) {
+        self.name = name
+        self.price = price
+        self.quantity = quantity
+        self.tag = tag
+    }
+}
+
+func toItemForView(_ item: TodoItem) -> TodoItemForView {
+    TodoItemForView(name: item.name ?? "", price: item.price, quantity: item.quantity, tag: item.tag)
+}
+
+struct TodoListItemView: View {
+    let item: TodoItemForView
+    let onTap: () -> Void
+    let onLongPress: () -> Void
+    
+    var body: some View {
+        Button(action: {
+        }) {
+            HStack {
+                Text(item.name)
+                Spacer()
+                VStack {
+                    Text(item.quantity.description)
+                    Text(item.price.description)
+                }
+            }
+            .contentShape(Rectangle())
+            .onTapGesture(perform: {
+                onTap()
+            })
+            .onLongPressGesture {
+                onLongPress()
             }
         }
     }
