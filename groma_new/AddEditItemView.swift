@@ -43,7 +43,7 @@ struct AddEditItemView: View {
                     TextField("", text: $itemTag)
                         .textFieldStyle(.roundedBorder)
                     
-                    Button("Add") {
+                    Button(editingInputs == nil ? "Add" : "Edit") {
                         withAnimation {
                             // TODO validate, remove unwrap
                             let price = Float(itemPrice)!
