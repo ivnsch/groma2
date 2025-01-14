@@ -80,6 +80,7 @@ func toAllTimeExpensesByTag(items: [BoughtItem]) -> [BoughtItemsTagAggregate] {
         aggregates.append(BoughtItemsTagAggregate(totalQuantity: totalQuantity, totalPrice: totalPrice, name: tag))
     }
     
+    aggregates.sort { $0.totalPrice > $1.totalPrice }
     return aggregates
 }
 
