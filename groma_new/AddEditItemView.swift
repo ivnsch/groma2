@@ -65,6 +65,14 @@ struct AddEditItemView: View {
             }
             .navigationTitle("Add new item")
             .navigationBarTitleDisplayMode(.inline)
+            .onAppear {
+                // prefill
+                if let inputs = editingInputs {
+                    itemName = inputs.name
+                    itemPrice = inputs.price.description
+                    itemTag = inputs.tag
+                }
+            }
         }
     }
 }
