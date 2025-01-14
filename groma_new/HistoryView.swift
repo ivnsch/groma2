@@ -33,18 +33,10 @@ struct HistoryView: View {
                List {
                     ForEach(sections) { section in
                         Section(header: HStack {
-                            Text(section.date.description)
-                            Spacer()
+                            ListHeaderView(section: section)
                         }) {
                             ForEach(section.boughtItems) { boughtItem in
-                                HStack {
-                                    Text(boughtItem.name ?? "")
-                                    Spacer()
-                                    VStack {
-                                        Text(boughtItem.quantity.description)
-                                        Text(boughtItem.price.description)
-                                    }
-                                }
+                                ListItemView(boughtItem: boughtItem)
                             }
                             .onDelete { indexSet in
                                 deleteItem(section: section, at: indexSet)
@@ -146,6 +138,32 @@ class HistorySection {
 func groupItemsByDate(items: [BoughtItem]) -> [Date: [BoughtItem]] {
     return Dictionary(grouping: items) { item in
         item.boughtDate ?? Date.distantPast
+    }
+}
+
+private struct ListItemView: View {
+    let boughtItem: BoughtItem
+    
+    var body: some View {
+        HStack {
+            Text(boughtItem.name ?? "")
+            Spacer()
+            VStack {
+                Text(boughtItem.quantity.description)
+                Text(boughtItem.price.description)
+            }
+        }
+    }
+}
+
+private struct ListHeaderView: View {
+    let section: HistorySection
+    
+    var body: some View {
+        HStack {
+            Text(section.date.description)
+            Spacer()
+        }
     }
 }
 
