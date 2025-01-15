@@ -50,25 +50,28 @@ struct AddItemView: View {
                         }
                     }
                 } else {
-                    HFlow {
-                        ForEach(filteredItems) { item in
-                            Button(action: {
-                                do {
-                                    try viewModel.addItem(predefItem: item)
-                                } catch {
-                                    // TODO error popups
-                                    print("Error adding item: \(error)")
+                    ScrollView(.vertical) {
+                        HFlow {
+                            ForEach(filteredItems) { item in
+                                Button(action: {
+                                    do {
+                                        try viewModel.addItem(predefItem: item)
+                                    } catch {
+                                        // TODO error popups
+                                        print("Error adding item: \(error)")
+                                    }
+                                }) {
+                                    HStack {
+                                        Text(item.name ?? "unnamed")
+                                    }
                                 }
-                            }) {
-                                HStack {
-                                    Text(item.name ?? "unnamed")
-                                }
+                                .padding(4)
+                                .buttonStyle(.bordered)
+                                .tint(.blue)
                             }
-                            .padding(4)
-                            .buttonStyle(.bordered)
-                            .tint(.blue)
                         }
                     }
+                    .frame(maxHeight: 300)
                     .scrollContentBackground(.hidden)
                 }
                 Button(action: {
