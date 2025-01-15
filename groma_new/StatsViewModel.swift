@@ -17,17 +17,16 @@ extension StatsView {
         var monthsToSections: Dictionary<Int, [BoughtItemsByTagSection]> = [:]
         var sections = [BoughtItemsByTagSection]()
 
-        var monthsForPicker: [String] {
+        var monthsForPicker: [Int] {
             var months = Set(monthsToSections.keys);
             // we always want current month to be present, independently of whether there's already data or not
             let currentMonth = currentMonth()
             months.insert(currentMonth);
     
-            let monthsInData = Array(monthsToSections.keys).sorted()
-            return monthsInData.map { toMonthName($0) }
+            return Array(months).sorted()
         }
         
-        var selectedMonthName: String = ""
+        var selectedMonth: Int = 0
         
         init(modelContext: ModelContext) {
             self.modelContext = modelContext
@@ -45,7 +44,7 @@ extension StatsView {
                 monthsToSections = toMonthToSectionsDict(allItems: items)
                 sections = toSectionsByTag(items: items)
                 
-                selectedMonthName = toMonthName(currentMonth())
+                selectedMonth = currentMonth()
             } catch {
                 print("Fetch failed")
             }
@@ -177,7 +176,7 @@ private func currentMonth() -> Int {
     Calendar.current.component(.month, from: Date())
 }
 
-private func toMonthName(_ i: Int) -> String {
+func toMonthName(_ i: Int) -> String {
     switch i {
         case 1: "January"
         case 2: "February"

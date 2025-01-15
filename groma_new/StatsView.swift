@@ -46,9 +46,9 @@ struct StatsView: View {
 //            }
       
             VStack {
-                Picker("Select month", selection: $viewModel.selectedMonthName) {
-                    ForEach(viewModel.monthsForPicker, id: \.self) { t in
-                        Text(t)
+                Picker("Select month", selection: $viewModel.selectedMonth) {
+                    ForEach(viewModel.monthsForPicker, id: \.self) { month in
+                        Text(toMonthName(month)).tag(month)
                     }
                 }
                 ChartView(sections: viewModel.sections)
