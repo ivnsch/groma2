@@ -51,8 +51,10 @@ struct StatsView: View {
                         Text(toMonthName(month)).tag(month)
                     }
                 }
-                ChartView(sections: viewModel.sections)
                 List {
+                    ChartView(sections: viewModel.sections)
+                        .listRowBackground(Color.yellow.opacity(0.6).ignoresSafeArea())
+
                     ForEach(viewModel.sections) { section in
                         Section(header: HStack {
                             ListHeaderView(tag: section.header)
