@@ -35,69 +35,74 @@ struct AddItemView: View {
     
     var body: some View {
         NavigationStack {
-            
-            VStack {
-                Text(viewModel.currentItemsText())
-                if filteredItems.isEmpty {
-                    VStack {
-                        Text("No items!")
-                        Button(action: {
-                            isAddEditItemPresented = true
-                        }) {
-                            HStack {
-                                Text("Add new item")
-                            }
-                        }
-                    }
-                } else {
-                    ScrollView(.vertical) {
-                        HFlow {
-                            ForEach(filteredItems) { item in
-                                Button(action: {
-                                    do {
-                                        try viewModel.addItem(predefItem: item)
-                                    } catch {
-                                        // TODO error popups
-                                        print("Error adding item: \(error)")
-                                    }
-                                }) {
-                                    HStack {
-                                        Text(item.name ?? "unnamed")
-                                    }
+            ZStack {
+                Theme.mainBg
+                VStack {
+                    Text(viewModel.currentItemsText())
+                    if filteredItems.isEmpty {
+                        VStack {
+                            Text("No items!")
+                            Button(action: {
+                                isAddEditItemPresented = true
+                            }) {
+                                HStack {
+                                    Text("Add new item")
                                 }
-                                .padding(4)
-                                .buttonStyle(.bordered)
-                                .tint(.blue)
                             }
                         }
+                    } else {
+                        ScrollView(.vertical) {
+                            HFlow {
+                                ForEach(filteredItems) { item in
+                                    Button(action: {
+                                        do {
+                                            try viewModel.addItem(predefItem: item)
+                                        } catch {
+                                            // TODO error popups
+                                            print("Error adding item: \(error)")
+                                        }
+                                    }) {
+                                        HStack {
+                                            Text(item.name ?? "unnamed")
+                                        }
+                                    }
+                                    .padding(4)
+                                    .buttonStyle(.bordered)
+                                    .tint(.blue)
+                                }
+                            }
+                            .scrollContentBackground(.hidden)
+                        }
+                        .frame(maxHeight: 300)
+                        .scrollContentBackground(.hidden)
                     }
-                    .frame(maxHeight: 300)
-                    .scrollContentBackground(.hidden)
-                }
-                Button(action: {
-                    didAddItems?(viewModel.itemsToAdd)
-                }) {
-                    HStack {
-                        Text("Add items")
+                    Button(action: {
+                        didAddItems?(viewModel.itemsToAdd)
+                    }) {
+                        HStack {
+                            Text("Add items")
+                        }
                     }
                 }
-            }
-            .navigationTitle("Add item")
+                .navigationTitle("Add item")
 #if os(iOS)
-            .navigationBarTitleDisplayMode(.inline)
+                .navigationBarTitleDisplayMode(.inline)
 #endif
-            .background(Theme.mainBg.ignoresSafeArea())
-        }
-        .searchable(text: $searchText)
-        .popover(isPresented: $isAddEditItemPresented, content: {
-            AddEditItemView(nameInput: searchText) { predefItem in
-                do {
-                    try viewModel.addItem(predefItem: predefItem)
-                } catch {
-                    print("Error adding item: \(error)")
-                }
-                isAddEditItemPresented = false
+                .background(Theme.mainBg.ignoresSafeArea())
             }
-        })
+            .background(Theme.mainBg.ignoresSafeArea())
+
+            .searchable(text: $searchText)
+            .popover(isPresented: $isAddEditItemPresented, content: {
+                AddEditItemView(nameInput: searchText) { predefItem in
+                    do {
+                        try viewModel.addItem(predefItem: predefItem)
+                    } catch {
+                        print("Error adding item: \(error)")
+                    }
+                    isAddEditItemPresented = false
+                }
+            })
+        }
     }
 }
