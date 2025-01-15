@@ -14,8 +14,21 @@ extension StatsView {
         var monthlyExpenses = [MonthlyExpensesItem]()
         var itemAggregates = [BoughtItemsTagAggregate]()
         
+        var monthsToSections: Dictionary<Int, [BoughtItemsByTagSection]> = [:]
         var sections = [BoughtItemsByTagSection]()
 
+        var monthsForPicker: [String] {
+            var months = Set(monthsToSections.keys);
+            // we always want current month to be present, independently of whether there's already data or not
+            let currentMonth = currentMonth()
+            months.insert(currentMonth);
+    
+            let monthsInData = Array(monthsToSections.keys).sorted()
+            return monthsInData.map { toMonthName($0) }
+        }
+        
+        var selectedMonthName: String = ""
+        
         init(modelContext: ModelContext) {
             self.modelContext = modelContext
             fetchData()
@@ -29,7 +42,10 @@ extension StatsView {
                 monthlyExpenses = toMonthlyExpenses(items: items)
                 itemAggregates = toAllTimeExpensesByItem(items: items)
                 
-                sections = toAllTimeSectionsByTag(items: items)
+                monthsToSections = toMonthToSectionsDict(allItems: items)
+                sections = toSectionsByTag(items: items)
+                
+                selectedMonthName = toMonthName(currentMonth())
             } catch {
                 print("Fetch failed")
             }
@@ -67,7 +83,15 @@ func toAllTimeExpensesByItem(items: [BoughtItem]) -> [BoughtItemsTagAggregate] {
     return aggregates
 }
 
-func toAllTimeSectionsByTag(items: [BoughtItem]) -> [BoughtItemsByTagSection] {
+func toMonthToSectionsDict(allItems: [BoughtItem]) -> Dictionary<Int, [BoughtItemsByTagSection]> {
+    let groupedByMonth = groupItemsByMonth(items: allItems);
+    
+    return groupedByMonth.mapValues { boughtItems in
+        toSectionsByTag(items: boughtItems)
+    }
+}
+
+func toSectionsByTag(items: [BoughtItem]) -> [BoughtItemsByTagSection] {
     var sections = [BoughtItemsByTagSection]()
 
     var tagsWithItems = Dictionary<String, [BoughtItem]>();
@@ -149,3 +173,26 @@ func groupItemsByName(items: [BoughtItem]) -> [String: [BoughtItem]] {
     }
 }
 
+private func currentMonth() -> Int {
+    Calendar.current.component(.month, from: Date())
+}
+
+private func toMonthName(_ i: Int) -> String {
+    switch i {
+        case 1: "January"
+        case 2: "February"
+        case 3: "March"
+        case 4: "April"
+        case 5: "May"
+        case 6: "June"
+        case 7: "July"
+        case 8: "August"
+        case 9: "September"
+        case 10: "October"
+        case 11: "November"
+        case 12: "December"
+        // shouldn't really happen, so return anything
+        // strictly, should use error handling here too
+        case _: String(i)
+    }
+}
