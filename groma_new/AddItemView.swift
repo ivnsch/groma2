@@ -80,7 +80,9 @@ struct AddItemView: View {
                 }
             }
             .navigationTitle("Add item")
+#if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
+#endif
             .background(Theme.mainBg.ignoresSafeArea())
         }
         .searchable(text: $searchText)

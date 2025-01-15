@@ -69,7 +69,9 @@ struct AddEditItemView: View {
                 .padding(.horizontal, 100)
             }
             .navigationTitle("Add new item")
+#if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
+#endif
             .onAppear {
                 // prefill
                 if let inputs = editingInputs {

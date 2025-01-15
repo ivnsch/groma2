@@ -49,7 +49,9 @@ struct HistoryView: View {
             }
             .scrollContentBackground(.hidden)
             .navigationTitle("History")
+#if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
+#endif
             .background(Theme.mainBg.ignoresSafeArea())
             .toolbar {
                 Button("Clear") {

@@ -18,7 +18,9 @@ struct AboutView: View {
             .toolbar {
             }
             .navigationTitle("About")
+#if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
+#endif
             .background(Theme.mainBg.ignoresSafeArea())
         }
     }

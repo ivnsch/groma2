@@ -60,7 +60,9 @@ struct TodoView: View {
             }
             .scrollContentBackground(.hidden)
             .navigationTitle("To do")
+#if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
+#endif
             .popover(isPresented: $isAddItemPresented, content: {
                 AddItemView(modelContext: sharedModelContainer.mainContext) { itemsToAdd in
                     updateQuantityOrAddNewItem(items: items, itemsToAdd: itemsToAdd, modelContext: modelContext)

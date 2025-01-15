@@ -18,7 +18,9 @@ struct FeedbackView: View {
             .toolbar {
             }
             .navigationTitle("Feedback")
+#if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
+#endif
             .background(Theme.mainBg.ignoresSafeArea())
         }
     }

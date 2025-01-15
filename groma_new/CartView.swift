@@ -55,7 +55,9 @@ struct CartView: View {
             .toolbar {
             }
             .navigationTitle("Cart")
+#if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
+#endif
             .background(Theme.mainBg.ignoresSafeArea())
         }
     }
