@@ -72,7 +72,8 @@ struct AddItemView: View {
                                 }
                             }
                         }
-                        .frame(maxHeight: 300)
+                        .background(Color.white)
+                        .frame(maxHeight: 500)
                     }
                     Button(action: {
                         didAddItems?(viewModel.itemsToAdd)
