@@ -1,5 +1,6 @@
 import SwiftUI
 import SwiftData
+import Flow
 
 struct AddItemView: View {
     @State private var itemName: String = ""
@@ -49,7 +50,7 @@ struct AddItemView: View {
                         }
                     }
                 } else {
-                    List {
+                    HFlow {
                         ForEach(filteredItems) { item in
                             Button(action: {
                                 do {
@@ -63,6 +64,9 @@ struct AddItemView: View {
                                     Text(item.name ?? "unnamed")
                                 }
                             }
+                            .padding(4)
+                            .buttonStyle(.bordered)
+                            .tint(.blue)
                         }
                     }
                     .scrollContentBackground(.hidden)
