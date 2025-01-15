@@ -71,10 +71,8 @@ struct AddItemView: View {
                                     .tint(.blue)
                                 }
                             }
-                            .scrollContentBackground(.hidden)
                         }
                         .frame(maxHeight: 300)
-                        .scrollContentBackground(.hidden)
                     }
                     Button(action: {
                         didAddItems?(viewModel.itemsToAdd)
