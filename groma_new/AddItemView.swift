@@ -57,6 +57,7 @@ struct AddItemView: View {
                                     Button(action: {
                                         do {
                                             try viewModel.addItem(predefItem: item)
+                                            searchText = ""
                                         } catch {
                                             // TODO error popups
                                             print("Error adding item: \(error)")
@@ -94,6 +95,7 @@ struct AddItemView: View {
             .searchable(text: $searchText)
             .popover(isPresented: $isAddEditItemPresented, content: {
                 AddEditItemView(nameInput: searchText) { predefItem in
+                    searchText = ""
                     do {
                         try viewModel.addItem(predefItem: predefItem)
                     } catch {
