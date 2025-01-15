@@ -124,9 +124,13 @@ struct ItemsView: View {
                     .tint(.blue)
                 }
             }
+            .frame(maxWidth: .infinity) // Ensure HFlow expands to full width
         }
         .background(Color.white)
         .frame(maxHeight: 500)
+        .frame(maxWidth: .infinity)
+        .cornerRadius(6)
+        .padding()
 
     }
 }
