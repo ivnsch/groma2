@@ -52,10 +52,10 @@ struct StatsView: View {
                     }
                 }
                 List {
-                    ChartView(sections: viewModel.sections)
+                    ChartView(sections: viewModel.sections())
                         .listRowBackground(Theme.mainBg.ignoresSafeArea())
 
-                    ForEach(viewModel.sections) { section in
+                    ForEach(viewModel.sections()) { section in
                         Section(header: HStack {
                             ListHeaderView(tag: section.header)
 //                            ListHeaderView(section: section)

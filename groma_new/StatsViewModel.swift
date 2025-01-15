@@ -15,7 +15,6 @@ extension StatsView {
         var itemAggregates = [BoughtItemsTagAggregate]()
         
         var monthsToSections: Dictionary<Int, [BoughtItemsByTagSection]> = [:]
-        var sections = [BoughtItemsByTagSection]()
 
         var monthsForPicker: [Int] {
             var months = Set(monthsToSections.keys);
@@ -42,12 +41,15 @@ extension StatsView {
                 itemAggregates = toAllTimeExpensesByItem(items: items)
                 
                 monthsToSections = toMonthToSectionsDict(allItems: items)
-                sections = toSectionsByTag(items: items)
                 
                 selectedMonth = currentMonth()
             } catch {
                 print("Fetch failed")
             }
+        }
+        
+        func sections() -> [BoughtItemsByTagSection] {
+            monthsToSections[selectedMonth] ?? []
         }
     }
 }
@@ -90,6 +92,7 @@ func toMonthToSectionsDict(allItems: [BoughtItem]) -> Dictionary<Int, [BoughtIte
     }
 }
 
+// all time
 func toSectionsByTag(items: [BoughtItem]) -> [BoughtItemsByTagSection] {
     var sections = [BoughtItemsByTagSection]()
 
