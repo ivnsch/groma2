@@ -40,41 +40,19 @@ struct AddItemView: View {
                 VStack {
                     Text(viewModel.currentItemsText())
                     if filteredItems.isEmpty {
-                        VStack {
-                            Text("No items!")
-                            Button(action: {
-                                isAddEditItemPresented = true
-                            }) {
-                                HStack {
-                                    Text("Add new item")
-                                }
-                            }
-                        }
+                        NoItemsView(onTapAdd: {
+                            isAddEditItemPresented = true
+                        })
                     } else {
-                        ScrollView(.vertical) {
-                            HFlow {
-                                ForEach(filteredItems) { item in
-                                    Button(action: {
-                                        do {
-                                            try viewModel.addItem(predefItem: item)
-                                            searchText = ""
-                                        } catch {
-                                            // TODO error popups
-                                            print("Error adding item: \(error)")
-                                        }
-                                    }) {
-                                        HStack {
-                                            Text(item.name ?? "unnamed")
-                                        }
-                                    }
-                                    .padding(4)
-                                    .buttonStyle(.bordered)
-                                    .tint(.blue)
-                                }
+                        ItemsView(filteredItems: filteredItems, onTapItem: { item in
+                            do {
+                                try viewModel.addItem(predefItem: item)
+                                searchText = ""
+                            } catch {
+                                // TODO error popups
+                                print("Error adding item: \(error)")
                             }
-                        }
-                        .background(Color.white)
-                        .frame(maxHeight: 500)
+                        })
                     }
                     Button(action: {
                         didAddItems?(viewModel.itemsToAdd)
@@ -107,3 +85,49 @@ struct AddItemView: View {
         }
     }
 }
+
+
+struct NoItemsView: View {
+    let onTapAdd: () -> Void
+    
+    var body: some View {
+        VStack {
+            Text("No items!")
+            Button(action: {
+                onTapAdd()
+            }) {
+                HStack {
+                    Text("Add new item")
+                }
+            }
+        }
+    }
+}
+
+struct ItemsView: View {
+    let filteredItems: [PredefItem]
+    let onTapItem: (PredefItem) -> Void
+    
+    var body: some View {
+        ScrollView(.vertical) {
+            HFlow {
+                ForEach(filteredItems) { item in
+                    Button(action: {
+                        onTapItem(item)
+                    }) {
+                        HStack {
+                            Text(item.name ?? "unnamed")
+                        }
+                    }
+                    .padding(4)
+                    .buttonStyle(.bordered)
+                    .tint(.blue)
+                }
+            }
+        }
+        .background(Color.white)
+        .frame(maxHeight: 500)
+
+    }
+}
+
