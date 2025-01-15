@@ -34,7 +34,7 @@ struct MoreView: View {
             }
             .navigationTitle("More")
             .navigationBarTitleDisplayMode(.inline)
-            .background(Color.yellow.opacity(0.6).ignoresSafeArea())
+            .background(Theme.mainBg.ignoresSafeArea())
         }
     }
 }

@@ -93,7 +93,7 @@ struct TodoView: View {
                     }
                 }
             }
-            .background(Color.yellow.opacity(0.6).ignoresSafeArea())
+            .background(Theme.mainBg.ignoresSafeArea())
         }
 //        .onAppear {
 //            printItems()

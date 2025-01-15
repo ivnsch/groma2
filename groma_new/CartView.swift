@@ -56,7 +56,7 @@ struct CartView: View {
             }
             .navigationTitle("Cart")
             .navigationBarTitleDisplayMode(.inline)
-            .background(Color.yellow.opacity(0.6).ignoresSafeArea())
+            .background(Theme.mainBg.ignoresSafeArea())
         }
     }
     

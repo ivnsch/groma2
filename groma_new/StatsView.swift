@@ -53,7 +53,7 @@ struct StatsView: View {
                 }
                 List {
                     ChartView(sections: viewModel.sections)
-                        .listRowBackground(Color.yellow.opacity(0.6).ignoresSafeArea())
+                        .listRowBackground(Theme.mainBg.ignoresSafeArea())
 
                     ForEach(viewModel.sections) { section in
                         Section(header: HStack {
@@ -73,7 +73,7 @@ struct StatsView: View {
             .scrollContentBackground(.hidden)
             .navigationTitle("Stats")
             .navigationBarTitleDisplayMode(.inline)
-            .background(Color.yellow.opacity(0.6).ignoresSafeArea())
+            .background(Theme.mainBg.ignoresSafeArea())
             .onAppear() {
                 self.viewModel.fetchData()
             }

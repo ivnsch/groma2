@@ -27,7 +27,7 @@ struct HistoryView: View {
                 if $editMode.wrappedValue == .active {
                    Text("Editing Mode Activated")
                        .padding()
-                       .background(Color.yellow)
+                       .background(Theme.mainBg)
                        .cornerRadius(8)
                }
                List {
@@ -50,7 +50,7 @@ struct HistoryView: View {
             .scrollContentBackground(.hidden)
             .navigationTitle("History")
             .navigationBarTitleDisplayMode(.inline)
-            .background(Color.yellow.opacity(0.6).ignoresSafeArea())
+            .background(Theme.mainBg.ignoresSafeArea())
             .toolbar {
                 Button("Clear") {
                     showingConfirmDelete = true

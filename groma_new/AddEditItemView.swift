@@ -33,7 +33,7 @@ struct AddEditItemView: View {
         NavigationStack {
 
             ZStack {
-                Color.yellow.opacity(0.6).ignoresSafeArea()
+                Theme.mainBg.ignoresSafeArea()
                 
                 VStack {
                     Text("Name:")
