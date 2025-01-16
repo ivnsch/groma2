@@ -2,6 +2,7 @@ import SwiftUI
 
 struct Theme {
     static let mainBg = Color(hex: "#ffe135")
+    static let mainFg = Color(hex: "#fffbc9")
 }
 
 extension Color {

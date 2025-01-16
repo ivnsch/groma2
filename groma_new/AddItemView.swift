@@ -126,7 +126,7 @@ struct ItemsView: View {
             }
             .frame(maxWidth: .infinity) // Ensure HFlow expands to full width
         }
-        .background(Color.white)
+        .background(Theme.mainFg)
         .frame(maxHeight: 500)
         .frame(maxWidth: .infinity)
         .cornerRadius(6)
