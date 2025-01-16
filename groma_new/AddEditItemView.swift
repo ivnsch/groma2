@@ -13,6 +13,7 @@ struct AddEditItemView: View {
     @State private var itemName: String = ""
     @State private var itemPrice: String = ""
     @State private var itemTag: String = ""
+    @State private var selectedTag: String = ""
 
     private let didSubmitItem: ((PredefItem) -> Void)?
     
@@ -43,6 +44,12 @@ struct AddEditItemView: View {
                     Text("Price:")
                     TextField("", text: $itemPrice)
                         .textFieldStyle(.roundedBorder)
+                    
+                    Picker("Category", selection: $selectedTag) {
+                        ForEach(existingTags(modelContext: modelContext), id: \.self) { tag in
+                            Text(tag)
+                        }
+                    }
                     
                     Text("Category:")
                     TextField("", text: $itemTag)
@@ -83,6 +90,21 @@ struct AddEditItemView: View {
                 }
             }
         }
+    }
+}
+
+private func existingTags(modelContext: ModelContext) -> [String] {
+    do {
+        let descriptor = FetchDescriptor<PredefItem>()
+        let items = try modelContext.fetch(descriptor)
+        
+        let tagsSet = Set(items.map { $0.tag })
+        let sortedTags: [String] = Array(tagsSet).sorted { $0 < $1 }
+        
+        return sortedTags
+    } catch {
+        print("error fetching predefined items in existing tags")
+        return []
     }
 }
 
