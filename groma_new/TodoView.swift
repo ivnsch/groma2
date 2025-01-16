@@ -46,6 +46,9 @@ struct TodoView: View {
                             editingItem = item
                         })
                     }
+                    .onMove(perform: { indexSet, dest in
+                        moveItem(from: indexSet, to: dest)
+                    })
                     .onDelete(perform: deleteItems)
                 }
                 Button("Cart") {
@@ -102,6 +105,18 @@ struct TodoView: View {
 //        }
     }
 
+    private func moveItem(from source: IndexSet, to destination: Int) {
+        var updatedItems = items
+        
+        updatedItems.move(fromOffsets: source, toOffset: destination)
+
+        for (index, item) in updatedItems.enumerated() {
+            item.order = index
+        }
+
+        try? modelContext.save()
+    }
+    
     // called when user submits an edit. note that predef item is already saved
     func editItem(editingItem: TodoItem, predefItem: PredefItem) throws {
         for item in items {
