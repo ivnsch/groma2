@@ -19,7 +19,11 @@ struct AddEditItemView: View {
     
     private let nameInput: String?
     private let editingInputs: EditingItemInputs?
-
+    
+    @State private var tags: [String] = []
+    
+    @State private var isAddTagPresented = false;
+    
     // didSubmitItem is called after the predef item was added/edited and saved to data store
     // editingInput is todo list item context, nameInput is didn't find item in search context,
     // note that we assume editingInputs and nameInput are not set at same time..,
@@ -45,9 +49,14 @@ struct AddEditItemView: View {
                     TextField("", text: $itemPrice)
                         .textFieldStyle(.roundedBorder)
                     
-                    Picker("Category", selection: $selectedTag) {
-                        ForEach(existingTags(modelContext: modelContext), id: \.self) { tag in
-                            Text(tag)
+                    HStack {
+                        Picker("Category", selection: $selectedTag) {
+                            ForEach(tags, id: \.self) { tag in
+                                Text(tag)
+                            }
+                        }
+                        Button("New category") {
+                            isAddTagPresented = true
                         }
                     }
                     
@@ -80,6 +89,8 @@ struct AddEditItemView: View {
             .navigationBarTitleDisplayMode(.inline)
 #endif
             .onAppear {
+                tags = existingTags(modelContext: modelContext)
+                
                 // prefill
                 if let inputs = editingInputs {
                     itemName = inputs.name
@@ -89,6 +100,24 @@ struct AddEditItemView: View {
                     itemName = name
                 }
             }
+            .popover(isPresented: $isAddTagPresented, content: {
+                AddTagView() { newTag in
+                    addTemporaryTag(newTag)
+                    selectedTag = newTag
+                    isAddTagPresented = false
+                }
+            })
+        }
+    }
+    
+    // when we add a new tag, it has to be added to the picker entries:
+    // the picker will not accept setting only the selected value
+    // "temporary" because this tag is not in the database
+    // (differently to the other listed tags in the picker, which come from stored predef items)
+    // it will be persisted with the new item when/if the user adds it
+    private func addTemporaryTag(_ tag: String) {
+        if !self.tags.contains(tag) {
+            self.tags.append(tag)
         }
     }
 }
@@ -129,6 +158,23 @@ private func deleteItemsWithName(name: String, modelContext: ModelContext) throw
     for item in items {
         if item.name == name {
             modelContext.delete(item)
+        }
+    }
+}
+
+struct AddTagView: View {
+    @State private var tagName: String = ""
+
+    let onTagAdd: (String) -> Void
+    
+    var body: some View {
+        VStack {
+            Text("Add new tag")
+            TextField("", text: $tagName)
+                .textFieldStyle(.roundedBorder)
+            Button("Add") {
+                onTagAdd(tagName)
+            }
         }
     }
 }
