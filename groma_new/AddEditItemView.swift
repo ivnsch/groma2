@@ -12,7 +12,6 @@ struct AddEditItemView: View {
 
     @State private var itemName: String = ""
     @State private var itemPrice: String = ""
-    @State private var itemTag: String = ""
     @State private var selectedTag: String = ""
 
     private let didSubmitItem: ((PredefItem) -> Void)?
@@ -60,16 +59,12 @@ struct AddEditItemView: View {
                         }
                     }
                     
-                    Text("Category:")
-                    TextField("", text: $itemTag)
-                        .textFieldStyle(.roundedBorder)
-                    
                     Button(editingInputs == nil ? "Add" : "Edit") {
                         withAnimation {
                             // TODO validate, remove unwrap
                             let price = Float(itemPrice)!
                             // here predefItem acts essentially as inputs holder
-                            let predefItem = PredefItem(name: itemName, price: price, tag: itemTag)
+                            let predefItem = PredefItem(name: itemName, price: price, tag: selectedTag)
                             
                             do {
                                 try addOrEditItemAndSave(editingInputs: editingInputs, predefItem: predefItem, modelContext: modelContext)
@@ -95,7 +90,14 @@ struct AddEditItemView: View {
                 if let inputs = editingInputs {
                     itemName = inputs.name
                     itemPrice = inputs.price.description
-                    itemTag = inputs.tag
+                    // note: assumes that the picker items will contain selected tag
+                    // this should always be the case, because this comes from some item that's already stored
+                    // and we get the tags from stored (predef) items
+                    // TODO double check this claim: origin of edit inputs are todo items, not predef items
+                    // technically, todo items can exist without a predef item?
+                    // well, we should ensure this is not the case, when allowing to delete predef items,
+                    // we should delete all associated items (at least todo/cart) with the same name
+                    selectedTag = inputs.tag
                 } else if let name = nameInput {
                     itemName = name
                 }
