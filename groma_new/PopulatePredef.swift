@@ -1,11 +1,15 @@
 import SwiftData
 
+// note that on start this is called like 13 times.
+// could optimize this by setting a flag, but probably isn't that much of an issue.
 func checkAndPopulateData(modelContext: ModelContext) {
+    print("## in checkAndPopulateData")
     let fetchRequest = FetchDescriptor<PredefItem>()
     let existingRecords = try? modelContext.fetch(fetchRequest)
     
     // populate only once in lifecycle of app
     if existingRecords?.isEmpty ?? true {
+        print("## records are empty, populating")
         populatePredefinedData(modelContext: modelContext)
     }
 }

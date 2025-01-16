@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+import CoreData
 
 @main
 struct groma_newApp: App {
@@ -24,9 +25,20 @@ struct groma_newApp: App {
     }()
 
     init() {
-        checkAndPopulateData(modelContext: sharedModelContainer.mainContext)
+        setupNotificationObserver()
     }
-    
+
+    mutating func setupNotificationObserver() {
+        NotificationCenter.default.addObserver(
+            forName: NSPersistentCloudKitContainer.eventChangedNotification,
+            object: nil,
+            queue: OperationQueue.main) { [self] notification in
+                Task { @MainActor in
+                    checkAndPopulateData(modelContext: sharedModelContainer.mainContext)
+                }
+            }
+    }
+
     var body: some Scene {
         WindowGroup {
             TabView {
