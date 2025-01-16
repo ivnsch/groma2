@@ -3,6 +3,13 @@ import SwiftUI
 struct Theme {
     static let mainBg = Color(hex: "#ffe135")
     static let mainFg = Color(hex: "#fffbc9")
+    static let accent = Color(hex: "#000000")
+//    static let tabsBg = Color(hex: "#667218")
+//    static let tabsBg = Color(hex: "#ceb180")
+//    static let tabsBg = Color(hex: "#cc7722")
+//    static let tabsBg = Color(hex: "#d2b55b")
+    static let tabsBg = Color(hex: "#c49102")
+    static let tabsTint = Color(hex: "#ffffff")
 }
 
 extension Color {

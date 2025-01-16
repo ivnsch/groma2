@@ -43,6 +43,7 @@ struct TodoView: View {
                         TodoListItemView(item: toItemForView(item), onTap: {
                             moveToCart(cartItems: cartItems, todoItem: item, modelContext: modelContext)
                         }, onLongPress: {
+                            print("long press")
                             editingItem = item
                         })
                     }

@@ -42,20 +42,30 @@ struct groma_newApp: App {
     var body: some Scene {
         WindowGroup {
             TabView {
-                Tab("Todo", systemImage: "tray.and.arrow.down.fill") {
-                    TodoView(sharedModelContainer: sharedModelContainer)
-                }
-                Tab("Stats", systemImage: "tray.and.arrow.up.fill") {
-                    StatsView(modelContext: sharedModelContainer.mainContext)
-                }
-                Tab("History", systemImage: "tray.and.arrow.up.fill") {
-                    HistoryView()
-                }
-                Tab("More", systemImage: "tray.and.arrow.up.fill") {
-                    MoreView()
-                }
+                TodoView(sharedModelContainer: sharedModelContainer)
+                    .tabItem {
+                        Label("Todo", systemImage: "tray.and.arrow.down.fill")
+                    }
+                    .toolbarBackground(Theme.tabsBg, for: .tabBar)
+                StatsView(modelContext: sharedModelContainer.mainContext)
+                    .tabItem {
+                        Label("Stats", systemImage: "tray.and.arrow.up.fill")
+                    }
+                    .toolbarBackground(Theme.tabsBg, for: .tabBar)
+                HistoryView()
+                    .tabItem {
+                        Label("History", systemImage: "tray.and.arrow.up.fill")
+                    }
+                    .toolbarBackground(Theme.tabsBg, for: .tabBar)
+                MoreView()
+                    .tabItem {
+                        Label("More", systemImage: "tray.and.arrow.up.fill")
+                    }
+                    .toolbarBackground(Theme.tabsBg, for: .tabBar)
             }
-            .accentColor(Color(red: 101 / 255, green: 67 / 255, blue: 33 / 255))
+//            .tint(Theme.tabsTint)
+            .accentColor(Theme.accent)
+//            .foregroundColor(Theme.tabsAccent)
         }
         .modelContainer(sharedModelContainer)
     }
