@@ -5,16 +5,19 @@ struct EditingItemInputs {
     let name: String
     let price: Float
     let tag: String
+    let quantity: Int
 }
+
 
 struct AddEditItemView: View {
     @Environment(\.modelContext) private var modelContext
 
     @State private var itemName: String = ""
+    @State private var itemQuantity: String = ""
     @State private var itemPrice: String = ""
     @State private var selectedTag: String = ""
 
-    private let didSubmitItem: ((PredefItem) -> Void)?
+    private let didSubmitItem: ((PredefItem, Int) -> Void)?
     
     private let nameInput: String?
     private let editingInputs: EditingItemInputs?
@@ -25,9 +28,10 @@ struct AddEditItemView: View {
     
     // didSubmitItem is called after the predef item was added/edited and saved to data store
     // editingInput is todo list item context, nameInput is didn't find item in search context,
-    // note that we assume editingInputs and nameInput are not set at same time..,
-    // ideally we just pass general agnostic inputs but I'm too lazy to refactor now (should be easy)
-    init(editingInputs: EditingItemInputs? = nil, nameInput: String? = nil, didSubmitItem: ((PredefItem) -> Void)?) {
+    // QUANTITY IN CLOSURE IS NOT USED WHEN CONTEXT IS "ADD ITEM"
+    // we assume editingInputs and nameInput are not set at same time
+    // TODO refactor: use enums here. this makes all these explanations unnecessary and no "unused field"
+    init(editingInputs: EditingItemInputs? = nil, nameInput: String? = nil, didSubmitItem: ((PredefItem, Int) -> Void)?) {
         self.nameInput = nameInput
         self.editingInputs = editingInputs
         self.didSubmitItem = didSubmitItem
@@ -44,6 +48,25 @@ struct AddEditItemView: View {
                     TextField("", text: $itemName)
                         .textFieldStyle(.roundedBorder)
                     
+                    if editingInputs != nil {
+                        Text("Quantity:")
+                        HStack {
+                            Button("-") {
+                                // TODO validate
+                                var quantity = Int(itemQuantity)!
+                                quantity = max(quantity - 1, 0)
+                                itemQuantity = String(quantity)
+                            }
+                            TextField("", text: $itemQuantity)
+                                .textFieldStyle(.roundedBorder)
+                            Button("+") {
+                                var quantity = Int(itemQuantity)!
+                                quantity += 1
+                                itemQuantity = String(quantity)
+                            }
+                        }
+                    }
+                  
                     Text("Price:")
                     TextField("", text: $itemPrice)
                         .textFieldStyle(.roundedBorder)
@@ -63,6 +86,14 @@ struct AddEditItemView: View {
                         withAnimation {
                             // TODO validate, remove unwrap
                             let price = Float(itemPrice)!
+                            
+                            var quantity: Int;
+                            if editingInputs != nil {
+                                quantity = Int(itemQuantity)!
+                            } else {
+                                quantity = 0 // not used - dummy parameter
+                            }
+
                             // here predefItem acts essentially as inputs holder
                             let predefItem = PredefItem(name: itemName, price: price, tag: selectedTag)
                             
@@ -73,7 +104,7 @@ struct AddEditItemView: View {
                                 print("error in addOrEditItemAndSave")
                             }
                             
-                            didSubmitItem?(predefItem)
+                            didSubmitItem?(predefItem, quantity)
                         }
                     }
                 }
@@ -90,6 +121,7 @@ struct AddEditItemView: View {
                 if let inputs = editingInputs {
                     itemName = inputs.name
                     itemPrice = inputs.price.description
+                    itemQuantity = inputs.quantity.description
                     // note: assumes that the picker items will contain selected tag
                     // this should always be the case, because this comes from some item that's already stored
                     // and we get the tags from stored (predef) items

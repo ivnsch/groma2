@@ -42,10 +42,11 @@ struct TodoView: View {
                     ForEach(items) { item in
                         TodoListItemView(item: toItemForView(item), onTap: {
                             moveToCart(cartItems: cartItems, todoItem: item, modelContext: modelContext)
-                        }, onLongPress: {
+                        }, onDoubleTap: {
                             print("long press")
                             editingItem = item
-                        })
+                        }
+                        )
                     }
                     .onMove(perform: { indexSet, dest in
                         moveItem(from: indexSet, to: dest)
@@ -74,10 +75,10 @@ struct TodoView: View {
                 }
             })
             .popover(item: $editingItem, content: { item in
-                let editingItemInputs = EditingItemInputs(name: item.name ?? "", price: item.price, tag: item.tag)
-                AddEditItemView(editingInputs: editingItemInputs, didSubmitItem: { predefItem in
+                let editingItemInputs = EditingItemInputs(name: item.name ?? "", price: item.price, tag: item.tag, quantity: item.quantity)
+                AddEditItemView(editingInputs: editingItemInputs, didSubmitItem: { (predefItem, quantity) in
                     do {
-                        try editItem(editingItem: item, predefItem: predefItem)
+                        try editItem(editingItem: item, predefItem: predefItem, newQuantity: quantity)
                     } catch {
                         print("Error adding item: \(error)")
                     }
@@ -119,11 +120,13 @@ struct TodoView: View {
     }
     
     // called when user submits an edit. note that predef item is already saved
-    func editItem(editingItem: TodoItem, predefItem: PredefItem) throws {
+    // quantity is a separate field since specific to todo (not in predefined item)
+    func editItem(editingItem: TodoItem, predefItem: PredefItem, newQuantity: Int) throws {
         for item in items {
             if item.name == editingItem.name {
                 item.name = predefItem.name
                 item.price = predefItem.price
+                item.quantity = newQuantity
             }
         }
         do {
@@ -173,7 +176,7 @@ func toItemForView(_ item: TodoItem) -> TodoItemForView {
 struct TodoListItemView: View {
     let item: TodoItemForView
     let onTap: () -> Void
-    let onLongPress: () -> Void
+    let onDoubleTap: () -> Void
     
     var body: some View {
         Button(action: {
@@ -190,8 +193,8 @@ struct TodoListItemView: View {
             .onTapGesture(perform: {
                 onTap()
             })
-            .onLongPressGesture {
-                onLongPress()
+            .onTapGesture(count: 2) {
+                onDoubleTap()
             }
         }
     }

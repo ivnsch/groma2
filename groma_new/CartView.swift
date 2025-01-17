@@ -26,7 +26,7 @@ struct CartView: View {
                 List {
                     ForEach(items) { item in
                         TodoListItemView(item: toItemForView(item), onTap: {
-                        }, onLongPress: {
+                        }, onDoubleTap: {
                         })
                     }
                 }
