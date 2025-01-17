@@ -9,7 +9,9 @@ struct AddItemView: View {
 
     private let didAddItems: (([TodoItemToAdd]) -> Void)?
     
-    @Query private var items: [PredefItem]
+    @Query(sort: \PredefItem.usedCount, order: .reverse)
+    private var items: [PredefItem]
+    
     var filteredItems: [PredefItem] {
         if searchText.isEmpty {
             items

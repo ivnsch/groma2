@@ -78,10 +78,12 @@ final class PredefItem {
     var name: String?
     var price: Float = 0
     var tag: String = ""
+    var usedCount: Int = 0
     
-    init(name: String, price: Float, tag: String) {
+    init(name: String, price: Float, tag: String, usedCount: Int = 0) {
         self.name = name
         self.price = price
         self.tag = tag
+        self.usedCount = usedCount
     }
 }

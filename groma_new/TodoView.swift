@@ -211,6 +211,7 @@ struct AddItemPopup: View {
     }
 }
 
+// note context of updateQuantity here: we added more items (opposed to updating quantity in edit view)
 private func updateQuantityOrAddNewItem(items: [TodoItem], itemsToAdd: [TodoItemToAdd], modelContext: ModelContext) {
     let currentCount = items.count
     for (index, itemToAdd) in itemsToAdd.enumerated() {
@@ -222,11 +223,26 @@ private func updateQuantityOrAddNewItem(items: [TodoItem], itemsToAdd: [TodoItem
                                     quantity: itemToAdd.quantity, tag: itemToAdd.tag, order: currentCount + index)
             modelContext.insert(todoItem)
         }
+        increasePredefItemUsedCount(name: itemToAdd.name ?? "", modelContext: modelContext)
     }
     do {
         try modelContext.save()
     } catch {
         print("error saving: \(error)")
+    }
+}
+
+func increasePredefItemUsedCount(name: String, modelContext: ModelContext) {
+    do {
+        let descriptor = FetchDescriptor<PredefItem>()
+        let predefItems = try modelContext.fetch(descriptor)
+        for predefItem in predefItems {
+            if predefItem.name == name {
+                predefItem.usedCount += 1
+            }
+        }
+    } catch {
+        print("Error updating usedCount: \(error)")
     }
 }
 
