@@ -59,6 +59,7 @@ struct AddEditItemView: View {
                             }
                             TextField("", text: $itemQuantity)
                                 .textFieldStyle(.roundedBorder)
+                                .keyboardType(.numberPad)
                             Button("+") {
                                 var quantity = Int(itemQuantity)!
                                 quantity += 1
@@ -70,6 +71,7 @@ struct AddEditItemView: View {
                     Text("Price:")
                     TextField("", text: $itemPrice)
                         .textFieldStyle(.roundedBorder)
+                        .keyboardType(.numbersAndPunctuation)
                     
                     HStack {
                         Picker("Category", selection: $selectedTag) {
