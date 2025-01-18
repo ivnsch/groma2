@@ -24,8 +24,10 @@ struct AddEditItemView: View {
     
     @State private var tags: [String] = []
     
-    @State private var isAddTagPresented = false;
+    @State private var isAddTagPresented = false
     
+    @State private var showInvalidInputs = false
+
     // didSubmitItem is called after the predef item was added/edited and saved to data store
     // editingInput is todo list item context, nameInput is didn't find item in search context,
     // QUANTITY IN CLOSURE IS NOT USED WHEN CONTEXT IS "ADD ITEM"
@@ -44,6 +46,11 @@ struct AddEditItemView: View {
                 Theme.mainBg.ignoresSafeArea()
                 
                 VStack {
+                    if showInvalidInputs {
+                        Text("Invalid inputs")
+                            .foregroundStyle(.red)
+                    }
+                    
                     Text("Name:")
                     TextField("", text: $itemName)
                         .textFieldStyle(.roundedBorder)
@@ -86,27 +93,24 @@ struct AddEditItemView: View {
                     
                     Button(editingInputs == nil ? "Add" : "Edit") {
                         withAnimation {
-                            // TODO validate, remove unwrap
-                            let price = Float(itemPrice)!
+                            let validationResult = validateInputs(quantityExpected: editingInputs != nil)
                             
-                            var quantity: Int;
-                            if editingInputs != nil {
-                                quantity = Int(itemQuantity)!
-                            } else {
-                                quantity = 0 // not used - dummy parameter
+                            switch validationResult {
+                            case .valid(let inputs):
+                                // here predefItem acts essentially as inputs holder
+                                let predefItem = PredefItem(name: inputs.name, price: inputs.price, tag: inputs.tag)
+                                do {
+                                    try addOrEditItemAndSave(editingInputs: editingInputs, predefItem: predefItem, modelContext: modelContext)
+                                } catch {
+                                    // TODO error handling
+                                    print("error in addOrEditItemAndSave")
+                                }
+                                showInvalidInputs = false
+                                didSubmitItem?(predefItem, inputs.quantity)
+                            
+                            case .invalid:
+                                showInvalidInputs = true
                             }
-
-                            // here predefItem acts essentially as inputs holder
-                            let predefItem = PredefItem(name: itemName, price: price, tag: selectedTag)
-                            
-                            do {
-                                try addOrEditItemAndSave(editingInputs: editingInputs, predefItem: predefItem, modelContext: modelContext)
-                            } catch {
-                                // TODO error handling
-                                print("error in addOrEditItemAndSave")
-                            }
-                            
-                            didSubmitItem?(predefItem, quantity)
                         }
                     }
                 }
@@ -155,6 +159,46 @@ struct AddEditItemView: View {
         if !self.tags.contains(tag) {
             self.tags.append(tag)
         }
+    }
+    
+    private func validateInputs(quantityExpected: Bool) -> ValidationResult {
+        // price is optional: if nothing is entered, we handle as 0
+        itemPrice = itemPrice.isEmpty ? "0" : itemPrice
+        
+        guard let price = Float(itemPrice) else {
+            return .invalid
+        }
+        
+        // if quantity is empty, there can be 2 cases: it's expected (the UI is showing an input) in which case we force a 1
+        // (it doesn't make sense to add an item with 0 quantity), or it's not expected (the UI is not showing quantity, in which case we just manage
+        // a dummy / not used 0-value
+        itemQuantity = itemQuantity.isEmpty ? (quantityExpected ? "1" : "0") : itemQuantity
+
+        guard let quantity = Int(itemQuantity) else {
+            return .invalid
+        }
+        
+        return .valid(ValidInputs(name: itemName, quantity: quantity, price: price, tag: selectedTag))
+    }
+
+}
+
+enum ValidationResult {
+    case valid(ValidInputs)
+    case invalid
+}
+
+struct ValidInputs {
+    let name: String
+    let quantity: Int
+    let price: Float
+    let tag: String
+    
+    init(name: String, quantity: Int, price: Float, tag: String) {
+        self.name = name
+        self.quantity = quantity
+        self.price = price
+        self.tag = tag
     }
 }
 
