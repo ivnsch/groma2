@@ -31,6 +31,7 @@ struct CartView: View {
                         }, onDoubleTap: {
                         })
                     }
+                    .onDelete(perform: deleteItems)
                 }
                 .scrollContentBackground(.hidden)
                 Button("Buy") {
@@ -67,12 +68,26 @@ struct CartView: View {
     func toItemForView(_ item: CartItem) -> TodoItemForView {
         TodoItemForView(name: item.name ?? "", price: item.price, quantity: item.quantity, tag: item.tag)
     }
+    
+    private func deleteItems(offsets: IndexSet) {
+        withAnimation {
+            for index in offsets {
+                modelContext.delete(items[index])
+            }
+            do {
+                try modelContext.save()
+            } catch {
+                print("error saving: \(error)")
+            }
+        }
+    }
 }
 
 #Preview {
     CartView()
         .modelContainer(for: TodoItem.self, inMemory: true)
 }
+
 
 private func moveToTodo(todoItems: [TodoItem], cartItem: CartItem, modelContext: ModelContext) {
     // see if there's an item with same name to just increase quantity
