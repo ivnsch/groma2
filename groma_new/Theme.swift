@@ -13,6 +13,9 @@ struct Theme {
     static let tabsTint = Color(hex: "#ffffff")
     static let tabAccent = Color(hex: "#000000")
     static let secButtonBg = Color(hex: ocre)
+    static let primButtonBg = Color(hex: green)
+    static let primButtonFg = Color(Color.white)
+
 
     static let cornerRadiusBig = 14.0;
 

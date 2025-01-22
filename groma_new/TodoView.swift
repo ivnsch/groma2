@@ -67,14 +67,14 @@ struct TodoView: View {
                             Text(cartTotalQuantity.description).bold()
                         }
                         .padding(.horizontal, 20)
-                        .padding(.vertical, 20)
+                        .padding(.vertical, 10)
                         .background(Theme.secButtonBg)
                         .foregroundColor(Color.white)
                         .cornerRadius(Theme.cornerRadiusBig)
                     }
                 }
                 .padding(.horizontal, 20)
-                .padding(.vertical, 20)
+                .padding(.vertical, 10)
                 .sheet(isPresented: $showingCart) {
                     CartView(didBuy: {
                         showingCart = false

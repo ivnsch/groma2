@@ -34,7 +34,7 @@ struct CartView: View {
                     .onDelete(perform: deleteItems)
                 }
                 .scrollContentBackground(.hidden)
-                Button("Buy") {
+                Button {
                     withAnimation {
                         let boughtDate = Date()
                         // TODO all items in one transaction
@@ -50,7 +50,20 @@ struct CartView: View {
                         }
                         self.didBuy?()
                     }
+                } label: {
+                    Text("Buy")
+                        .bold()
+                        .frame(maxWidth: .infinity)
+                        .padding(.horizontal, 20)
+//                        .padding(.vertical, 10)
+                        .cornerRadius(Theme.cornerRadiusBig)
+
                 }
+                .tint(Theme.primButtonBg)
+                .foregroundColor(Theme.primButtonFg)
+                .buttonStyle(.borderedProminent)
+                .frame(maxWidth: .infinity)
+                .padding(.horizontal, 20)
             }
 #if os(macOS)
             .navigationSplitViewColumnWidth(min: 180, ideal: 200)
