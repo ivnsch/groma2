@@ -145,6 +145,19 @@ func groupItemsByDate(items: [BoughtItem]) -> [Date: [BoughtItem]] {
 
 private struct ListItemView: View {
     let boughtItem: BoughtItem
+    let formattedPrice: String;
+    
+    init(boughtItem: BoughtItem) {
+        self.boughtItem = boughtItem
+        
+        self.formattedPrice = {
+            if let localCurrency = Locale.current.currency {
+                boughtItem.price.formatted(.currency(code: localCurrency.identifier))
+            } else {
+                boughtItem.price.description
+            }
+        }()
+    }
     
     var body: some View {
         HStack {
@@ -152,7 +165,7 @@ private struct ListItemView: View {
             Spacer()
             VStack {
                 Text(boughtItem.quantity.description)
-                Text(boughtItem.price.description)
+                Text(formattedPrice)
             }
         }
     }

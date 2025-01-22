@@ -115,13 +115,26 @@ private struct ChartView: View {
 
 private struct ListHeaderView: View {
     let tag: BoughtItemsTagAggregate
+    let formattedPrice: String;
+
+    init(tag: BoughtItemsTagAggregate) {
+        self.tag = tag
+        
+        self.formattedPrice = {
+            if let localCurrency = Locale.current.currency {
+                tag.totalPrice.formatted(.currency(code: localCurrency.identifier))
+            } else {
+                tag.totalPrice.description
+            }
+        }()
+    }
     
     var body: some View {
         HStack {
             Text(tag.name)
             Spacer()
             VStack {
-                Text(tag.totalPrice.description)
+                Text(formattedPrice)
                 Text(tag.totalQuantity.description)
             }
         }
@@ -130,6 +143,19 @@ private struct ListHeaderView: View {
 
 private struct ListItemView: View {
     let item: BoughtItem
+    let formattedPrice: String;
+    
+    init(item: BoughtItem) {
+        self.item = item
+        
+        self.formattedPrice = {
+            if let localCurrency = Locale.current.currency {
+                item.price.formatted(.currency(code: localCurrency.identifier))
+            } else {
+                item.price.description
+            }
+        }()
+    }
     
     var body: some View {
         HStack {
@@ -137,7 +163,7 @@ private struct ListItemView: View {
             Spacer()
             VStack {
                 Text(item.quantity.description)
-                Text(item.price.description)
+                Text(formattedPrice)
             }
         }
     }
