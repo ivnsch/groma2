@@ -60,6 +60,7 @@ struct groma_newApp: App {
                     }
             }
             .accentColor(Theme.tabAccent)
+            .preferredColorScheme(.light)
 
         }
         
