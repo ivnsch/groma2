@@ -132,11 +132,13 @@ private struct ListHeaderView: View {
     var body: some View {
         HStack {
             Text(tag.name).bold().foregroundColor(Color.black)
+            Text(tag.totalQuantity.description)
+                .foregroundColor(Color.gray)
+                .fontWeight(.light)
+                .font(.system(size: 10))
+                .foregroundColor(Color.black)
             Spacer()
-            VStack {
-                Text(formattedPrice).bold().foregroundColor(Color.black)
-                Text(tag.totalQuantity.description).foregroundColor(Color.black)
-            }
+            Text(formattedPrice).bold().foregroundColor(Color.black)
         }
     }
 }
@@ -161,22 +163,17 @@ private struct ListItemView: View {
         HStack {
             Text(item.name ?? "")
                 .padding(.vertical, 0)
+            Text(item.quantity.description)
+                .foregroundColor(Color.gray)
+                .fontWeight(.light)
+                .font(.system(size: 13))
             Spacer()
             VStack {
                 HStack {
                     Spacer() // Pushes text to the right
                     Text(formattedPrice)
                 }
-                HStack {
-                    Spacer() // Pushes text to the right
-                    Text(item.quantity.description)
-                        .foregroundColor(Color.gray)
-                        .fontWeight(.light)
-                        .font(.system(size: 13))
-                    }
             }
-            .frame(maxWidth: .infinity, alignment: .trailing)
-
         }
         .frame(height: 44)
     }
