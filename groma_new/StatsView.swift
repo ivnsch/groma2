@@ -107,7 +107,6 @@ private struct ChartView: View {
             }
         }
         .aspectRatio(1, contentMode: .fit)
-        .padding()
     }
 }
 
