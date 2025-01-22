@@ -93,7 +93,8 @@ private struct ChartView: View {
         Chart(sections) { section in
             BarMark(x: .value("Price", section.header.totalPrice),
                     y: .value("Category", section.header.name))
-            .foregroundStyle(by: .value("Type", section.header.name))
+//            .foregroundStyle(by: .value("Type", section.header.name))
+            .foregroundStyle(Theme.accentSec)
 //            .annotation(position: .trailing) {
 //                Text(String(section.header.totalPrice.description))
 //                    .foregroundColor(Theme.secButtonBg)

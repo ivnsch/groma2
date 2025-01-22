@@ -2,6 +2,7 @@ import SwiftUI
 
 private let green = "#667218"
 private let ocre = "#c49102"
+private let greyDark = "#333333"
 
 struct Theme {
     static let mainBg = Color(hex: "#ffe135")
@@ -17,6 +18,7 @@ struct Theme {
     static let secButtonFg = Color(Color.white)
     static let primButtonBg = Color(hex: green)
     static let primButtonFg = Color(Color.white)
+    static let accentSec = Color(hex: greyDark)
 
 
     static let cornerRadiusBig = 14.0;
