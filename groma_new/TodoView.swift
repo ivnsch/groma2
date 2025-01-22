@@ -208,8 +208,8 @@ struct TodoListItemView: View {
                 VStack {
                     Text(item.quantity.description)
                         .foregroundColor(Color.black)
-                    Text(item.price.description)
-                        .foregroundColor(Color.black)
+//                    Text(item.price.description)
+//                        .foregroundColor(Color.black)
 
                 }
             }
@@ -220,6 +220,7 @@ struct TodoListItemView: View {
             .onTapGesture(count: 2) {
                 onDoubleTap()
             }
+            .padding(.vertical, 14)
         }
         .padding(.horizontal, 0)
     }
