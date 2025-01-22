@@ -53,9 +53,24 @@ struct TodoView: View {
                     })
                     .onDelete(perform: deleteItems)
                 }
-                Button("Cart") {
-                   showingCart.toggle()
-               }
+                ZStack {
+                    Button {
+                       showingCart.toggle()
+                    } label: {
+                        HStack {
+                            Text("Cart").bold()
+                            Spacer()
+                            Text("123").bold()
+                        }
+                        .padding(.horizontal, 20)
+                        .padding(.vertical, 20)
+                        .background(Theme.secButtonBg)
+                        .foregroundColor(Color.white)
+                        .cornerRadius(Theme.cornerRadiusBig)
+                    }
+                }
+                .padding(.horizontal, 20)
+                .padding(.vertical, 20)
                 .sheet(isPresented: $showingCart) {
                     CartView(didBuy: {
                         showingCart = false
@@ -63,6 +78,7 @@ struct TodoView: View {
                         .presentationDetents([.large])
                 }
             }
+            .padding(.vertical, 10)
             .scrollContentBackground(.hidden)
             .navigationTitle("To do")
 #if os(iOS)
@@ -197,6 +213,7 @@ struct TodoListItemView: View {
                 onDoubleTap()
             }
         }
+        .padding(.horizontal, 0)
     }
 }
 
