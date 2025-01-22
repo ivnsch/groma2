@@ -9,6 +9,9 @@ import SwiftUI
 import SwiftData
 import CoreData
 import TipKit
+import SwiftyBeaver
+
+let logger = SwiftyBeaver.self
 
 @main
 struct groma_newApp: App {
@@ -27,6 +30,12 @@ struct groma_newApp: App {
 
     init() {
         setupNotificationObserver()
+        
+        let console = ConsoleDestination()
+        console.logPrintWay = .logger(subsystem: "Main", category: "UI")
+        logger.addDestination(console)
+        
+        logger.debug("hello logging!")
     }
 
     mutating func setupNotificationObserver() {

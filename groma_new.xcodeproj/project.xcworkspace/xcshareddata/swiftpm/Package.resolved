@@ -1,5 +1,5 @@
 {
-  "originHash" : "00398ece5b8c1a1be5b1a79c6b5417558509a282b2721d1d128d58d127516896",
+  "originHash" : "97e6d39756cb3812420eb0fa42c0c59e3e337a996af6852e7ab86def384c37b3",
   "pins" : [
     {
       "identity" : "swiftui-flow",
@@ -8,6 +8,15 @@
       "state" : {
         "revision" : "860e93ec067265aad13c5632141e8757ae97c545",
         "version" : "3.0.0"
+      }
+    },
+    {
+      "identity" : "swiftybeaver",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SwiftyBeaver/SwiftyBeaver.git",
+      "state" : {
+        "revision" : "8cba041db09596183331d123f337d0eb2e6e8e91",
+        "version" : "2.1.1"
       }
     }
   ],
