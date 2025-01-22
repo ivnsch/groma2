@@ -17,6 +17,16 @@ struct HistoryView: View {
     @Query(sort: [SortDescriptor(\BoughtItem.boughtDate, order: .reverse)])
     private var allItems: [BoughtItem]
 
+    let dateFormatter: DateFormatter
+    
+    init() {
+        dateFormatter = DateFormatter()
+        // year seems overkill - user unlikely to scroll back that much
+        dateFormatter.dateFormat = "EEEE, dd MMM HH:mm"
+//        dateFormatter.dateFormat = "EEEE, dd MMM yyyy HH:mm"
+        dateFormatter.locale = Locale.current // Uses the device's locale
+        dateFormatter.timeZone = TimeZone.current
+    }
     var sections: [HistorySection] {
       toSections(items: allItems)
     }
@@ -33,7 +43,7 @@ struct HistoryView: View {
                List {
                     ForEach(sections) { section in
                         Section(header: HStack {
-                            ListHeaderView(section: section)
+                            ListHeaderView(section: section, dateFormatter: dateFormatter)
                         }) {
                             ForEach(section.boughtItems) { boughtItem in
                                 ListItemView(boughtItem: boughtItem)
@@ -173,10 +183,16 @@ private struct ListItemView: View {
 
 private struct ListHeaderView: View {
     let section: HistorySection
+    let dateFormatter: DateFormatter
+   
+    init(section: HistorySection, dateFormatter: DateFormatter) {
+        self.section = section
+        self.dateFormatter = dateFormatter
+    }
     
     var body: some View {
         HStack {
-            Text(section.date.description)
+            Text(dateFormatter.string(from: section.date))
             Spacer()
         }
     }
