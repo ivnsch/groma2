@@ -96,7 +96,7 @@ private struct ChartView: View {
             .foregroundStyle(by: .value("Type", section.header.name))
             .annotation(position: .trailing) {
                 Text(String(section.header.totalPrice.description))
-                    .foregroundColor(Color.black)
+                    .foregroundColor(Theme.secButtonBg)
             }
         }
         .chartLegend(.hidden)
