@@ -5,7 +5,8 @@ private let ocre = "#c49102"
 
 struct Theme {
     static let mainBg = Color(hex: "#ffe135")
-    static let mainFg = Color(hex: "#fffbc9")
+//    static let mainFg = Color(hex: "#fffbc9")
+    static let mainFg = Color(hex: "#ffe135")
     static let accent = Color(hex: "#000000")
 //    static let tabsBg = Color(hex: "#667218")
 //    static let tabsBg = Color(hex: "#cc7722")
@@ -13,6 +14,7 @@ struct Theme {
     static let tabsTint = Color(hex: "#ffffff")
     static let tabAccent = Color(hex: "#000000")
     static let secButtonBg = Color(hex: ocre)
+    static let secButtonFg = Color(Color.white)
     static let primButtonBg = Color(hex: green)
     static let primButtonFg = Color(Color.white)
 

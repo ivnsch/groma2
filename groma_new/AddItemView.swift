@@ -41,6 +41,7 @@ struct AddItemView: View {
                 Theme.mainBg
                 VStack {
                     Text(viewModel.currentItemsText())
+                        .padding(.horizontal, 20)
                     if filteredItems.isEmpty {
                         NoItemsView(onTapAdd: {
                             isAddEditItemPresented = true
@@ -61,8 +62,20 @@ struct AddItemView: View {
                     }) {
                         HStack {
                             Text("Add items")
+                                .foregroundColor(Theme.primButtonFg)
+                                .frame(maxWidth: .infinity)
                         }
+                        .frame(maxWidth: .infinity)
+                        .cornerRadius(Theme.cornerRadiusBig)
+
                     }
+                    .cornerRadius(Theme.cornerRadiusBig)
+                    .padding(.horizontal, 20)
+                    .frame(maxWidth: .infinity)
+                    .tint(Theme.primButtonBg)
+                    .buttonStyle(.borderedProminent)
+                    .cornerRadius(Theme.cornerRadiusBig)
+            
                 }
                 .navigationTitle("Add item")
 #if os(iOS)
@@ -122,8 +135,9 @@ struct ItemsView: View {
                         }
                     }
                     .padding(4)
-                    .buttonStyle(.bordered)
-                    .tint(.blue)
+                    .buttonStyle(.borderedProminent)
+                    .tint(Theme.secButtonBg)
+                    .foregroundColor(Theme.secButtonFg)
                 }
             }
             .frame(maxWidth: .infinity) // Ensure HFlow expands to full width
