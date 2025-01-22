@@ -94,10 +94,10 @@ private struct ChartView: View {
             BarMark(x: .value("Price", section.header.totalPrice),
                     y: .value("Category", section.header.name))
             .foregroundStyle(by: .value("Type", section.header.name))
-            .annotation(position: .trailing) {
-                Text(String(section.header.totalPrice.description))
-                    .foregroundColor(Theme.secButtonBg)
-            }
+//            .annotation(position: .trailing) {
+//                Text(String(section.header.totalPrice.description))
+//                    .foregroundColor(Theme.secButtonBg)
+//            }
         }
         .chartLegend(.hidden)
         .chartXAxis(.hidden)
