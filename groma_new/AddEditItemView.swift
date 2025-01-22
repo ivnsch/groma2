@@ -126,8 +126,7 @@ struct AddEditItemView: View {
                                 do {
                                     try addOrEditItemAndSave(editingInputs: editingInputs, predefItem: predefItem, modelContext: modelContext)
                                 } catch {
-                                    // TODO error handling
-                                    print("error in addOrEditItemAndSave")
+                                    logger.error("error in addOrEditItemAndSave")
                                 }
                                 showInvalidInputs = false
                                 didSubmitItem?(predefItem, inputs.quantity)
@@ -243,7 +242,7 @@ private func existingTags(modelContext: ModelContext) -> [String] {
         
         return sortedTags
     } catch {
-        print("error fetching predefined items in existing tags")
+        logger.error("error fetching predefined items in existing tags: \(error)")
         return []
     }
 }
@@ -258,7 +257,7 @@ private func addOrEditItemAndSave(editingInputs: EditingItemInputs?, predefItem:
     do {
         try modelContext.save()
     } catch {
-        print("error saving: \(error)")
+        logger.error("error saving: \(error)")
     }
     
 }

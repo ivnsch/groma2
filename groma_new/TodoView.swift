@@ -50,7 +50,6 @@ struct TodoView: View {
                         TodoListItemView(item: toItemForView(item), onTap: {
                             moveToCart(cartItems: cartItems, todoItem: item, modelContext: modelContext)
                         }, onDoubleTap: {
-                            print("long press")
                             hintTip.invalidate(reason: .actionPerformed)
                             editingItem = item
                         }
@@ -111,7 +110,7 @@ struct TodoView: View {
                     do {
                         try editItem(editingItem: item, predefItem: predefItem, newQuantity: quantity)
                     } catch {
-                        print("Error adding item: \(error)")
+                        logger.error("Error editing item: \(error)")
                     }
                     editingItem = nil
                 })
@@ -163,7 +162,7 @@ struct TodoView: View {
         do {
             try modelContext.save()
         } catch {
-            print("error saving: \(error)")
+            logger.error("Error saving: \(error)")
         }
     }
 
@@ -179,7 +178,7 @@ struct TodoView: View {
             do {
                 try modelContext.save()
             } catch {
-                print("error saving: \(error)")
+                logger.error("Error saving: \(error)")
             }
         }
     }
@@ -265,7 +264,7 @@ private func updateQuantityOrAddNewItem(items: [TodoItem], itemsToAdd: [TodoItem
     do {
         try modelContext.save()
     } catch {
-        print("error saving: \(error)")
+        logger.error("Error saving: \(error)")
     }
 }
 
@@ -279,7 +278,7 @@ func increasePredefItemUsedCount(name: String, modelContext: ModelContext) {
             }
         }
     } catch {
-        print("Error updating usedCount: \(error)")
+        logger.error("Error updating usedCount: \(error)")
     }
 }
 
@@ -308,7 +307,7 @@ private func moveToCart(cartItems: [CartItem], todoItem: TodoItem, modelContext:
     do {
         try modelContext.save()
     } catch {
-        print("error saving: \(error)")
+        logger.error("Error saving: \(error)")
     }
 }
 

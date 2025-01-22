@@ -52,8 +52,7 @@ struct AddItemView: View {
                                 try viewModel.addItem(predefItem: item)
                                 searchText = ""
                             } catch {
-                                // TODO error popups
-                                print("Error adding item: \(error)")
+                                logger.error("error adding item: \(error)")
                             }
                         })
                     }
@@ -92,7 +91,7 @@ struct AddItemView: View {
                     do {
                         try viewModel.addItem(predefItem: predefItem)
                     } catch {
-                        print("Error adding item: \(error)")
+                        logger.error("error adding item: \(error)")
                     }
                     isAddEditItemPresented = false
                 }

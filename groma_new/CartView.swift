@@ -46,7 +46,7 @@ struct CartView: View {
                         do {
                             try modelContext.save()
                         } catch {
-                            print("error saving: \(error)")
+                            logger.error("error saving: \(error)")
                         }
                         self.didBuy?()
                     }
@@ -90,7 +90,7 @@ struct CartView: View {
             do {
                 try modelContext.save()
             } catch {
-                print("error saving: \(error)")
+                logger.error("error saving: \(error)")
             }
         }
     }
@@ -113,7 +113,7 @@ private func moveToTodo(todoItems: [TodoItem], cartItem: CartItem, modelContext:
     do {
         try modelContext.save()
     } catch {
-        print("error saving: \(error)")
+        logger.error("error saving: \(error)")
     }
 }
 

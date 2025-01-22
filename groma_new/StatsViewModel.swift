@@ -44,7 +44,7 @@ extension StatsView {
                 
                 selectedMonth = currentMonth()
             } catch {
-                print("Fetch failed")
+                logger.error("Fetch failed: \(error)")
             }
         }
         

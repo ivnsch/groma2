@@ -90,7 +90,7 @@ struct HistoryView: View {
         do {
             try modelContext.save()
         } catch {
-            print("error saving: \(error)")
+            logger.error("error saving: \(error)")
         }
     }
     
@@ -102,7 +102,7 @@ struct HistoryView: View {
         do {
             try modelContext.save()
         } catch {
-            print("error saving: \(error)")
+            logger.error("error saving: \(error)")
         }
     }
     

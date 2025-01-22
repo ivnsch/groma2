@@ -28,7 +28,7 @@ struct ToolsView: View {
         do {
             try clearAllData()
         } catch {
-            print("error clearing all data: " + error.localizedDescription)
+            logger.error("Error clearing all data: \(error)")
         }
     }
     

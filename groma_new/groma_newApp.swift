@@ -35,7 +35,7 @@ struct groma_newApp: App {
         console.logPrintWay = .logger(subsystem: "Main", category: "UI")
         logger.addDestination(console)
         
-        logger.debug("hello logging!")
+        logger.verbose("hello logging!")
     }
 
     mutating func setupNotificationObserver() {

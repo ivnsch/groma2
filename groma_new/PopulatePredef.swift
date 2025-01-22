@@ -80,8 +80,8 @@ func populatePredefinedData(modelContext: ModelContext) {
     
     do {
         try modelContext.save()
-        print("Predefined data added successfully.")
+        logger.debug("Predefined data added successfully.")
     } catch {
-        print("Error saving predefined data: \(error)")
+        logger.error("error saving predefined data: \(error)")
     }
 }
