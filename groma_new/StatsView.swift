@@ -131,11 +131,11 @@ private struct ListHeaderView: View {
     
     var body: some View {
         HStack {
-            Text(tag.name)
+            Text(tag.name).bold().foregroundColor(Color.black)
             Spacer()
             VStack {
-                Text(formattedPrice)
-                Text(tag.totalQuantity.description)
+                Text(formattedPrice).bold().foregroundColor(Color.black)
+                Text(tag.totalQuantity.description).foregroundColor(Color.black)
             }
         }
     }
@@ -160,11 +160,16 @@ private struct ListItemView: View {
     var body: some View {
         HStack {
             Text(item.name ?? "")
+                .padding(.vertical, 0)
             Spacer()
             VStack {
-                Text(item.quantity.description)
                 Text(formattedPrice)
+                    
+                Text(item.quantity.description).foregroundColor(Color.gray).fontWeight(.light).font(.system(size: 13))
+                    .padding(.top, 0.1)
+
             }
         }
+        .frame(height: 44)
     }
 }
