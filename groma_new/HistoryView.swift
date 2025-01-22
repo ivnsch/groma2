@@ -172,9 +172,13 @@ private struct ListItemView: View {
     var body: some View {
         HStack {
             Text(boughtItem.name ?? "")
+            Text(boughtItem.quantity.description)
+                .foregroundColor(Color.gray)
+                .fontWeight(.light)
+                .font(.system(size: 10))
+                .foregroundColor(Color.black)
             Spacer()
             VStack {
-                Text(boughtItem.quantity.description)
                 Text(formattedPrice)
             }
         }

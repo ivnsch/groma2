@@ -162,7 +162,6 @@ private struct ListItemView: View {
     var body: some View {
         HStack {
             Text(item.name ?? "")
-                .padding(.vertical, 0)
             Text(item.quantity.description)
                 .foregroundColor(Color.gray)
                 .fontWeight(.light)
@@ -175,6 +174,5 @@ private struct ListItemView: View {
                 }
             }
         }
-        .frame(height: 44)
     }
 }
