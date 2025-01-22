@@ -97,6 +97,12 @@ struct TodoView: View {
                 AddItemView(modelContext: sharedModelContainer.mainContext) { itemsToAdd in
                     updateQuantityOrAddNewItem(items: items, itemsToAdd: itemsToAdd, modelContext: modelContext)
                     isAddItemPresented = false
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                        Task {
+                            await HintTooltip.myEvent.donate()
+                        }
+                    }
+                 
                 }
             })
             .popover(item: $editingItem, content: { item in
@@ -321,6 +327,14 @@ private func updateCartQuantityIfAlreadyExistent(cartItems: [CartItem], itemToAd
 }
 
 struct HintTooltip: Tip {
+    static let myEvent = Event(id: "myhintevent")
+    
+    var rules: [Rule] = [
+        #Rule(Self.myEvent) { event in
+            event.donations.count > 0
+        }
+    ]
+    
     var title: Text {
         Text("Edit items")
     }

@@ -64,6 +64,7 @@ struct groma_newApp: App {
             .preferredColorScheme(.light)
 
             .task {
+//                try? Tips.resetDatastore() // reset tips during development
                 try? Tips.configure([
                     .datastoreLocation(.applicationDefault)
                 ])
