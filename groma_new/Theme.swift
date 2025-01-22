@@ -8,8 +8,11 @@ struct Theme {
 //    static let tabsBg = Color(hex: "#ceb180")
 //    static let tabsBg = Color(hex: "#cc7722")
 //    static let tabsBg = Color(hex: "#d2b55b")
-    static let tabsBg = Color(hex: "#c49102")
+//    static let tabsBg = Color(hex: "#c49102")
+//    static let tabsBg = Color(hex: "#000000")
     static let tabsTint = Color(hex: "#ffffff")
+    static let tabAccent = Color(hex: "#000000")
+
 }
 
 extension Color {
