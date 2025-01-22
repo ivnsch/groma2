@@ -199,10 +199,14 @@ struct TodoListItemView: View {
         }) {
             HStack {
                 Text(item.name)
+                    .foregroundColor(Color.black)
                 Spacer()
                 VStack {
                     Text(item.quantity.description)
+                        .foregroundColor(Color.black)
                     Text(item.price.description)
+                        .foregroundColor(Color.black)
+
                 }
             }
             .contentShape(Rectangle())
