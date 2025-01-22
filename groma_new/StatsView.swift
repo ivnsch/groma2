@@ -72,7 +72,9 @@ struct StatsView: View {
           
             .scrollContentBackground(.hidden)
             .navigationTitle("Stats")
+#if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
+#endif
             .background(Theme.mainBg.ignoresSafeArea())
             .onAppear() {
                 self.viewModel.fetchData()

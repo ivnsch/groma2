@@ -33,7 +33,9 @@ struct MoreView: View {
             .toolbar {
             }
             .navigationTitle("More")
+#if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
+#endif
             .background(Theme.mainBg.ignoresSafeArea())
         }
     }

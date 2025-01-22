@@ -12,8 +12,9 @@ struct HistoryView: View {
     @Environment(\.modelContext) private var modelContext
     
     @State private var showingConfirmDelete = false
+#if os(iOS)
     @State private var editMode: EditMode = EditMode.inactive
-
+#endif
     @Query(sort: [SortDescriptor(\BoughtItem.boughtDate, order: .reverse)])
     private var allItems: [BoughtItem]
 
@@ -34,12 +35,14 @@ struct HistoryView: View {
     var body: some View {
         NavigationStack {
             VStack {
+#if os(iOS)
                 if $editMode.wrappedValue == .active {
                    Text("Editing Mode Activated")
                        .padding()
                        .background(Theme.mainBg)
                        .cornerRadius(8)
                }
+#endif
                List {
                     ForEach(sections) { section in
                         Section(header: HStack {
@@ -75,8 +78,9 @@ struct HistoryView: View {
                 Text("This will delete all your history and stats")
             }
         }
+#if os(iOS)
         .environment(\.editMode, $editMode)
-
+#endif
     }
     
     private func deleteAllItems() {

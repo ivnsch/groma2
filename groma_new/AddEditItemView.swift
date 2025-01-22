@@ -69,9 +69,11 @@ struct AddEditItemView: View {
                             .foregroundColor(Color.black)
                             TextField("", text: $itemQuantity)
                                 .textFieldStyle(.roundedBorder)
+#if os(iOS)
                                 .keyboardType(.numberPad)
-                                .frame(width: 50)
                                 .multilineTextAlignment(.center)
+#endif
+                                .frame(width: 50)
                             Button("+") {
                                 var quantity = Int(itemQuantity)!
                                 quantity += 1
@@ -85,9 +87,11 @@ struct AddEditItemView: View {
                     Text("Price:")
                     TextField("", text: $itemPrice)
                         .textFieldStyle(.roundedBorder)
+#if os(iOS)
                         .keyboardType(.numbersAndPunctuation)
-                        .frame(width: 100)
                         .multilineTextAlignment(.center)
+#endif
+                        .frame(width: 100)
 
                     Spacer().frame(height: spacerHeight)
                     Text("Category:")
