@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+import TipKit
 
 struct TodoView: View {
     @Environment(\.modelContext) private var modelContext
@@ -23,6 +24,8 @@ struct TodoView: View {
     @State private var showingCart = false
 
     @State private var editingItem: TodoItem?
+    
+    let hintTip = HintTooltip()
     
     var cartTotalQuantity : Int {
         cartItems.reduce(0) { $0 + $1.quantity }
@@ -48,6 +51,7 @@ struct TodoView: View {
                             moveToCart(cartItems: cartItems, todoItem: item, modelContext: modelContext)
                         }, onDoubleTap: {
                             print("long press")
+                            hintTip.invalidate(reason: .actionPerformed)
                             editingItem = item
                         }
                         )
@@ -57,6 +61,7 @@ struct TodoView: View {
                     })
                     .onDelete(perform: deleteItems)
                 }
+                .popoverTip(hintTip)
                 ZStack {
                     Button {
                        showingCart.toggle()
@@ -313,4 +318,14 @@ private func updateCartQuantityIfAlreadyExistent(cartItems: [CartItem], itemToAd
         }
     }
     return updatedExistingItem
+}
+
+struct HintTooltip: Tip {
+    var title: Text {
+        Text("Edit items")
+    }
+    
+    var message: Text? {
+        Text("Double tap on rows to edit")
+    }
 }

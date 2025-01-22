@@ -8,6 +8,7 @@
 import SwiftUI
 import SwiftData
 import CoreData
+import TipKit
 
 @main
 struct groma_newApp: App {
@@ -62,6 +63,11 @@ struct groma_newApp: App {
             .accentColor(Theme.tabAccent)
             .preferredColorScheme(.light)
 
+            .task {
+                try? Tips.configure([
+                    .datastoreLocation(.applicationDefault)
+                ])
+            }
         }
         
         .modelContainer(sharedModelContainer)
