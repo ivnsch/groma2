@@ -163,12 +163,20 @@ private struct ListItemView: View {
                 .padding(.vertical, 0)
             Spacer()
             VStack {
-                Text(formattedPrice)
-                    
-                Text(item.quantity.description).foregroundColor(Color.gray).fontWeight(.light).font(.system(size: 13))
-                    .padding(.top, 0.1)
-
+                HStack {
+                    Spacer() // Pushes text to the right
+                    Text(formattedPrice)
+                }
+                HStack {
+                    Spacer() // Pushes text to the right
+                    Text(item.quantity.description)
+                        .foregroundColor(Color.gray)
+                        .fontWeight(.light)
+                        .font(.system(size: 13))
+                    }
             }
+            .frame(maxWidth: .infinity, alignment: .trailing)
+
         }
         .frame(height: 44)
     }
