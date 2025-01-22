@@ -96,7 +96,7 @@ private struct ChartView: View {
             .foregroundStyle(by: .value("Type", section.header.name))
             .annotation(position: .trailing) {
                 Text(String(section.header.totalPrice.description))
-                    .foregroundColor(.gray)
+                    .foregroundColor(Color.black)
             }
         }
         .chartLegend(.hidden)
@@ -104,6 +104,7 @@ private struct ChartView: View {
         .chartYAxis {
             AxisMarks { _ in
                 AxisValueLabel()
+                    .foregroundStyle(Color.black)
             }
         }
         .aspectRatio(1, contentMode: .fit)
