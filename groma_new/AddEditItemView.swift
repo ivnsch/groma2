@@ -28,6 +28,7 @@ struct AddEditItemView: View {
     
     @State private var showInvalidInputs = false
 
+    private let spacerHeight = 20.0;
     // didSubmitItem is called after the predef item was added/edited and saved to data store
     // editingInput is todo list item context, nameInput is didn't find item in search context,
     // QUANTITY IN CLOSURE IS NOT USED WHEN CONTEXT IS "ADD ITEM"
@@ -54,7 +55,8 @@ struct AddEditItemView: View {
                     Text("Name:")
                     TextField("", text: $itemName)
                         .textFieldStyle(.roundedBorder)
-                    
+                        .multilineTextAlignment(.center)
+                    Spacer().frame(height: spacerHeight)
                     if editingInputs != nil {
                         Text("Quantity:")
                         HStack {
@@ -64,33 +66,51 @@ struct AddEditItemView: View {
                                 quantity = max(quantity - 1, 0)
                                 itemQuantity = String(quantity)
                             }
+                            .foregroundColor(Color.black)
                             TextField("", text: $itemQuantity)
                                 .textFieldStyle(.roundedBorder)
                                 .keyboardType(.numberPad)
+                                .frame(width: 50)
+                                .multilineTextAlignment(.center)
                             Button("+") {
                                 var quantity = Int(itemQuantity)!
                                 quantity += 1
                                 itemQuantity = String(quantity)
                             }
+                            .foregroundColor(Color.black)
                         }
                     }
-                  
+                    Spacer().frame(height: spacerHeight)
+
                     Text("Price:")
                     TextField("", text: $itemPrice)
                         .textFieldStyle(.roundedBorder)
                         .keyboardType(.numbersAndPunctuation)
-                    
+                        .frame(width: 100)
+                        .multilineTextAlignment(.center)
+
+                    Spacer().frame(height: spacerHeight)
+                    Text("Category:")
+
                     HStack {
                         Picker("Category", selection: $selectedTag) {
                             ForEach(tags, id: \.self) { tag in
                                 Text(tag)
+                                    .foregroundColor(Color.black)
                             }
                         }
-                        Button("New category") {
+                        .accentColor(Color.black)
+                        .frame(width: 110)
+                        Text("|")
+                            .foregroundColor(Color.black)
+                            .frame(minWidth: 10)
+                        Button("New") {
                             isAddTagPresented = true
                         }
+                        .foregroundColor(Color.black)
                     }
-                    
+                    Spacer().frame(height: spacerHeight)
+
                     Button(editingInputs == nil ? "Add" : "Edit") {
                         withAnimation {
                             let validationResult = validateInputs(quantityExpected: editingInputs != nil)
@@ -113,6 +133,13 @@ struct AddEditItemView: View {
                             }
                         }
                     }
+                    .cornerRadius(Theme.cornerRadiusBig)
+                    .padding(.horizontal, 20)
+                    .frame(width: 200)
+                    .tint(Theme.primButtonBg)
+                    .foregroundColor(Theme.primButtonFg)
+                    .buttonStyle(.borderedProminent)
+                    .cornerRadius(Theme.cornerRadiusBig)
                 }
                 .padding(.horizontal, 100)
             }
