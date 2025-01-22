@@ -23,7 +23,11 @@ struct TodoView: View {
     @State private var showingCart = false
 
     @State private var editingItem: TodoItem?
-
+    
+    var cartTotalQuantity : Int {
+        cartItems.reduce(0) { $0 + $1.quantity }
+    }
+    
     init(sharedModelContainer: ModelContainer) {
         self.sharedModelContainer = sharedModelContainer
     }
@@ -60,7 +64,7 @@ struct TodoView: View {
                         HStack {
                             Text("Cart").bold()
                             Spacer()
-                            Text("123").bold()
+                            Text(cartTotalQuantity.description).bold()
                         }
                         .padding(.horizontal, 20)
                         .padding(.vertical, 20)
