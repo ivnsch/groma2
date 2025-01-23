@@ -58,6 +58,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		6A1B05912D422051004D23A8 /* Exceptions for "groma_new" folder in "watchapp Watch App" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Item.swift,
+			);
+			target = 6A1B05442D416C3A004D23A8 /* watchapp Watch App */;
+		};
 		6AA080CD2D2D31270087FCBD /* Exceptions for "groma_new" folder in "groma_new" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -77,6 +84,7 @@
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				6AA080CD2D2D31270087FCBD /* Exceptions for "groma_new" folder in "groma_new" target */,
+				6A1B05912D422051004D23A8 /* Exceptions for "groma_new" folder in "watchapp Watch App" target */,
 			);
 			path = groma_new;
 			sourceTree = "<group>";
