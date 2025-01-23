@@ -17,25 +17,38 @@ struct ContentView: View {
     ]
     
     var body: some View {
-        VStack {
-            List {
-                ForEach(items) { item in
-                    TodoListItemView(item: toItemForView(item), onTap: {
-                        print("tapped item: \(item)")
-                        // just a direct delete since no cloudkit yet
-                        if let index = self.items.firstIndex(where: { $0.name == item.name }) {
-                        _ = withAnimation {
-                            self.items.remove(at: index)
-                        }
-                       }
-                    })
+        ZStack {
+            Theme.mainBg
+                .edgesIgnoringSafeArea(.all)
+            VStack {
+                List {
+                    ForEach(items) { item in
+                        TodoListItemView(item: toItemForView(item), onTap: {
+                            print("tapped item: \(item)")
+                            // just a direct delete since no cloudkit yet
+                            if let index = self.items.firstIndex(where: { $0.name == item.name }) {
+                            _ = withAnimation {
+                                self.items.remove(at: index)
+                            }
+                           }
+                        })
+                        .padding(4) // Adds spacing so the rounded background is visible
+                        .background(
+                            RoundedRectangle(cornerRadius: Theme.cornerRadiusBig)
+                                .fill(Theme.mainFg) // Your custom color
+                        )
+                        .listRowBackground(Color.clear)
+                    }
+
+                    
                 }
             }
+            .padding()
+            .onAppear {
+                print(items)
+            }
         }
-        .padding()
-        .onAppear {
-            print(items)
-        }
+       
     }
        
 }
