@@ -62,6 +62,7 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Item.swift,
+				TodoItemForView.swift,
 			);
 			target = 6A1B05442D416C3A004D23A8 /* watchapp Watch App */;
 		};
