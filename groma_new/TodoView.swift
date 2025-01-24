@@ -154,9 +154,13 @@ struct TodoView: View {
     func editItem(editingItem: TodoItem, predefItem: PredefItem, newQuantity: Int) throws {
         for item in items {
             if item.name == editingItem.name {
-                item.name = predefItem.name
-                item.price = predefItem.price
-                item.quantity = newQuantity
+                if newQuantity == 0 {
+                    modelContext.delete(item)
+                } else {
+                    item.name = predefItem.name
+                    item.price = predefItem.price
+                    item.quantity = newQuantity
+                }
             }
         }
         do {
