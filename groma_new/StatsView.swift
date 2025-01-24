@@ -91,14 +91,26 @@ struct StatsView: View {
 private struct ChartView: View {
     let sections: [BoughtItemsByTagSection]
     
+    let max: Float
+    
+    @State private var progress: Float = 0
+
+    init(sections: [BoughtItemsByTagSection]) {
+        self.sections = sections
+        max = sections.map(\.header.totalPrice).max() ?? 0
+    }
+
     var body: some View {
         Chart(sections) { section in
-            BarMark(x: .value("Price", section.header.totalPrice),
+            BarMark(x: .value("Price", section.header.totalPrice * progress),
                     y: .value("Category", section.header.name))
             .foregroundStyle(Theme.accentSec)
+            .position(by: .value("Alignment", 0))
+
         }
         .chartLegend(.hidden)
         .chartXAxis(.hidden)
+        .chartXScale(domain: .automatic(dataType: Float.self, modifyInferredDomain: { $0 = [0, max] }))
         .chartYAxis {
             AxisMarks { _ in
                 AxisValueLabel()
@@ -106,6 +118,16 @@ private struct ChartView: View {
             }
         }
         .aspectRatio(1, contentMode: .fit)
+        .onAppear {
+            animateChart()
+        }
+    }
+    
+    private func animateChart() {
+      progress = 0
+      withAnimation(.easeOut(duration: 1.0)) {
+          progress = 1
+      }
     }
 }
 
