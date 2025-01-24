@@ -7,7 +7,7 @@ private let greyDark = "#333333"
 struct Theme {
     static let mainBg = Color(hex: "#ffe135")
 //    static let mainFg = Color(hex: "#fffbc9")
-    static let mainFg = Color(hex: "#ffffff")
+    static let mainFg = Color(hex: "#ffe135")
     static let accent = Color(hex: "#000000")
 //    static let tabsBg = Color(hex: "#667218")
 //    static let tabsBg = Color(hex: "#cc7722")
