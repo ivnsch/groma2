@@ -56,6 +56,7 @@ struct AddEditItemView: View {
                     TextField("", text: $itemName)
                         .textFieldStyle(.roundedBorder)
                         .multilineTextAlignment(.center)
+                        .textFieldStyle(.roundedBorder)
                     Spacer().frame(height: spacerHeight)
                     if editingInputs != nil {
                         Text("Quantity:")
@@ -278,12 +279,25 @@ struct AddTagView: View {
     let onTagAdd: (String) -> Void
     
     var body: some View {
-        VStack {
-            Text("Add new tag")
-            TextField("", text: $tagName)
-                .textFieldStyle(.roundedBorder)
-            Button("Add") {
-                onTagAdd(tagName)
+        ZStack {
+            Theme.mainBg.ignoresSafeArea()
+            VStack {
+                Text("Add new category")
+                TextField("", text: $tagName)
+                    .multilineTextAlignment(.center)
+                    .textFieldStyle(.roundedBorder)
+                    .frame(width: 150)
+
+                Button("Add") {
+                    onTagAdd(tagName)
+                }
+                .cornerRadius(Theme.cornerRadiusBig)
+                .padding(.horizontal, 20)
+                .frame(width: 200)
+                .tint(Theme.primButtonBg)
+                .foregroundColor(Theme.primButtonFg)
+                .buttonStyle(.borderedProminent)
+                .cornerRadius(Theme.cornerRadiusBig)
             }
         }
     }
