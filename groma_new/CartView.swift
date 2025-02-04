@@ -34,33 +34,35 @@ struct CartView: View {
                     .onDelete(perform: deleteItems)
                 }
                 .scrollContentBackground(.hidden)
-                Button {
-                    withAnimation {
-                        let boughtDate = Date()
-                        // TODO all items in one transaction
-                        items.forEach { item in
-                            let bought = BoughtItem(name: item.name ?? "", boughtDate: boughtDate, price: item.price, quantity: item.quantity, tag: item.tag)
-                            modelContext.insert(bought)
-                            modelContext.delete(item)
+                if !items.isEmpty {
+                    Button {
+                        withAnimation {
+                            let boughtDate = Date()
+                            // TODO all items in one transaction
+                            items.forEach { item in
+                                let bought = BoughtItem(name: item.name ?? "", boughtDate: boughtDate, price: item.price, quantity: item.quantity, tag: item.tag)
+                                modelContext.insert(bought)
+                                modelContext.delete(item)
+                            }
+                            do {
+                                try modelContext.save()
+                            } catch {
+                                logger.error("error saving: \(error)")
+                            }
+                            self.didBuy?()
                         }
-                        do {
-                            try modelContext.save()
-                        } catch {
-                            logger.error("error saving: \(error)")
-                        }
-                        self.didBuy?()
+                    } label: {
+                        Text("Buy")
+                            .bold()
+                            .frame(maxWidth: .infinity)
+                            .padding(.horizontal, 20)
+                        //                        .padding(.vertical, 10)
+                            .cornerRadius(Theme.cornerRadiusBig)
+                        
                     }
-                } label: {
-                    Text("Buy")
-                        .bold()
-                        .frame(maxWidth: .infinity)
-                        .padding(.horizontal, 20)
-//                        .padding(.vertical, 10)
-                        .cornerRadius(Theme.cornerRadiusBig)
-
-                }
-                .primary()
-                .padding(.horizontal, 20)
+                    .primary()
+                    .padding(.horizontal, 20)
+            }
             }
 #if os(macOS)
             .navigationSplitViewColumnWidth(min: 180, ideal: 200)
