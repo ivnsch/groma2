@@ -22,7 +22,7 @@ struct MoreView: View {
                     NavigationLink {
                         FeedbackView()
                     } label: {
-                        Text("Feedback")
+                        Text("Community")
                     }
                     NavigationLink {
                         ToolsView()
