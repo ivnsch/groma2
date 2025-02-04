@@ -59,10 +59,7 @@ struct CartView: View {
                         .cornerRadius(Theme.cornerRadiusBig)
 
                 }
-                .tint(Theme.primButtonBg)
-                .foregroundColor(Theme.primButtonFg)
-                .buttonStyle(.borderedProminent)
-                .frame(maxWidth: .infinity)
+                .primary()
                 .padding(.horizontal, 20)
             }
 #if os(macOS)

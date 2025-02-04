@@ -66,15 +66,14 @@ struct TodoView: View {
                        showingCart.toggle()
                     } label: {
                         HStack {
-                            Text("Cart").bold()
+                            Text("Cart")
+                                .bold()
+                                .tint(Theme.primButtonBg)
                             Spacer()
-                            Text(cartTotalQuantity.description).bold()
+                            Text(cartTotalQuantity.description)
+                                .bold()
+                                .tint(Theme.primButtonBg)
                         }
-                        .padding(.horizontal, 20)
-                        .padding(.vertical, 10)
-                        .background(Theme.secButtonBg)
-                        .foregroundColor(Color.white)
-                        .cornerRadius(Theme.cornerRadiusBig)
                     }
                 }
                 .padding(.horizontal, 20)

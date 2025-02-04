@@ -137,13 +137,8 @@ struct AddEditItemView: View {
                             }
                         }
                     }
-                    .cornerRadius(Theme.cornerRadiusBig)
-                    .padding(.horizontal, 20)
+                    .primary()
                     .frame(width: 200)
-                    .tint(Theme.primButtonBg)
-                    .foregroundColor(Theme.primButtonFg)
-                    .buttonStyle(.borderedProminent)
-                    .cornerRadius(Theme.cornerRadiusBig)
                 }
                 .padding(.horizontal, 100)
             }
@@ -291,13 +286,8 @@ struct AddTagView: View {
                 Button("Add") {
                     onTagAdd(tagName)
                 }
-                .cornerRadius(Theme.cornerRadiusBig)
-                .padding(.horizontal, 20)
+                .primary()
                 .frame(width: 200)
-                .tint(Theme.primButtonBg)
-                .foregroundColor(Theme.primButtonFg)
-                .buttonStyle(.borderedProminent)
-                .cornerRadius(Theme.cornerRadiusBig)
             }
         }
     }
