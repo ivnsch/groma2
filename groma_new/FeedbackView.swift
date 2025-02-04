@@ -47,7 +47,7 @@ struct FeedbackView: View {
 #endif
             .toolbar {
             }
-            .navigationTitle("Community")
+            .navigationTitle("Feedback")
 #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
 #endif
