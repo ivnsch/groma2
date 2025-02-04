@@ -97,6 +97,7 @@ struct AddItemView: View {
                 }
             })
         }
+        .tint(Color.black)
     }
 }
 
