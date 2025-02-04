@@ -60,7 +60,7 @@ struct AddItemView: View {
                         didAddItems?(viewModel.itemsToAdd)
                     }) {
                         HStack {
-                            Text("Add items")
+                            Text("Add items to list")
                                 .foregroundColor(Theme.primButtonFg)
                                 .frame(maxWidth: .infinity)
                         }
