@@ -45,6 +45,9 @@ struct TodoView: View {
     var body: some View {
         NavigationStack {
             VStack {
+                if items.isEmpty {
+                    EmptyView(message: "No items.\nAdd some with the + button above!")
+                }
                 List {
                     ForEach(items) { item in
                         TodoListItemView(item: toItemForView(item), onTap: {
@@ -328,3 +331,4 @@ struct HintTooltip: Tip {
         Text("Double tap on rows to edit")
     }
 }
+

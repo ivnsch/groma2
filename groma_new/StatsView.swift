@@ -51,6 +51,9 @@ struct StatsView: View {
                         Text(toMonthName(month)).tag(month)
                     }
                 }
+                if viewModel.sections().isEmpty {
+                    EmptyView(message: "No stats yet.\nBuy some items to see stats!")
+                }
                 List {
                     ChartView(sections: viewModel.sections())
                         .listRowBackground(Theme.mainBg.ignoresSafeArea())

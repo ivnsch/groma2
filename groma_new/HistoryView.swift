@@ -43,6 +43,9 @@ struct HistoryView: View {
                        .cornerRadius(8)
                }
 #endif
+                if sections.isEmpty {
+                   EmptyView(message: "No items bought yet.")
+               }
                List {
                     ForEach(sections) { section in
                         Section(header: HStack {
