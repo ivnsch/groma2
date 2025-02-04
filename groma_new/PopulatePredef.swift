@@ -17,46 +17,68 @@ func populatePredefinedData(modelContext: ModelContext) {
     let veggies = "veggies".loc
     let meat = "meat".loc
     let fish = "fish".loc
+    let sweets = "sweets".loc
+    let eggs = "eggs".loc
+    let grains = "grains".loc
+    let beans = "beans".loc
+    let drinks = "drinks".loc
+    let oil = "oil".loc
+    let spices = "spices".loc
+    let pet = "pet".loc
+    let hygiene = "hygiene".loc
+    let cleaning = "cleaning".loc
+    let office = "office".loc
+    let alcohol = "alcohol".loc
+    let cigarettes = "cigarettes".loc
+    let entertainment = "entertainment".loc
 
     let predefinedData = [
-        PredefItem(name: "Blue cheese", price: 3, tag: "Dairy"),
-        PredefItem(name: "Baguette", price: 1, tag: "Bread"),
-        PredefItem(name: "4 Breads", price: 2, tag: "Bread"),
-        PredefItem(name: "Grinded Meat", price: 6, tag: "Meat"),
-        PredefItem(name: "Eggs 6x", price: 3, tag: "Eggs"),
+        // pet
+        PredefItem(name: "cat_food", price: 0, tag: pet),
+        PredefItem(name: "dog_food", price: 0, tag: pet),
+        PredefItem(name: "cat_sand", price: 0, tag: pet),
 
-        PredefItem(name: "Florida Eis big", price: 5, tag: "Sweets"),
-        PredefItem(name: "Florida Eis small", price: 2, tag: "Sweets"),
-        PredefItem(name: "Chicken breast", price: 15, tag: "Meat"),
-        PredefItem(name: "Rinder roulade", price: 7, tag: "Meat"),
-        PredefItem(name: "Parsley", price: 2, tag: "Spices"),
-        PredefItem(name: "Rosemary", price: 2, tag: "Spices"),
-        PredefItem(name: "Cilantro", price: 2, tag: "Spices"),
-        PredefItem(name: "Jogurt", price: 2, tag: "Dairy"),
-        PredefItem(name: "Olive Oil", price: 8, tag: "Oil"),
-        PredefItem(name: "Black currant juice", price: 4, tag: "Fruits"),
-        PredefItem(name: "Maoams", price: 2, tag: "Sweets"),
-        PredefItem(name: "Club mate", price: 1, tag: "Drinks"),
-        PredefItem(name: "Milk", price: 2, tag: "Dairy"),
-        PredefItem(name: "Cream big", price: 2, tag: "Dairy"),
-        PredefItem(name: "Cream small", price: 1, tag: "Dairy"),
-        PredefItem(name: "Honey", price: 3, tag: "Sweets"),
-        PredefItem(name: "Salt", price: 1, tag: "Spices"),
-        PredefItem(name: "Butter", price: 2, tag: "Dairy"),
-        PredefItem(name: "Tuna", price: 2, tag: "Meat"),
-        PredefItem(name: "Liver sausage", price: 2, tag: "Meat"),
-        PredefItem(name: "Salami", price: 3, tag: "Meat"),
-        PredefItem(name: "Cat food", price: 2, tag: "Pet"),
-        PredefItem(name: "Chicken slices", price: 3, tag: "Meat"),
-        PredefItem(name: "Tooth paste", price: 5, tag: "hygiene"),
-        PredefItem(name: "Turkey", price: 10, tag: "Meat"),
-        PredefItem(name: "Steak", price: 15, tag: "Meat"),
-        PredefItem(name: "Feta", price: 2, tag: "Dairy"),
-        PredefItem(name: "Basmati rice", price: 2, tag: "Grains"),
-        PredefItem(name: "Rice", price: 2, tag: "Grains"),
-        PredefItem(name: "Chicken wings", price: 6, tag: "Meat"),
-        PredefItem(name: "Cat sand", price: 7, tag: "Pet"),
+        // drinks
+        PredefItem(name: "in_club_mate", price: 0, tag: drinks),
+        PredefItem(name: "in_black_currant_juice", price: 0, tag: drinks),
+        PredefItem(name: "in_coca_cola", price: 0, tag: drinks),
+        PredefItem(name: "in_sprite", price: 0, tag: drinks),
+        PredefItem(name: "in_fanta", price: 0, tag: drinks),
+        PredefItem(name: "in_pepsi", price: 0, tag: drinks),
         
+        // oil
+        PredefItem(name: "olive_oil", price: 0, tag: oil),
+
+        // spices
+        PredefItem(name: "salt", price: 0, tag: spices),
+        PredefItem(name: "black_pepper", price: 0, tag: spices),
+        PredefItem(name: "cumin", price: 0, tag: spices),
+        PredefItem(name: "saffron", price: 0, tag: spices),
+        PredefItem(name: "cloves", price: 0, tag: spices),
+        PredefItem(name: "chillis", price: 0, tag: spices),
+        PredefItem(name: "mace", price: 0, tag: spices),
+        PredefItem(name: "cardamom".loc, price: 0, tag: spices),
+        PredefItem(name: "ginger".loc, price: 0, tag: spices),
+        PredefItem(name: "turmeric".loc, price: 0, tag: spices),
+        PredefItem(name: "parsley".loc, price: 0, tag: spices),
+        PredefItem(name: "basil".loc, price: 0, tag: spices),
+        PredefItem(name: "mint".loc, price: 0, tag: spices),
+        PredefItem(name: "coriander".loc, price: 0, tag: spices),
+        PredefItem(name: "rosemary".loc, price: 0, tag: spices),
+
+        // eggs
+        PredefItem(name: "eggs_6", price: 0, tag: eggs),
+        PredefItem(name: "eggs_12", price: 0, tag: eggs),
+        
+        // grains
+        PredefItem(name: "rice_basmati".loc, price: 0, tag: grains),
+        PredefItem(name: "lentils".loc, price: 0, tag: grains),
+
+        // bread
+        PredefItem(name: "baguette", price: 0, tag: "Bread"),
+        PredefItem(name: "bread_loaf", price: 0, tag: "Bread"),
+        PredefItem(name: "bread_bundle_4", price: 0, tag: "Bread"),
+
         // fruits
         PredefItem(name: "apples".loc, price: 0, tag: fruits),
         PredefItem(name: "avocado".loc, price: 0, tag: fruits),
@@ -103,24 +125,110 @@ func populatePredefinedData(modelContext: ModelContext) {
         PredefItem(name: "lettuce".loc, price: 0, tag: veggies),
         PredefItem(name: "pepper".loc, price: 0, tag: veggies),
         PredefItem(name: "potatoes", price: 0, tag: veggies),
-        PredefItem(name: "red_beans".loc, price: 0, tag: veggies),
         PredefItem(name: "sweet_potato".loc, price: 0, tag: veggies),
-        
-        // Meat
+        PredefItem(name: "corn".loc, price: 0, tag: veggies),
+
+        // beans
+        PredefItem(name: "red_beans".loc, price: 0, tag: beans),
+        PredefItem(name: "white_beans".loc, price: 0, tag: beans),
+        PredefItem(name: "green_beans".loc, price: 0, tag: beans),
+
+        // meat
         PredefItem(name: "chicken_breast".loc, price: 0, tag: meat),
         PredefItem(name: "chicken_wings".loc, price: 0, tag: meat),
         PredefItem(name: "chicken_drumsticks".loc, price: 0, tag: meat),
         PredefItem(name: "pork_5_min".loc, price: 0, tag: meat),
         PredefItem(name: "steak".loc, price: 0, tag: meat),
         PredefItem(name: "turkey".loc, price: 0, tag: meat),
-        
-        // Fish
+        PredefItem(name: "grinded_meat".loc, price: 0, tag: meat),
+        PredefItem(name: "salami", price: 0, tag: meat),
+        PredefItem(name: "liver_sausage", price: 0, tag: meat),
+
+        // fish
         PredefItem(name: "salmon".loc, price: 0, tag: fish),
         PredefItem(name: "sardines".loc, price: 0, tag: fish),
         PredefItem(name: "shrimps".loc, price: 0, tag: fish),
         PredefItem(name: "tuna".loc, price: 0, tag: fish),
 
+     
+        // sweets
+        PredefItem(name: "ice_big".loc, price: 0, tag: sweets),
+        PredefItem(name: "ice_small".loc, price: 0, tag: sweets),
+        PredefItem(name: "popsicles".loc, price: 0, tag: sweets),
+        PredefItem(name: "doughnuts".loc, price: 0, tag: sweets),
+        PredefItem(name: "cake".loc, price: 0, tag: sweets),
+        PredefItem(name: "pudding".loc, price: 0, tag: sweets),
+        PredefItem(name: "cheese cake".loc, price: 0, tag: sweets),
+        PredefItem(name: "pie".loc, price: 0, tag: sweets),
+        PredefItem(name: "strawberry_jam".loc, price: 0, tag: sweets),
+        PredefItem(name: "peaches_jam".loc, price: 0, tag: sweets),
+        PredefItem(name: "honey".loc, price: 0, tag: sweets),
+        PredefItem(name: "gummy_bears".loc, price: 0, tag: sweets),
+        PredefItem(name: "lollipops".loc, price: 0, tag: sweets),
+        PredefItem(name: "jelly_beans".loc, price: 0, tag: sweets),
+        PredefItem(name: "chocolate".loc, price: 0, tag: sweets),
+        PredefItem(name: "sour_candy".loc, price: 0, tag: sweets),
+        PredefItem(name: "maoams", price: 0, tag: sweets),
+        
+        // dairy
+        PredefItem(name: "milk".loc, price: 0, tag: sweets),
+        PredefItem(name: "cheese".loc, price: 0, tag: sweets),
+        PredefItem(name: "blue_cheese".loc, price: 0, tag: sweets),
+        PredefItem(name: "feta_cheese".loc, price: 0, tag: sweets),
+        PredefItem(name: "goat_cheese".loc, price: 0, tag: sweets),
+        PredefItem(name: "cream".loc, price: 0, tag: sweets),
+        PredefItem(name: "butter".loc, price: 0, tag: sweets),
+        PredefItem(name: "jogurt".loc, price: 0, tag: sweets),
 
+        // hygiene
+        PredefItem(name: "tooth_paste", price: 0, tag: hygiene),
+        PredefItem(name: "tooth_floss", price: 0, tag: hygiene),
+        PredefItem(name: "soap", price: 0, tag: hygiene),
+        PredefItem(name: "liquid soap", price: 0, tag: hygiene),
+        PredefItem(name: "shampoo", price: 0, tag: hygiene),
+        PredefItem(name: "razors", price: 0, tag: hygiene),
+        PredefItem(name: "nail clipper", price: 0, tag: hygiene),
+        PredefItem(name: "listerine", price: 0, tag: hygiene),
+        PredefItem(name: "towel", price: 0, tag: hygiene),
+        PredefItem(name: "sanitary towels", price: 0, tag: hygiene),
+        PredefItem(name: "tampons", price: 0, tag: hygiene),
+        PredefItem(name: "condoms", price: 0, tag: hygiene),
+        
+        // cleaning
+        PredefItem(name: "dish soap", price: 0, tag: cleaning),
+        PredefItem(name: "sponges", price: 0, tag: cleaning),
+        PredefItem(name: "wire sponges", price: 0, tag: cleaning),
+        PredefItem(name: "cleaning agent", price: 0, tag: cleaning),
+        PredefItem(name: "mob", price: 0, tag: cleaning),
+        PredefItem(name: "toothbrush", price: 0, tag: cleaning),
+        PredefItem(name: "window_cleaner", price: 0, tag: cleaning),
+        PredefItem(name: "oven_cleaner", price: 0, tag: cleaning),
+        
+        // office
+        PredefItem(name: "printing_cartridge", price: 0, tag: office),
+        PredefItem(name: "paper", price: 0, tag: office),
+        PredefItem(name: "pen", price: 0, tag: office),
+        PredefItem(name: "pencil", price: 0, tag: office),
+        PredefItem(name: "eraser", price: 0, tag: office),
+        PredefItem(name: "pencil_sharpener", price: 0, tag: office),
+        
+        // alcohol
+        PredefItem(name: "beer", price: 0, tag: alcohol),
+        PredefItem(name: "red whine", price: 0, tag: alcohol),
+        PredefItem(name: "white whine", price: 0, tag: alcohol),
+        PredefItem(name: "sangria", price: 0, tag: alcohol),
+        PredefItem(name: "whiskey", price: 0, tag: alcohol),
+        PredefItem(name: "rum", price: 0, tag: alcohol),
+        PredefItem(name: "bayleys", price: 0, tag: alcohol),
+        PredefItem(name: "brandy", price: 0, tag: alcohol),
+
+        // cigarettes
+        PredefItem(name: "cigarettes", price: 0, tag: cigarettes),
+
+        // entertainment
+        PredefItem(name: "comics", price: 0, tag: entertainment),
+        PredefItem(name: "magazines", price: 0, tag: entertainment),
+        PredefItem(name: "books", price: 0, tag: entertainment),
     ]
 
     for data in predefinedData {
