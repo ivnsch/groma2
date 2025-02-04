@@ -1,15 +1,13 @@
 import SwiftData
+import Foundation
 
 // note that on start this is called like 13 times.
 // could optimize this by setting a flag, but probably isn't that much of an issue.
 func checkAndPopulateData(modelContext: ModelContext) {
     print("## in checkAndPopulateData")
-    let fetchRequest = FetchDescriptor<PredefItem>()
-    let existingRecords = try? modelContext.fetch(fetchRequest)
-    
-    // populate only once in lifecycle of app
-    if existingRecords?.isEmpty ?? true {
-        print("## records are empty, populating")
+    let hasPopulatedDatabase = NSUbiquitousKeyValueStore.default.bool(forKey: "hasPopulatedDatabase")
+
+    if !hasPopulatedDatabase {
         populatePredefinedData(modelContext: modelContext)
     }
 }
@@ -73,13 +71,17 @@ func populatePredefinedData(modelContext: ModelContext) {
         PredefItem(name: "Cat sand", price: 7, tag: "Pet"),
         PredefItem(name: "Broccoli", price: 3, tag: "Veggies"),
     ]
-    
+
     for data in predefinedData {
         modelContext.insert(data)
     }
     
     do {
         try modelContext.save()
+        
+        NSUbiquitousKeyValueStore.default.set(true, forKey: "hasPopulatedDatabase")
+        NSUbiquitousKeyValueStore.default.synchronize()
+        
         logger.debug("Predefined data added successfully.")
     } catch {
         logger.error("error saving predefined data: \(error)")

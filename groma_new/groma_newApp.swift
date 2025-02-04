@@ -29,24 +29,11 @@ struct groma_newApp: App {
     }()
 
     init() {
-        setupNotificationObserver()
-        
         let console = ConsoleDestination()
         console.logPrintWay = .logger(subsystem: "Main", category: "UI")
         logger.addDestination(console)
         
         logger.verbose("hello logging!")
-    }
-
-    mutating func setupNotificationObserver() {
-        NotificationCenter.default.addObserver(
-            forName: NSPersistentCloudKitContainer.eventChangedNotification,
-            object: nil,
-            queue: OperationQueue.main) { [self] notification in
-                Task { @MainActor in
-                    checkAndPopulateData(modelContext: sharedModelContainer.mainContext)
-                }
-            }
     }
 
     var body: some Scene {
