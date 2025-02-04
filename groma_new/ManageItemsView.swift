@@ -121,6 +121,22 @@ struct ManageItemsView: View {
 struct ManageItemsListItemView: View {
     let item: PredefItem
     let onTap: () -> Void
+
+    let formattedPrice: String;
+    
+    init(item: PredefItem, onTap: @escaping () -> Void) {
+        self.item = item
+        self.onTap = onTap
+        
+        self.formattedPrice = {
+            if let localCurrency = Locale.current.currency {
+                item.price.formatted(.currency(code: localCurrency.identifier))
+            } else {
+                item.price.description
+            }
+        }()
+    }
+    
     
     var body: some View {
         Button(action: {
@@ -130,7 +146,7 @@ struct ManageItemsListItemView: View {
                     .foregroundColor(Color.black)
                 Spacer()
                 VStack {
-                    Text(item.price.description)
+                    Text(formattedPrice)
                         .foregroundColor(Color.black)
 //                    Text(item.price.description)
 //                        .foregroundColor(Color.black)
