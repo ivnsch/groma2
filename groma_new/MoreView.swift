@@ -9,11 +9,21 @@ import SwiftUI
 import SwiftData
 
 struct MoreView: View {
+    var sharedModelContainer: ModelContainer;
+
+    init(sharedModelContainer: ModelContainer) {
+        self.sharedModelContainer = sharedModelContainer
+    }
     
     var body: some View {
         NavigationStack {
             VStack {
                 List {
+                    NavigationLink {
+                        ManageItemsView(sharedModelContainer: sharedModelContainer)
+                    } label: {
+                        Text("Manage items")
+                    }
                     NavigationLink {
                         AboutView()
                     } label: {

@@ -51,7 +51,7 @@ struct groma_newApp: App {
                     .tabItem {
                         Label("History", systemImage: "tray.and.arrow.up.fill")
                     }
-                MoreView()
+                MoreView(sharedModelContainer: sharedModelContainer)
                     .tabItem {
                         Label("More", systemImage: "tray.and.arrow.up.fill")
                     }
