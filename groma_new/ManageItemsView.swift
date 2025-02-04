@@ -45,7 +45,7 @@ struct ManageItemsView: View {
             .navigationBarTitleDisplayMode(.inline)
 #endif
             .popover(item: $editingItem, content: { item in
-                let editingItemInputs = EditingItemInputs(name: item.name ?? "", price: item.price, tag: item.tag, quantity: 1)
+                let editingItemInputs = EditingItemInputs(name: item.name ?? "", price: item.price, tag: item.tag, quantity: nil)
                 AddEditItemView(editingInputs: editingItemInputs, didSubmitItem: { (predefItem, quantity) in
 //                    do {
 //                        try editItem(editingItem: item, predefItem: predefItem, newQuantity: quantity)

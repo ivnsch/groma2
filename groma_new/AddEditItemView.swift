@@ -5,7 +5,7 @@ struct EditingItemInputs {
     let name: String
     let price: Float
     let tag: String
-    let quantity: Int
+    let quantity: Int?
 }
 
 
@@ -58,7 +58,7 @@ struct AddEditItemView: View {
                         .multilineTextAlignment(.center)
                         .textFieldStyle(.roundedBorder)
                     Spacer().frame(height: spacerHeight)
-                    if editingInputs != nil {
+                    if editingInputs?.quantity != nil {
                         Text("Quantity:")
                         HStack {
                             Button("-") {
@@ -153,7 +153,10 @@ struct AddEditItemView: View {
                 if let inputs = editingInputs {
                     itemName = inputs.name
                     itemPrice = inputs.price.description
-                    itemQuantity = inputs.quantity.description
+                    // defaulting to 1 here is somewhat hacky, should never be used
+                    // it's for case where we come from manage items where quantity is set to nil
+                    // in that case we don't show the input so we don't see this default
+                    itemQuantity = inputs.quantity?.description ?? "1"
                     // note: assumes that the picker items will contain selected tag
                     // this should always be the case, because this comes from some item that's already stored
                     // and we get the tags from stored (predef) items
