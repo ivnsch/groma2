@@ -10,6 +10,7 @@
 		6A1B033F2D37B415004D23A8 /* Flow in Frameworks */ = {isa = PBXBuildFile; productRef = 6A1B033E2D37B415004D23A8 /* Flow */; };
 		6A1B050E2D414486004D23A8 /* SwiftyBeaver in Frameworks */ = {isa = PBXBuildFile; productRef = 6A1B050D2D414486004D23A8 /* SwiftyBeaver */; };
 		6A1B05522D416C3B004D23A8 /* watchapp Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 6A1B05452D416C3A004D23A8 /* watchapp Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		6AAA61A32D5244D800E2A0BC /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 6AAA61A22D5244D800E2A0BC /* Localizable.xcstrings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		6AA080A72D2D31260087FCBD /* groma_new.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = groma_new.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AA080BB2D2D31260087FCBD /* groma_newTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = groma_newTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AA080C52D2D31270087FCBD /* groma_newUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = groma_newUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6AAA61A22D5244D800E2A0BC /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -147,6 +149,7 @@
 		6AA0809E2D2D31260087FCBD = {
 			isa = PBXGroup;
 			children = (
+				6AAA61A22D5244D800E2A0BC /* Localizable.xcstrings */,
 				6AA080A92D2D31260087FCBD /* groma_new */,
 				6AA080BE2D2D31260087FCBD /* groma_newTests */,
 				6AA080C82D2D31270087FCBD /* groma_newUITests */,
@@ -296,6 +299,7 @@
 			knownRegions = (
 				en,
 				Base,
+				de,
 			);
 			mainGroup = 6AA0809E2D2D31260087FCBD;
 			minimizedProjectReferenceProxies = 1;
@@ -328,6 +332,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6AAA61A32D5244D800E2A0BC /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -600,6 +605,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -655,6 +661,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 			};
 			name = Release;
 		};

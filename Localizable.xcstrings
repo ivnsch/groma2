@@ -1,0 +1,154 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "" : {
+
+    },
+    "-" : {
+
+    },
+    "+" : {
+
+    },
+    "|" : {
+
+    },
+    "About" : {
+
+    },
+    "Add" : {
+
+    },
+    "Add item" : {
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Item hinzufügen"
+          }
+        }
+      }
+    },
+    "Add Item" : {
+
+    },
+    "Add items to list" : {
+
+    },
+    "Add new category" : {
+
+    },
+    "Add new item" : {
+
+    },
+    "Alignment" : {
+
+    },
+    "Buy" : {
+
+    },
+    "Cancel" : {
+
+    },
+    "Cart" : {
+
+    },
+    "Category" : {
+
+    },
+    "Category:" : {
+
+    },
+    "Clear" : {
+
+    },
+    "Clear all data" : {
+
+    },
+    "Close" : {
+
+    },
+    "Delete all history?" : {
+
+    },
+    "Do you have suggestions, questions, or just want to chat with other users? Join the discord!" : {
+
+    },
+    "Double tap on rows to edit" : {
+
+    },
+    "Edit" : {
+
+    },
+    "Edit items" : {
+
+    },
+    "Editing Mode Activated" : {
+
+    },
+    "Feedback" : {
+
+    },
+    "hello" : {
+
+    },
+    "History" : {
+
+    },
+    "Invalid inputs" : {
+
+    },
+    "Key" : {
+      "extractionState" : "manual"
+    },
+    "Manage items" : {
+
+    },
+    "More" : {
+
+    },
+    "Name:" : {
+
+    },
+    "New" : {
+
+    },
+    "No items!" : {
+
+    },
+    "Price" : {
+
+    },
+    "Price:" : {
+
+    },
+    "Quantity:" : {
+
+    },
+    "Select month" : {
+
+    },
+    "Stats" : {
+
+    },
+    "This will delete all your history and stats" : {
+
+    },
+    "To do" : {
+
+    },
+    "Todo" : {
+
+    },
+    "Tools" : {
+
+    },
+    "Yes, delete" : {
+
+    },
+    "You might be wondering, why is this app named \"banana peso\"? This goes back to a little family story. When I was a kid, my mother used to do meticulous expenses lists, which included all the groceries down to the cheapest things. My father, sometimes lighheartedly mocklingly, others milldy irritated, would exclaim \"banana pesos!\" (peso is the name of the currency used where we lived in).\n\nSo I decided to make an app dedicated to my mother and her banana peso protocols.\n\nEven if we don't particularly worry about our (banana-level) finances, I find it an interesting exploration, to know what we spend things for relative to each other. What do we buy the most? Do we buy more or less of certain products at different times of the year? and so on. And combining this with a shopping list, where we can select what to buy in advance and tick items away is handy.\n\nSo, I hope that this little story brigtens up the presence of \"banana peso\" in your life, and that this app is handy to you too.\n\nIf you've any ideas or feature requests, head over to the community! I'm happy to note down everything and considering it when releasing future versions.\n\nHave a nice day!\n\nIvan" : {
+
+    }
+  },
+  "version" : "1.0"
+}
