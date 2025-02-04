@@ -120,7 +120,7 @@ private struct ChartView: View {
                     .foregroundStyle(Color.black)
             }
         }
-        .aspectRatio(1, contentMode: .fit)
+//        .aspectRatio(1, contentMode: .fit)
         .onAppear {
             animateChart()
         }
