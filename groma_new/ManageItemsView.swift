@@ -40,7 +40,7 @@ struct ManageItemsView: View {
             }
             .padding(.vertical, 10)
             .scrollContentBackground(.hidden)
-            .navigationTitle("To do")
+            .navigationTitle("Manage items")
 #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
 #endif
