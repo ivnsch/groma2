@@ -34,6 +34,8 @@ struct groma_newApp: App {
         logger.addDestination(console)
         
         logger.verbose("hello logging!")
+        
+        checkAndPopulateData(modelContext: sharedModelContainer.mainContext)
     }
 
     var body: some Scene {
