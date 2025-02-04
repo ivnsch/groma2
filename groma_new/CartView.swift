@@ -24,6 +24,9 @@ struct CartView: View {
     var body: some View {
         NavigationStack {
             VStack {
+                if items.isEmpty {
+                   EmptyView(message: "No items.\nClick on TODO items to move them.")
+                }
                 List {
                     ForEach(items) { item in
                         TodoListItemView(item: toItemForView(item), onTap: {
