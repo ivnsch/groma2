@@ -36,7 +36,6 @@ struct ManageItemsView: View {
                     }
                     .onDelete(perform: deleteItems)
                 }
-                .padding(.horizontal, 20)
                 .padding(.vertical, 10)
             }
             .padding(.vertical, 10)
