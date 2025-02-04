@@ -58,9 +58,10 @@ struct ToolsView: View {
         }
         
         try modelContext.save()
-
+        
+        // allow to populate predef items again
+        NSUbiquitousKeyValueStore.default.set(false, forKey: "hasPopulatedDatabase")
+        NSUbiquitousKeyValueStore.default.synchronize()
     }
-
-
 }
 
