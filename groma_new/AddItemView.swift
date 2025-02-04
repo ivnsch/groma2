@@ -112,6 +112,8 @@ struct NoItemsView: View {
             }) {
                 HStack {
                     Text("Add new item")
+                        .padding(.vertical, 20)
+                        .tint(Theme.primButtonBg)
                 }
             }
         }
