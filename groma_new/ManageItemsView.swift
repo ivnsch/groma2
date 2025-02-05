@@ -80,32 +80,8 @@ struct ManageItemsView: View {
             }
             .background(Theme.mainBg.ignoresSafeArea())
         }
-//        .onAppear {
-//            printItems()
-//        }
     }
     
-//    // called when user submits an edit. note that predef item is already saved
-//    // quantity is a separate field since specific to todo (not in predefined item)
-//    func editItem(editingItem: TodoItem, predefItem: PredefItem, newQuantity: Int) throws {
-//        for item in items {
-//            if item.name == editingItem.name {
-//                if newQuantity == 0 {
-//                    modelContext.delete(item)
-//                } else {
-//                    item.name = predefItem.name
-//                    item.price = predefItem.price
-//                    item.quantity = newQuantity
-//                }
-//            }
-//        }
-//        do {
-//            try modelContext.save()
-//        } catch {
-//            logger.error("Error saving: \(error)")
-//        }
-//    }
-
     private func showAddItem() {
         isAddItemPresented = true
     }
