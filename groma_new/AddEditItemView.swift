@@ -102,6 +102,7 @@ struct AddEditItemView: View {
 
                     HStack {
                         Picker("Category", selection: $selectedTag) {
+                            Text("").tag("")
                             ForEach(tags, id: \.self) { tag in
                                 Text(tag)
                                     .foregroundColor(Color.black)
