@@ -107,6 +107,10 @@ struct NoItemsView: View {
     
     var body: some View {
         VStack {
+            Image(.peel)
+               .resizable()
+               .frame(width: 200, height: 128)
+               .buttonStyle(PlainButtonStyle())
             Text("No items!")
             Button(action: {
                 onTapAdd()
