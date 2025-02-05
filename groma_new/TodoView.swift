@@ -27,6 +27,8 @@ struct TodoView: View {
     
     let hintTip = HintTooltip()
     
+    @State var errorData: MyErrorData?
+    
     var cartTotalQuantity : Int {
         cartItems.reduce(0) { $0 + $1.quantity }
     }
@@ -110,14 +112,18 @@ struct TodoView: View {
             .popover(item: $editingItem, content: { item in
                 let editingItemInputs = EditingItemInputs(name: item.name ?? "", price: item.price, tag: item.tag, quantity: item.quantity)
                 AddEditItemView(editingInputs: editingItemInputs, didSubmitItem: { (predefItem, quantity) in
-                    do {
+                    let f = {
                         try editItem(editingItem: item, predefItem: predefItem, newQuantity: quantity)
+                    }
+                    do {
+                        try f()
                     } catch {
-                        logger.error("Error editing item: \(error)")
+                        self.errorData = MyErrorData(error: .save, retry: f)
                     }
                     editingItem = nil
                 })
             })
+            .errorAlert(error: $errorData)
     #if os(macOS)
             .navigationSplitViewColumnWidth(min: 180, ideal: 200)
     #endif

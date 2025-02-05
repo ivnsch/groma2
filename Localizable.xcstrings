@@ -103,6 +103,9 @@
     "Editing Mode Activated" : {
 
     },
+    "Error" : {
+
+    },
     "Feedback" : {
 
     },
@@ -681,6 +684,9 @@
 
     },
     "Quantity:" : {
+
+    },
+    "Retry" : {
 
     },
     "Select month" : {
