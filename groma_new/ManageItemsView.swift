@@ -21,6 +21,8 @@ struct ManageItemsView: View {
         
     @State private var editingItem: PredefItem?
     
+    @State var errorData: MyErrorData?
+
     init(sharedModelContainer: ModelContainer) {
         self.sharedModelContainer = sharedModelContainer
     }
@@ -34,24 +36,30 @@ struct ManageItemsView: View {
                             editingItem = item
                         })
                     }
-                    .onDelete(perform: deleteItems)
+                    .onDelete(perform: { offset in
+                        let f = {
+                            try deleteItems(offsets: offset)
+                        }
+                        do {
+                            try f()
+                        } catch {
+                            self.errorData = MyErrorData(error: .save, retry: f)
+                        }
+                    })
                 }
                 .padding(.vertical, 10)
             }
             .padding(.vertical, 10)
             .scrollContentBackground(.hidden)
             .navigationTitle("Manage items")
+            .errorAlert(error: $errorData)
 #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
 #endif
             .popover(item: $editingItem, content: { item in
                 let editingItemInputs = EditingItemInputs(name: item.name ?? "", price: item.price, tag: item.tag, quantity: nil)
                 AddEditItemView(editingInputs: editingItemInputs, didSubmitItem: { (predefItem, quantity) in
-//                    do {
-//                        try editItem(editingItem: item, predefItem: predefItem, newQuantity: quantity)
-//                    } catch {
-//                        logger.error("Error editing item: \(error)")
-//                    }
+                    // item is edited and saved in popup. nothing else to do here
                     editingItem = nil
                 })
             })
@@ -102,16 +110,12 @@ struct ManageItemsView: View {
         isAddItemPresented = true
     }
     
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
+    private func deleteItems(offsets: IndexSet) throws {
+        try withAnimation {
             for index in offsets {
                 modelContext.delete(items[index])
             }
-            do {
-                try modelContext.save()
-            } catch {
-                logger.error("Error saving: \(error)")
-            }
+            try modelContext.save()
         }
     }
 }

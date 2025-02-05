@@ -17,6 +17,8 @@ struct CartView: View {
 
     @Query private var todoItems: [TodoItem]
 
+    @State var errorData: MyErrorData?
+
     init(didBuy: (() -> Void)? = nil) {
         self.didBuy = didBuy
     }
@@ -30,7 +32,14 @@ struct CartView: View {
                 List {
                     ForEach(items) { item in
                         TodoListItemView(item: toItemForView(item), onTap: {
-                            moveToTodo(todoItems: todoItems, cartItem: item, modelContext: modelContext)
+                            let f = {
+                                try moveToTodo(todoItems: todoItems, cartItem: item, modelContext: modelContext)
+                            }
+                            do {
+                                try f()
+                            } catch {
+                                self.errorData = MyErrorData(error: .save, retry: f)
+                            }
                         }, onDoubleTap: {
                         })
                     }
@@ -47,12 +56,15 @@ struct CartView: View {
                                 modelContext.insert(bought)
                                 modelContext.delete(item)
                             }
-                            do {
+                            let f = {
                                 try modelContext.save()
-                            } catch {
-                                logger.error("error saving: \(error)")
+                                self.didBuy?()
                             }
-                            self.didBuy?()
+                            do {
+                                try f()
+                            } catch {
+                                self.errorData = MyErrorData(error: .save, retry: f)
+                            }
                         }
                     } label: {
                         Text("Buy")
@@ -67,6 +79,8 @@ struct CartView: View {
                     .padding(.horizontal, 20)
             }
             }
+            .errorAlert(error: $errorData)
+
 #if os(macOS)
             .navigationSplitViewColumnWidth(min: 180, ideal: 200)
 #endif
@@ -104,7 +118,7 @@ struct CartView: View {
 }
 
 
-private func moveToTodo(todoItems: [TodoItem], cartItem: CartItem, modelContext: ModelContext) {
+private func moveToTodo(todoItems: [TodoItem], cartItem: CartItem, modelContext: ModelContext) throws {
     // see if there's an item with same name to just increase quantity
     let updatedExistingItem = updateTodoQuantityIfAlreadyExistent(todoItems: todoItems, itemToAdd: cartItem)
         if !updatedExistingItem {
@@ -112,11 +126,7 @@ private func moveToTodo(todoItems: [TodoItem], cartItem: CartItem, modelContext:
             modelContext.insert(todoItem)
     }
     modelContext.delete(cartItem)
-    do {
-        try modelContext.save()
-    } catch {
-        logger.error("error saving: \(error)")
-    }
+    try modelContext.save()
 }
 
 // returns whether quantity for existing item was updated

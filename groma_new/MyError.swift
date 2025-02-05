@@ -6,8 +6,8 @@ enum MyError: Error {
 extension MyError {
     func toErrorMessage() -> String {
         switch self {
-        case .save: return "Couldn't save state"
-        case .invalidState(let message): return "Unknown error: \(message)"
+        case .save: return "Couldn't save state. Check your connection and try again."
+        case .invalidState(let message): return "Unknown error: \(message). Check your connection and try again."
         }
     }
 }

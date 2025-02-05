@@ -28,6 +28,8 @@ struct AddEditItemView: View {
     
     @State private var showInvalidInputs = false
 
+    @State var errorData: MyErrorData?
+
     private let spacerHeight = 20.0;
     // didSubmitItem is called after the predef item was added/edited and saved to data store
     // editingInput is todo list item context, nameInput is didn't find item in search context,
@@ -124,14 +126,16 @@ struct AddEditItemView: View {
                             case .valid(let inputs):
                                 // here predefItem acts essentially as inputs holder
                                 let predefItem = PredefItem(name: inputs.name, price: inputs.price, tag: inputs.tag)
-                                do {
+                                let f = {
                                     try addOrEditItemAndSave(editingInputs: editingInputs, predefItem: predefItem, modelContext: modelContext)
-                                } catch {
-                                    logger.error("error in addOrEditItemAndSave")
+                                    showInvalidInputs = false
+                                    didSubmitItem?(predefItem, inputs.quantity)
                                 }
-                                showInvalidInputs = false
-                                didSubmitItem?(predefItem, inputs.quantity)
-                            
+                                do {
+                                    try f()
+                                } catch {
+                                    self.errorData = MyErrorData(error: .save, retry: f)
+                                }
                             case .invalid:
                                 showInvalidInputs = true
                             }
@@ -143,6 +147,7 @@ struct AddEditItemView: View {
                 .padding(.horizontal, 100)
             }
             .navigationTitle("Add new item")
+            .errorAlert(error: $errorData)
 #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
 #endif
@@ -253,12 +258,7 @@ private func addOrEditItemAndSave(editingInputs: EditingItemInputs?, predefItem:
     }
     modelContext.insert(predefItem)
 
-    do {
-        try modelContext.save()
-    } catch {
-        logger.error("error saving: \(error)")
-    }
-    
+    try modelContext.save()
 }
 
 private func deleteItemsWithName(name: String, modelContext: ModelContext) throws {

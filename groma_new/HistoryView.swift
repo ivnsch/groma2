@@ -20,6 +20,8 @@ struct HistoryView: View {
 
     let dateFormatter: DateFormatter
     
+    @State var errorData: MyErrorData?
+
     init() {
         dateFormatter = DateFormatter()
         // year seems overkill - user unlikely to scroll back that much
@@ -55,7 +57,14 @@ struct HistoryView: View {
                                 ListItemView(boughtItem: boughtItem)
                             }
                             .onDelete { indexSet in
-                                deleteItem(section: section, at: indexSet)
+                                let f = {
+                                    try deleteItem(section: section, at: indexSet)
+                                }
+                                do {
+                                    try f()
+                                } catch {
+                                    self.errorData = MyErrorData(error: .save, retry: f)
+                                }
                             }
                         }
                     }
@@ -65,6 +74,7 @@ struct HistoryView: View {
             }
             .scrollContentBackground(.hidden)
             .navigationTitle("History")
+            .errorAlert(error: $errorData)
 #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
 #endif
@@ -75,7 +85,16 @@ struct HistoryView: View {
                 }
             }
             .confirmationDialog("Delete all history?", isPresented: $showingConfirmDelete) {
-                Button("Yes, delete") { deleteAllItems() }
+                Button("Yes, delete") {
+                    let f = {
+                        try deleteAllItems()
+                    }
+                    do {
+                        try f()
+                    } catch {
+                        self.errorData = MyErrorData(error: .save, retry: f)
+                    }
+                }
                 Button("Cancel", role: .cancel) { }
             } message: {
                 Text("This will delete all your history and stats")
@@ -86,27 +105,19 @@ struct HistoryView: View {
 #endif
     }
     
-    private func deleteAllItems() {
+    private func deleteAllItems() throws {
         for item in allItems {
             modelContext.delete(item)
         }
-        do {
-            try modelContext.save()
-        } catch {
-            logger.error("error saving: \(error)")
-        }
+        try modelContext.save()
     }
     
-    private func deleteItem(section: HistorySection, at offsets: IndexSet) {
+    private func deleteItem(section: HistorySection, at offsets: IndexSet) throws {
         for index in offsets {
             let boughtItem = section.boughtItems[index]
             modelContext.delete(boughtItem)
         }
-        do {
-            try modelContext.save()
-        } catch {
-            logger.error("error saving: \(error)")
-        }
+        try modelContext.save()
     }
     
 //    private func deleteItem(in sectionIndex: Int, at offsets: IndexSet) {

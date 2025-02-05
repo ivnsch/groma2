@@ -53,7 +53,16 @@ struct TodoView: View {
                 List {
                     ForEach(items) { item in
                         TodoListItemView(item: toItemForView(item), onTap: {
-                            moveToCart(cartItems: cartItems, todoItem: item, modelContext: modelContext)
+                            let f = {
+                                try moveToCart(cartItems: cartItems, todoItem: item, modelContext: modelContext)
+                            }
+                            do {
+                                try f()
+                            } catch {
+                                // note that we assume .save error + and retry whole operation (not just save), this is a bit sloppy
+                                self.errorData = MyErrorData(error: .save, retry: f)
+                            }
+                            
                         }, onDoubleTap: {
                             hintTip.invalidate(reason: .actionPerformed)
                             editingItem = item
@@ -99,14 +108,21 @@ struct TodoView: View {
 #endif
             .popover(isPresented: $isAddItemPresented, content: {
                 AddItemView(modelContext: sharedModelContainer.mainContext) { itemsToAdd in
-                    updateQuantityOrAddNewItem(items: items, itemsToAdd: itemsToAdd, modelContext: modelContext)
-                    isAddItemPresented = false
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                        Task {
-                            await HintTooltip.myEvent.donate()
+                    let f = {
+                        try updateQuantityOrAddNewItem(items: items, itemsToAdd: itemsToAdd, modelContext: modelContext)
+                        isAddItemPresented = false
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                            Task {
+                                await HintTooltip.myEvent.donate()
+                            }
                         }
                     }
-                 
+                    do {
+                        try f()
+                    } catch {
+                        // note that we assume .save error + and retry whole operation (not just save), this is a bit sloppy
+                        self.errorData = MyErrorData(error: .save, retry: f)
+                    }
                 }
             })
             .popover(item: $editingItem, content: { item in
@@ -114,13 +130,14 @@ struct TodoView: View {
                 AddEditItemView(editingInputs: editingItemInputs, didSubmitItem: { (predefItem, quantity) in
                     let f = {
                         try editItem(editingItem: item, predefItem: predefItem, newQuantity: quantity)
+                        editingItem = nil
                     }
                     do {
                         try f()
                     } catch {
+                        // note that we assume .save error + and retry whole operation (not just save), this is a bit sloppy
                         self.errorData = MyErrorData(error: .save, retry: f)
                     }
-                    editingItem = nil
                 })
             })
             .errorAlert(error: $errorData)
@@ -155,6 +172,7 @@ struct TodoView: View {
             item.order = index
         }
 
+        // we'll just ignore errors here as moving items can be seen as non critical..
         try? modelContext.save()
     }
     
@@ -239,7 +257,7 @@ struct AddItemPopup: View {
 }
 
 // note context of updateQuantity here: we added more items (opposed to updating quantity in edit view)
-private func updateQuantityOrAddNewItem(items: [TodoItem], itemsToAdd: [TodoItemToAdd], modelContext: ModelContext) {
+private func updateQuantityOrAddNewItem(items: [TodoItem], itemsToAdd: [TodoItemToAdd], modelContext: ModelContext) throws {
     let currentCount = items.count
     for (index, itemToAdd) in itemsToAdd.enumerated() {
         // see if there's an item with same name to just increase quantity
@@ -252,11 +270,8 @@ private func updateQuantityOrAddNewItem(items: [TodoItem], itemsToAdd: [TodoItem
         }
         increasePredefItemUsedCount(name: itemToAdd.name ?? "", modelContext: modelContext)
     }
-    do {
-        try modelContext.save()
-    } catch {
-        logger.error("Error saving: \(error)")
-    }
+    
+    try modelContext.save()
 }
 
 func increasePredefItemUsedCount(name: String, modelContext: ModelContext) {
@@ -287,7 +302,7 @@ private func updateQuantityIfAlreadyExistent(items: [TodoItem], itemToAdd: TodoI
     return updatedExistingItem
 }
 
-private func moveToCart(cartItems: [CartItem], todoItem: TodoItem, modelContext: ModelContext) {
+private func moveToCart(cartItems: [CartItem], todoItem: TodoItem, modelContext: ModelContext) throws {
     // see if there's an item with same name to just increase quantity
     let updatedExistingItem = updateCartQuantityIfAlreadyExistent(cartItems: cartItems, itemToAdd: todoItem)
         if !updatedExistingItem {
@@ -295,11 +310,7 @@ private func moveToCart(cartItems: [CartItem], todoItem: TodoItem, modelContext:
             modelContext.insert(cartItem)
     }
     modelContext.delete(todoItem)
-    do {
-        try modelContext.save()
-    } catch {
-        logger.error("Error saving: \(error)")
-    }
+    try modelContext.save()
 }
 
 // returns whether quantity for existing item was updated
