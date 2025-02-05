@@ -13,7 +13,7 @@ struct FeedbackView: View {
         NavigationStack {
             ScrollView {
                 VStack {
-                    Text("Do you have suggestions, questions, or just want to chat with other users? Join the discord!")
+                    Text("Do you have suggestions, questions, or just want to chat? Join the discord!")
                         .padding(.top, 20)
                         .padding(.bottom, 20)
                         .padding(.leading, 20)
