@@ -15,14 +15,26 @@ struct ManageItemsView: View {
     @Query(sort: \PredefItem.usedCount, order: .reverse)
     private var items: [PredefItem]
     
-    @State private var isAddItemPresented = false;
-
     var sharedModelContainer: ModelContainer;
         
     @State private var editingItem: PredefItem?
     
     @State var errorData: MyErrorData?
 
+    @State private var searchText = ""
+
+    @State private var isAddEditItemPresented = false;
+
+    var filteredItems: [PredefItem] {
+        if searchText.isEmpty {
+            items
+        } else {
+            items.filter { item in
+                item.name?.lowercased().contains(searchText.lowercased()) ?? true
+            }
+        }
+    }
+    
     init(sharedModelContainer: ModelContainer) {
         self.sharedModelContainer = sharedModelContainer
     }
@@ -30,8 +42,13 @@ struct ManageItemsView: View {
     var body: some View {
         NavigationStack {
             VStack {
+                if filteredItems.isEmpty {
+                    NoItemsView(onTapAdd: {
+                        isAddEditItemPresented = true
+                    })
+                }
                 List {
-                    ForEach(items) { item in
+                    ForEach(filteredItems) { item in
                         ManageItemsListItemView(item: item, onTap: {
                             editingItem = item
                         })
@@ -56,10 +73,10 @@ struct ManageItemsView: View {
 #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
 #endif
-            .popover(isPresented: $isAddItemPresented, content: {
-                AddEditItemView(didSubmitItem: { (predefItem, quantity) in
+            .popover(isPresented: $isAddEditItemPresented, content: {
+                AddEditItemView(nameInput: searchText, didSubmitItem: { (predefItem, quantity) in
                     // item is added and saved in popup. nothing else to do here
-                    isAddItemPresented = false
+                    isAddEditItemPresented = false
                 })
             })
             .popover(item: $editingItem, content: { item in
@@ -85,11 +102,12 @@ struct ManageItemsView: View {
                 }
             }
             .background(Theme.mainBg.ignoresSafeArea())
+            .searchable(text: $searchText)
         }
     }
     
     private func showAddItem() {
-        isAddItemPresented = true
+        isAddEditItemPresented = true
     }
     
     private func deleteItems(offsets: IndexSet) throws {
@@ -101,7 +119,6 @@ struct ManageItemsView: View {
         }
     }
 }
-
 
 struct ManageItemsListItemView: View {
     let item: PredefItem
