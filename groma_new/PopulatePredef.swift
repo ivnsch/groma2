@@ -42,6 +42,12 @@ func populatePredefinedData(modelContext: ModelContext) {
         // drinks
         PredefItem(name: "in_club_mate", price: 0, tag: drinks),
         PredefItem(name: "in_black_currant_juice", price: 0, tag: drinks),
+        PredefItem(name: "in_orange_juice", price: 0, tag: drinks),
+        PredefItem(name: "in_apple_juice", price: 0, tag: drinks),
+        PredefItem(name: "in_cranberry_juice", price: 0, tag: drinks),
+        PredefItem(name: "in_blueberry_juice", price: 0, tag: drinks),
+        PredefItem(name: "in_banana_juice", price: 0, tag: drinks),
+        PredefItem(name: "in_mango_juice", price: 0, tag: drinks),
         PredefItem(name: "in_coca_cola", price: 0, tag: drinks),
         PredefItem(name: "in_sprite", price: 0, tag: drinks),
         PredefItem(name: "in_fanta", price: 0, tag: drinks),
@@ -144,6 +150,7 @@ func populatePredefinedData(modelContext: ModelContext) {
         PredefItem(name: "in_grinded_meat".loc, price: 0, tag: meat),
         PredefItem(name: "in_salami", price: 0, tag: meat),
         PredefItem(name: "in_liver_sausage", price: 0, tag: meat),
+        PredefItem(name: "in_beef", price: 0, tag: meat),
 
         // fish
         PredefItem(name: "in_salmon".loc, price: 0, tag: fish),
@@ -153,8 +160,7 @@ func populatePredefinedData(modelContext: ModelContext) {
 
      
         // sweets
-        PredefItem(name: "in_ice_big".loc, price: 0, tag: sweets),
-        PredefItem(name: "in_ice_small".loc, price: 0, tag: sweets),
+        PredefItem(name: "in_ice_cream".loc, price: 0, tag: sweets),
         PredefItem(name: "in_popsicles".loc, price: 0, tag: sweets),
         PredefItem(name: "in_doughnuts".loc, price: 0, tag: sweets),
         PredefItem(name: "in_cake".loc, price: 0, tag: sweets),
@@ -194,7 +200,8 @@ func populatePredefinedData(modelContext: ModelContext) {
         PredefItem(name: "in_sanitary_towels", price: 0, tag: hygiene),
         PredefItem(name: "in_tampons", price: 0, tag: hygiene),
         PredefItem(name: "in_condoms", price: 0, tag: hygiene),
-        
+        PredefItem(name: "in_toilet_paper", price: 0, tag: hygiene),
+
         // cleaning
         PredefItem(name: "in_dish_soap", price: 0, tag: cleaning),
         PredefItem(name: "in_sponges", price: 0, tag: cleaning),
