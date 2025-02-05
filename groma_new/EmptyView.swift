@@ -10,7 +10,6 @@ struct EmptyView: View {
                    .resizable()
                    .frame(width: 200, height: 128)
                    .buttonStyle(PlainButtonStyle())
-                   .tint(Theme.primButtonBg)
                 Text(message)
                     .multilineTextAlignment(.center)
 //                    .padding(.top, 20)
