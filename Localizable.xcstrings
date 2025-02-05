@@ -112,10 +112,551 @@
     "History" : {
 
     },
+    "in_alcohol" : {
+      "extractionState" : "manual"
+    },
+    "in_apples" : {
+      "extractionState" : "manual"
+    },
+    "in_aspargus" : {
+      "extractionState" : "manual"
+    },
+    "in_avocado" : {
+      "extractionState" : "manual"
+    },
+    "in_baguette" : {
+      "extractionState" : "manual"
+    },
+    "in_bakery" : {
+      "extractionState" : "manual"
+    },
+    "in_bananas" : {
+      "extractionState" : "manual"
+    },
+    "in_basil" : {
+      "extractionState" : "manual"
+    },
+    "in_bayleys" : {
+      "extractionState" : "manual"
+    },
+    "in_beans" : {
+      "extractionState" : "manual"
+    },
+    "in_beer" : {
+      "extractionState" : "manual"
+    },
+    "in_black_currant_juice" : {
+      "extractionState" : "manual"
+    },
+    "in_black_grapes" : {
+      "extractionState" : "manual"
+    },
+    "in_black_pepper" : {
+      "extractionState" : "manual"
+    },
+    "in_blackberries" : {
+      "extractionState" : "manual"
+    },
+    "in_blue_cheese" : {
+      "extractionState" : "manual"
+    },
+    "in_blueberries" : {
+      "extractionState" : "manual"
+    },
+    "in_books" : {
+      "extractionState" : "manual"
+    },
+    "in_brandy" : {
+      "extractionState" : "manual"
+    },
+    "in_bread_bundle_4" : {
+      "extractionState" : "manual"
+    },
+    "in_bread_loaf" : {
+      "extractionState" : "manual"
+    },
+    "in_broccoli" : {
+      "extractionState" : "manual"
+    },
+    "in_cake" : {
+      "extractionState" : "manual"
+    },
+    "in_cardamom" : {
+      "extractionState" : "manual"
+    },
+    "in_carrots" : {
+      "extractionState" : "manual"
+    },
+    "in_cat_food" : {
+      "extractionState" : "manual"
+    },
+    "in_cat_sand" : {
+      "extractionState" : "manual"
+    },
+    "in_celery" : {
+      "extractionState" : "manual"
+    },
+    "in_champignons" : {
+      "extractionState" : "manual"
+    },
+    "in_cheese" : {
+      "extractionState" : "manual"
+    },
+    "in_cheese_cake" : {
+      "extractionState" : "manual"
+    },
+    "in_cherries" : {
+      "extractionState" : "manual"
+    },
+    "in_chicken_breast" : {
+      "extractionState" : "manual"
+    },
+    "in_chicken_drumsticks" : {
+      "extractionState" : "manual"
+    },
+    "in_chicken_wings" : {
+      "extractionState" : "manual"
+    },
+    "in_chillis" : {
+      "extractionState" : "manual"
+    },
+    "in_chocolate" : {
+      "extractionState" : "manual"
+    },
+    "in_cigarettes" : {
+      "extractionState" : "manual"
+    },
+    "in_cleaning" : {
+      "extractionState" : "manual"
+    },
+    "in_cleaning_agent" : {
+      "extractionState" : "manual"
+    },
+    "in_cloves" : {
+      "extractionState" : "manual"
+    },
+    "in_club_mate" : {
+      "extractionState" : "manual"
+    },
+    "in_coca_cola" : {
+      "extractionState" : "manual"
+    },
+    "in_coconut" : {
+      "extractionState" : "manual"
+    },
+    "in_comics" : {
+      "extractionState" : "manual"
+    },
+    "in_condoms" : {
+      "extractionState" : "manual"
+    },
+    "in_coriander" : {
+      "extractionState" : "manual"
+    },
+    "in_corn" : {
+      "extractionState" : "manual"
+    },
+    "in_cranberries" : {
+      "extractionState" : "manual"
+    },
+    "in_cumin" : {
+      "extractionState" : "manual"
+    },
+    "in_currant" : {
+      "extractionState" : "manual"
+    },
+    "in_dish_soap" : {
+      "extractionState" : "manual"
+    },
+    "in_dog_food" : {
+      "extractionState" : "manual"
+    },
+    "in_doughnuts" : {
+      "extractionState" : "manual"
+    },
+    "in_drinks" : {
+      "extractionState" : "manual"
+    },
+    "in_eggs" : {
+      "extractionState" : "manual"
+    },
+    "in_eggs_6" : {
+      "extractionState" : "manual"
+    },
+    "in_eggs_12" : {
+      "extractionState" : "manual"
+    },
+    "in_entertainment" : {
+      "extractionState" : "manual"
+    },
+    "in_eraser" : {
+      "extractionState" : "manual"
+    },
+    "in_fanta" : {
+      "extractionState" : "manual"
+    },
+    "in_feta_cheese" : {
+      "extractionState" : "manual"
+    },
+    "in_fish" : {
+      "extractionState" : "manual"
+    },
+    "in_fruits" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fruits"
+          }
+        }
+      }
+    },
+    "in_garlic" : {
+      "extractionState" : "manual"
+    },
+    "in_ginger" : {
+      "extractionState" : "manual"
+    },
+    "in_goat_cheese" : {
+      "extractionState" : "manual"
+    },
+    "in_grains" : {
+      "extractionState" : "manual"
+    },
+    "in_grapes" : {
+      "extractionState" : "manual"
+    },
+    "in_green_beans" : {
+      "extractionState" : "manual"
+    },
+    "in_green_grapes" : {
+      "extractionState" : "manual"
+    },
+    "in_grinded_meat" : {
+      "extractionState" : "manual"
+    },
+    "in_hygiene" : {
+      "extractionState" : "manual"
+    },
+    "in_ice_big" : {
+      "extractionState" : "manual"
+    },
+    "in_ice_small" : {
+      "extractionState" : "manual"
+    },
+    "in_jelly_beans" : {
+      "extractionState" : "manual"
+    },
+    "in_jogurt" : {
+      "extractionState" : "manual"
+    },
+    "in_kale" : {
+      "extractionState" : "manual"
+    },
+    "in_kiwis" : {
+      "extractionState" : "manual"
+    },
+    "in_lemons" : {
+      "extractionState" : "manual"
+    },
+    "in_lentils" : {
+      "extractionState" : "manual"
+    },
+    "in_lettuce" : {
+      "extractionState" : "manual"
+    },
+    "in_limes" : {
+      "extractionState" : "manual"
+    },
+    "in_liquid_soap" : {
+      "extractionState" : "manual"
+    },
+    "in_listerine" : {
+      "extractionState" : "manual"
+    },
+    "in_liver_sausage" : {
+      "extractionState" : "manual"
+    },
+    "in_mace" : {
+      "extractionState" : "manual"
+    },
+    "in_magazines" : {
+      "extractionState" : "manual"
+    },
+    "in_mandarines" : {
+      "extractionState" : "manual"
+    },
+    "in_mangos" : {
+      "extractionState" : "manual"
+    },
+    "in_maoams" : {
+      "extractionState" : "manual"
+    },
+    "in_meat" : {
+      "extractionState" : "manual"
+    },
+    "in_melons" : {
+      "extractionState" : "manual"
+    },
+    "in_milk" : {
+      "extractionState" : "manual"
+    },
+    "in_mob" : {
+      "extractionState" : "manual"
+    },
+    "in_nail_clipper" : {
+      "extractionState" : "manual"
+    },
+    "in_nectarines" : {
+      "extractionState" : "manual"
+    },
+    "in_office" : {
+      "extractionState" : "manual"
+    },
+    "in_oil" : {
+      "extractionState" : "manual"
+    },
+    "in_olive_oil" : {
+      "extractionState" : "manual"
+    },
+    "in_olives" : {
+      "extractionState" : "manual"
+    },
+    "in_onions" : {
+      "extractionState" : "manual"
+    },
+    "in_oranges" : {
+      "extractionState" : "manual"
+    },
+    "in_oven_cleaner" : {
+      "extractionState" : "manual"
+    },
+    "in_paper" : {
+      "extractionState" : "manual"
+    },
+    "in_parsley" : {
+      "extractionState" : "manual"
+    },
+    "in_peaches" : {
+      "extractionState" : "manual"
+    },
+    "in_peaches_jam" : {
+      "extractionState" : "manual"
+    },
+    "in_pears" : {
+      "extractionState" : "manual"
+    },
+    "in_pen" : {
+      "extractionState" : "manual"
+    },
+    "in_pencil" : {
+      "extractionState" : "manual"
+    },
+    "in_pencil_sharpener" : {
+      "extractionState" : "manual"
+    },
+    "in_pepper" : {
+      "extractionState" : "manual"
+    },
+    "in_pepsi" : {
+      "extractionState" : "manual"
+    },
+    "in_pet" : {
+      "extractionState" : "manual"
+    },
+    "in_pie" : {
+      "extractionState" : "manual"
+    },
+    "in_pineapple" : {
+      "extractionState" : "manual"
+    },
+    "in_plums" : {
+      "extractionState" : "manual"
+    },
+    "in_pomegranate" : {
+      "extractionState" : "manual"
+    },
+    "in_popsicles" : {
+      "extractionState" : "manual"
+    },
+    "in_pork_5_min" : {
+      "extractionState" : "manual"
+    },
+    "in_potatoes" : {
+      "extractionState" : "manual"
+    },
+    "in_printing_cartridge" : {
+      "extractionState" : "manual"
+    },
+    "in_pudding" : {
+      "extractionState" : "manual"
+    },
+    "in_razors" : {
+      "extractionState" : "manual"
+    },
+    "in_red_beans" : {
+      "extractionState" : "manual"
+    },
+    "in_red_grapes" : {
+      "extractionState" : "manual"
+    },
+    "in_red_onions" : {
+      "extractionState" : "manual"
+    },
+    "in_red_whine" : {
+      "extractionState" : "manual"
+    },
+    "in_rice_basmati" : {
+      "extractionState" : "manual"
+    },
+    "in_rosemary" : {
+      "extractionState" : "manual"
+    },
+    "in_rum" : {
+      "extractionState" : "manual"
+    },
+    "in_saffron" : {
+      "extractionState" : "manual"
+    },
+    "in_salami" : {
+      "extractionState" : "manual"
+    },
+    "in_salmon" : {
+      "extractionState" : "manual"
+    },
+    "in_salt" : {
+      "extractionState" : "manual"
+    },
+    "in_sangria" : {
+      "extractionState" : "manual"
+    },
+    "in_sanitary_towels" : {
+      "extractionState" : "manual"
+    },
+    "in_sardines" : {
+      "extractionState" : "manual"
+    },
+    "in_shampoo" : {
+      "extractionState" : "manual"
+    },
+    "in_shrimps" : {
+      "extractionState" : "manual"
+    },
+    "in_soap" : {
+      "extractionState" : "manual"
+    },
+    "in_sour_candy" : {
+      "extractionState" : "manual"
+    },
+    "in_spices" : {
+      "extractionState" : "manual"
+    },
+    "in_sponges" : {
+      "extractionState" : "manual"
+    },
+    "in_sprite" : {
+      "extractionState" : "manual"
+    },
+    "in_steak" : {
+      "extractionState" : "manual"
+    },
+    "in_strawberries" : {
+      "extractionState" : "manual"
+    },
+    "in_strawberry_jam" : {
+      "extractionState" : "manual"
+    },
+    "in_sweet_potato" : {
+      "extractionState" : "manual"
+    },
+    "in_sweets" : {
+      "extractionState" : "manual"
+    },
+    "in_tampons" : {
+      "extractionState" : "manual"
+    },
+    "in_tomatoes" : {
+      "extractionState" : "manual"
+    },
+    "in_tooth_floss" : {
+      "extractionState" : "manual"
+    },
+    "in_tooth_paste" : {
+      "extractionState" : "manual"
+    },
+    "in_toothbrush" : {
+      "extractionState" : "manual"
+    },
+    "in_towel" : {
+      "extractionState" : "manual"
+    },
+    "in_tuna" : {
+      "extractionState" : "manual"
+    },
+    "in_turkey" : {
+      "extractionState" : "manual"
+    },
+    "in_turmeric" : {
+      "extractionState" : "manual"
+    },
+    "in_veggies" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vegetables"
+          }
+        }
+      }
+    },
+    "in_watermelons" : {
+      "extractionState" : "manual"
+    },
+    "in_whiskey" : {
+      "extractionState" : "manual"
+    },
+    "in_white_beans" : {
+      "extractionState" : "manual"
+    },
+    "in_white_onions" : {
+      "extractionState" : "manual"
+    },
+    "in_white_whine" : {
+      "extractionState" : "manual"
+    },
+    "in_window_cleaner" : {
+      "extractionState" : "manual"
+    },
+    "in_wire_sponges" : {
+      "extractionState" : "manual"
+    },
     "Invalid inputs" : {
 
     },
     "Key" : {
+      "extractionState" : "manual"
+    },
+    "Key 1" : {
+      "extractionState" : "manual"
+    },
+    "Key 2" : {
+      "extractionState" : "manual"
+    },
+    "Key 3" : {
+      "extractionState" : "manual"
+    },
+    "Key 4" : {
+      "extractionState" : "manual"
+    },
+    "Key 5" : {
+      "extractionState" : "manual"
+    },
+    "Key 6" : {
+      "extractionState" : "manual"
+    },
+    "Key 7" : {
       "extractionState" : "manual"
     },
     "Manage items" : {
