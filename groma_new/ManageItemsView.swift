@@ -56,6 +56,12 @@ struct ManageItemsView: View {
 #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
 #endif
+            .popover(isPresented: $isAddItemPresented, content: {
+                AddEditItemView(didSubmitItem: { (predefItem, quantity) in
+                    // item is added and saved in popup. nothing else to do here
+                    isAddItemPresented = false
+                })
+            })
             .popover(item: $editingItem, content: { item in
                 let editingItemInputs = EditingItemInputs(name: item.name ?? "", price: item.price, tag: item.tag, quantity: nil)
                 AddEditItemView(editingInputs: editingItemInputs, didSubmitItem: { (predefItem, quantity) in

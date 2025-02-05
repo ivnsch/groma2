@@ -32,7 +32,8 @@ struct AddEditItemView: View {
 
     private let spacerHeight = 20.0;
     // didSubmitItem is called after the predef item was added/edited and saved to data store
-    // editingInput is todo list item context, nameInput is didn't find item in search context,
+    // editing: editingInput is todo list item context, nameInput is didn't find item in search context,
+    // if both of these are nil: add new item context
     // QUANTITY IN CLOSURE IS NOT USED WHEN CONTEXT IS "ADD ITEM"
     // we assume editingInputs and nameInput are not set at same time
     // TODO refactor: use enums here. this makes all these explanations unnecessary and no "unused field"
