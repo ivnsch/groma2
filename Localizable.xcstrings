@@ -20,14 +20,7 @@
 
     },
     "Add item" : {
-      "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Item hinzufügen"
-          }
-        }
-      }
+
     },
     "Add Item" : {
 
@@ -47,12 +40,6 @@
     "apples" : {
       "extractionState" : "manual",
       "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Äpfel"
-          }
-        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
