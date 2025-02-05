@@ -166,11 +166,7 @@ struct TodoView: View {
                 }
             }
         }
-        do {
-            try modelContext.save()
-        } catch {
-            logger.error("Error saving: \(error)")
-        }
+        try modelContext.save()
     }
 
     private func showAddItem() {
