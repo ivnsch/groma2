@@ -20,11 +20,11 @@ struct FeedbackView: View {
                         .padding(.trailing, 20)
                         .frame(maxWidth: .infinity)
                     Button(action: {
-                         guard let google = URL(string: "https://google.com"),
-                             UIApplication.shared.canOpenURL(google) else {
+                         guard let url = URL(string: "https://discord.gg/YmKN5HJR"),
+                             UIApplication.shared.canOpenURL(url) else {
                              return
                          }
-                         UIApplication.shared.open(google,
+                         UIApplication.shared.open(url,
                                                    options: [:],
                                                    completionHandler: nil)
                      }) {
@@ -35,10 +35,6 @@ struct FeedbackView: View {
                             .tint(Theme.primButtonBg)
                         }
                      .tint(Theme.primButtonBg)
-
-                    
-        //            Link("Discord",
-        //                  destination: URL(string: "https://google.com")!)
                 }
             }
 
