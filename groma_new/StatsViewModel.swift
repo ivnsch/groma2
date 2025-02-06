@@ -98,11 +98,35 @@ func toSectionsByTag(items: [BoughtItem]) -> [BoughtItemsByTagSection] {
 
     var tagsWithItems = Dictionary<String, [BoughtItemAggregate]>();
     for item in items {
-        let aggr = BoughtItemAggregate(name: item.name ?? "", boughtDate: item.boughtDate ?? Date(), price: Float(item.quantity) * item.price, quantity: item.quantity, tag: item.tag)
-        let updatedItems = tagsWithItems[aggr.tag] ?? []
-        tagsWithItems[item.tag] = updatedItems + [aggr]
+        let aggr = BoughtItemAggregate(
+            name: item.name ?? "",
+            boughtDate: item.boughtDate ?? Date(),
+            price: Float(item.quantity) * item.price,
+            quantity: item.quantity,
+            tag: item.tag
+        )
+       
+        var incrementedExistingItem = false
+        // increment item with same name (bought at a different point in time) instead of inserting new one
+        let existingItems = tagsWithItems[aggr.tag] ?? []
+        for existingItem in existingItems {
+            if existingItem.name == aggr.name {
+                existingItem.price += aggr.price
+                existingItem.quantity += aggr.quantity
+                // reinsert so it's actually updated
+                tagsWithItems[aggr.tag]?.removeAll { $0.name == aggr.name }
+                tagsWithItems[aggr.tag]?.append(existingItem)
+                incrementedExistingItem = true
+            }
+        }
+        
+        if !incrementedExistingItem {
+            // insert new item
+            tagsWithItems[item.tag] = existingItems + [aggr]
+        }
     }
 
+    // sections
     for (tag, items) in tagsWithItems {
         let totalPrice = items.map(\.price).reduce(0, +);
         let totalQuantity = items.map(\.quantity).reduce(0, +);
