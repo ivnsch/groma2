@@ -52,7 +52,8 @@ struct StatsView: View {
                     }
                 }
                 if viewModel.sections().isEmpty {
-                    EmptyView(message: "No stats yet.\nBuy some items to see stats!")
+                    EmptyView(message: "No stats yet.\nAssign prices and buy some items to see stats!")
+
                 }
                 List {
                     ChartView(sections: viewModel.sections())
