@@ -104,6 +104,15 @@ private struct ChartView: View {
     }
 
     var body: some View {
+        if sections.count > 4 {
+            defaultBody().aspectRatio(1, contentMode: .fill)
+        } else {
+            // when there are too little items, aspect ratio above makes the chart look too spaced out, so we don't use it
+            defaultBody()
+        }
+    }
+    
+    private func defaultBody() -> some View {
         Chart(sections) { section in
             BarMark(x: .value("Price", section.header.totalPrice * progress),
                     y: .value("Category", section.header.name))
@@ -120,7 +129,6 @@ private struct ChartView: View {
                     .foregroundStyle(Color.black)
             }
         }
-        .aspectRatio(1, contentMode: .fit)
         .onAppear {
             animateChart()
         }
