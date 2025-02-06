@@ -710,6 +710,17 @@
         }
       }
     },
+    "in_dairy" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dairy"
+          }
+        }
+      }
+    },
     "in_dish_soap" : {
       "extractionState" : "manual",
       "localizations" : {

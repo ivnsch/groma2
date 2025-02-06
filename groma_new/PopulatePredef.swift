@@ -32,6 +32,7 @@ func populatePredefinedData(modelContext: ModelContext) {
     let cigarettes = "in_cigarettes".loc
     let entertainment = "in_entertainment".loc
     let bakery = "in_bakery".loc
+    let dairy = "in_dairy".loc
 
     let predefinedData = [
         // pet
@@ -177,14 +178,14 @@ func populatePredefinedData(modelContext: ModelContext) {
         PredefItem(name: "in_maoams".loc, price: 0, tag: sweets),
         
         // dairy
-        PredefItem(name: "in_milk".loc, price: 0, tag: sweets),
-        PredefItem(name: "in_cheese".loc, price: 0, tag: sweets),
-        PredefItem(name: "in_blue_cheese".loc, price: 0, tag: sweets),
-        PredefItem(name: "in_feta_cheese".loc, price: 0, tag: sweets),
-        PredefItem(name: "in_goat_cheese".loc, price: 0, tag: sweets),
-        PredefItem(name: "in_cream".loc, price: 0, tag: sweets),
-        PredefItem(name: "in_butter".loc, price: 0, tag: sweets),
-        PredefItem(name: "in_jogurt".loc, price: 0, tag: sweets),
+        PredefItem(name: "in_milk".loc, price: 0, tag: dairy),
+        PredefItem(name: "in_cheese".loc, price: 0, tag: dairy),
+        PredefItem(name: "in_blue_cheese".loc, price: 0, tag: dairy),
+        PredefItem(name: "in_feta_cheese".loc, price: 0, tag: dairy),
+        PredefItem(name: "in_goat_cheese".loc, price: 0, tag: dairy),
+        PredefItem(name: "in_cream".loc, price: 0, tag: dairy),
+        PredefItem(name: "in_butter".loc, price: 0, tag: dairy),
+        PredefItem(name: "in_jogurt".loc, price: 0, tag: dairy),
 
         // hygiene
         PredefItem(name: "in_tooth_paste".loc, price: 0, tag: hygiene),
