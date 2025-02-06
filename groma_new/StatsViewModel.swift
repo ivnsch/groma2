@@ -106,6 +106,7 @@ func toSectionsByTag(items: [BoughtItem]) -> [BoughtItemsByTagSection] {
         let totalPrice = items.map(\.price).reduce(0, +);
         let totalQuantity = items.map(\.quantity).reduce(0, +);
         let aggregate = BoughtItemsTagAggregate(totalQuantity: totalQuantity, totalPrice: totalPrice, name: tag)
+        let items = items.sorted { $0.price > $1.price }
         sections.append(BoughtItemsByTagSection(header: aggregate, items: items))
     }
     
