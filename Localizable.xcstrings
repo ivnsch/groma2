@@ -1084,6 +1084,17 @@
         }
       }
     },
+    "in_lollipops" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lollipops"
+          }
+        }
+      }
+    },
     "in_mace" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1179,6 +1190,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Milk"
+          }
+        }
+      }
+    },
+    "in_mint" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mint"
           }
         }
       }
