@@ -92,7 +92,6 @@ func toMonthToSectionsDict(allItems: [BoughtItem]) -> Dictionary<Int, [BoughtIte
     }
 }
 
-// all time
 func toSectionsByTag(items: [BoughtItem]) -> [BoughtItemsByTagSection] {
     var sections = [BoughtItemsByTagSection]()
 
