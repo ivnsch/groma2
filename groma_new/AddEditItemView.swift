@@ -120,7 +120,7 @@ struct AddEditItemView: View {
                     }
                     Spacer().frame(height: spacerHeight)
 
-                    Button(editingInputs == nil ? "Add" : "Edit") {
+                    Button(action: {
                         withAnimation {
                             let validationResult = validateInputs(quantityExpected: editingInputs != nil)
                             
@@ -142,9 +142,12 @@ struct AddEditItemView: View {
                                 showInvalidInputs = true
                             }
                         }
-                    }
+                    }, label: {
+                        Text(editingInputs == nil ? "Add" : "Edit")
+                            .frame(maxWidth: .infinity)
+                    })
                     .primary()
-                    .frame(width: 200)
+                    .frame(maxWidth: .infinity)
                 }
                 .padding(.horizontal, 100)
             }
