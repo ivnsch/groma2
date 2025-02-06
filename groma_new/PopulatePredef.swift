@@ -13,6 +13,25 @@ func checkAndPopulateData(modelContext: ModelContext) {
 }
 
 func populatePredefinedData(modelContext: ModelContext) {
+    let predefinedData = generatePredefinedData()
+    
+    for data in predefinedData {
+        modelContext.insert(data)
+    }
+    
+    do {
+        try modelContext.save()
+        
+        NSUbiquitousKeyValueStore.default.set(true, forKey: "hasPopulatedDatabase")
+        NSUbiquitousKeyValueStore.default.synchronize()
+        
+        logger.debug("Predefined data added successfully.")
+    } catch {
+        logger.error("error saving predefined data: \(error)")
+    }
+}
+
+func generatePredefinedData() -> [PredefItem] {
     let fruits = "in_fruits".loc
     let veggies = "in_veggies".loc
     let meat = "in_meat".loc
@@ -34,7 +53,7 @@ func populatePredefinedData(modelContext: ModelContext) {
     let bakery = "in_bakery".loc
     let dairy = "in_dairy".loc
 
-    let predefinedData = [
+    return [
         // pet
         PredefItem(name: "in_cat_food".loc, price: 0, tag: pet),
         PredefItem(name: "in_dog_food".loc, price: 0, tag: pet),
@@ -239,22 +258,7 @@ func populatePredefinedData(modelContext: ModelContext) {
         PredefItem(name: "in_books".loc, price: 0, tag: entertainment),
     ]
 
-    for data in predefinedData {
-        modelContext.insert(data)
-    }
-    
-    do {
-        try modelContext.save()
-        
-        NSUbiquitousKeyValueStore.default.set(true, forKey: "hasPopulatedDatabase")
-        NSUbiquitousKeyValueStore.default.synchronize()
-        
-        logger.debug("Predefined data added successfully.")
-    } catch {
-        logger.error("error saving predefined data: \(error)")
-    }
 }
-
 extension String {
     var loc: String {
         return NSLocalizedString(self, comment: "")
