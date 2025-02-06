@@ -72,6 +72,9 @@
     "Close" : {
 
     },
+    "Credits" : {
+
+    },
     "Delete all history?" : {
 
     },
@@ -2097,6 +2100,9 @@
     "No items!" : {
 
     },
+    "Original license" : {
+
+    },
     "Price" : {
 
     },
@@ -2113,6 +2119,9 @@
 
     },
     "Stats" : {
+
+    },
+    "The banana peel image used in empty views is licensed under Creative Commons. The author is Max Ronnersjö." : {
 
     },
     "This will delete all your history and stats" : {

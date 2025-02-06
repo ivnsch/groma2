@@ -35,6 +35,11 @@ struct MoreView: View {
                         Text("Feedback")
                     }
                     NavigationLink {
+                        CreditsView()
+                    } label: {
+                        Text("Credits")
+                    }
+                    NavigationLink {
                         ToolsView()
                     } label: {
                         Text("Tools")
