@@ -166,10 +166,10 @@ private struct ListHeaderView: View {
 }
 
 private struct ListItemView: View {
-    let item: BoughtItem
+    let item: BoughtItemAggregate
     let formattedPrice: String;
     
-    init(item: BoughtItem) {
+    init(item: BoughtItemAggregate) {
         self.item = item
         
         self.formattedPrice = {

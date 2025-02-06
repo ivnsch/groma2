@@ -96,10 +96,11 @@ func toMonthToSectionsDict(allItems: [BoughtItem]) -> Dictionary<Int, [BoughtIte
 func toSectionsByTag(items: [BoughtItem]) -> [BoughtItemsByTagSection] {
     var sections = [BoughtItemsByTagSection]()
 
-    var tagsWithItems = Dictionary<String, [BoughtItem]>();
+    var tagsWithItems = Dictionary<String, [BoughtItemAggregate]>();
     for item in items {
-        let updatedItems = tagsWithItems[item.tag] ?? []
-        tagsWithItems[item.tag] = updatedItems + [item]
+        let aggr = BoughtItemAggregate(name: item.name ?? "", boughtDate: item.boughtDate ?? Date(), price: Float(item.quantity) * item.price, quantity: item.quantity, tag: item.tag)
+        let updatedItems = tagsWithItems[aggr.tag] ?? []
+        tagsWithItems[item.tag] = updatedItems + [aggr]
     }
 
     for (tag, items) in tagsWithItems {
@@ -128,11 +129,29 @@ class MonthlyExpensesItem {
 @Model
 class BoughtItemsByTagSection {
     var header: BoughtItemsTagAggregate
-    var items: [BoughtItem]
+    var items: [BoughtItemAggregate]
     
-    init(header: BoughtItemsTagAggregate, items: [BoughtItem]) {
+    init(header: BoughtItemsTagAggregate, items: [BoughtItemAggregate]) {
         self.header = header
         self.items = items
+    }
+}
+
+@Model
+final class BoughtItemAggregate {
+    var name: String?
+    var price: Float = 0
+    var quantity: Int = 0
+    var tag: String = ""
+
+    var boughtDate: Date?
+    
+    init(name: String, boughtDate: Date, price: Float, quantity: Int, tag: String) {
+        self.name = name
+        self.boughtDate = boughtDate
+        self.price = price
+        self.quantity = quantity
+        self.tag = tag
     }
 }
 
