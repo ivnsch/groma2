@@ -43,19 +43,19 @@ struct groma_newApp: App {
             TabView {
                 TodoView(sharedModelContainer: sharedModelContainer)
                     .tabItem {
-                        Label("Todo", systemImage: "tray.and.arrow.down.fill")
+                        Label("Todo", systemImage: "list.bullet")
                     }
                 StatsView(modelContext: sharedModelContainer.mainContext)
                     .tabItem {
-                        Label("Stats", systemImage: "tray.and.arrow.up.fill")
+                        Label("Stats", systemImage: "chart.bar")
                     }
                 HistoryView()
                     .tabItem {
-                        Label("History", systemImage: "tray.and.arrow.up.fill")
+                        Label("History", systemImage: "clock")
                     }
                 MoreView(sharedModelContainer: sharedModelContainer)
                     .tabItem {
-                        Label("More", systemImage: "tray.and.arrow.up.fill")
+                        Label("More", systemImage: "ellipsis")
                     }
             }
             .accentColor(Theme.tabAccent)
