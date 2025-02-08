@@ -217,6 +217,22 @@ struct TodoListItemView: View {
     let onTap: () -> Void
     let onDoubleTap: () -> Void
     
+    let formattedPrice: String;
+
+    init(item: TodoItemForView, onTap: @escaping () -> Void, onDoubleTap: @escaping () -> Void) {
+        self.item = item
+        self.onTap = onTap
+        self.onDoubleTap = onDoubleTap
+        
+        self.formattedPrice = {
+            if let localCurrency = Locale.current.currency {
+                item.price.formatted(.currency(code: localCurrency.identifier))
+            } else {
+                item.price.description
+            }
+        }()
+    }
+    
     var body: some View {
         Button(action: {
         }) {
@@ -227,8 +243,10 @@ struct TodoListItemView: View {
                 VStack {
                     Text(item.quantity.description)
                         .foregroundColor(Color.black)
-//                    Text(item.price.description)
-//                        .foregroundColor(Color.black)
+                    Text(formattedPrice)
+                        .foregroundColor(Theme.lightGray)
+                        .font(.system(size: 12))
+                        .fontWeight(.light)
 
                 }
             }

@@ -19,6 +19,7 @@ struct Theme {
     static let primButtonBg = Color(hex: green)
     static let primButtonFg = Color(Color.white)
     static let accentSec = Color(hex: greyDark)
+    static let lightGray = Color(hex: "#bbbbbb")
 
 
     static let cornerRadiusBig = 14.0;
