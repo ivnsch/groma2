@@ -13,8 +13,8 @@ func checkAndPopulateData(modelContext: ModelContext) {
 }
 
 func populatePredefinedData(modelContext: ModelContext) {
-//    let predefinedData = generatePredefinedData()
-    let predefinedData = generateDevelopmentPredefinedData()
+    let predefinedData = generatePredefinedData()
+//    let predefinedData = generateDevelopmentPredefinedData()
 
     for data in predefinedData {
         modelContext.insert(data)

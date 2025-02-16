@@ -39,11 +39,11 @@ struct MoreView: View {
                     } label: {
                         Text("Credits")
                     }
-                    NavigationLink {
-                        ToolsView()
-                    } label: {
-                        Text("Tools")
-                    }
+//                    NavigationLink {
+//                        ToolsView()
+//                    } label: {
+//                        Text("Tools")
+//                    }
                 }
                 .scrollContentBackground(.hidden)
             }
