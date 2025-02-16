@@ -9,18 +9,10 @@
 /* Begin PBXBuildFile section */
 		6A1B033F2D37B415004D23A8 /* Flow in Frameworks */ = {isa = PBXBuildFile; productRef = 6A1B033E2D37B415004D23A8 /* Flow */; };
 		6A1B050E2D414486004D23A8 /* SwiftyBeaver in Frameworks */ = {isa = PBXBuildFile; productRef = 6A1B050D2D414486004D23A8 /* SwiftyBeaver */; };
-		6A1B05522D416C3B004D23A8 /* watchapp Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 6A1B05452D416C3A004D23A8 /* watchapp Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		6AAA61A32D5244D800E2A0BC /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 6AAA61A22D5244D800E2A0BC /* Localizable.xcstrings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		6A1B05502D416C3B004D23A8 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 6AA0809F2D2D31260087FCBD /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 6A1B05442D416C3A004D23A8;
-			remoteInfo = "watchapp Watch App";
-		};
 		6AA080BC2D2D31260087FCBD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 6AA0809F2D2D31260087FCBD /* Project object */;
@@ -44,7 +36,6 @@
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
 			dstSubfolderSpec = 16;
 			files = (
-				6A1B05522D416C3B004D23A8 /* watchapp Watch App.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -52,7 +43,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		6A1B05452D416C3A004D23A8 /* watchapp Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "watchapp Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AA080A72D2D31260087FCBD /* groma_new.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = groma_new.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AA080BB2D2D31260087FCBD /* groma_newTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = groma_newTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AA080C52D2D31270087FCBD /* groma_newUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = groma_newUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -60,15 +50,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		6A1B05912D422051004D23A8 /* Exceptions for "groma_new" folder in "watchapp Watch App" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Item.swift,
-				Theme.swift,
-				TodoItemForView.swift,
-			);
-			target = 6A1B05442D416C3A004D23A8 /* watchapp Watch App */;
-		};
 		6AA080CD2D2D31270087FCBD /* Exceptions for "groma_new" folder in "groma_new" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -88,7 +69,6 @@
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				6AA080CD2D2D31270087FCBD /* Exceptions for "groma_new" folder in "groma_new" target */,
-				6A1B05912D422051004D23A8 /* Exceptions for "groma_new" folder in "watchapp Watch App" target */,
 			);
 			path = groma_new;
 			sourceTree = "<group>";
@@ -106,13 +86,6 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		6A1B05422D416C3A004D23A8 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		6AA080A42D2D31260087FCBD /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -165,7 +138,6 @@
 				6AA080A72D2D31260087FCBD /* groma_new.app */,
 				6AA080BB2D2D31260087FCBD /* groma_newTests.xctest */,
 				6AA080C52D2D31270087FCBD /* groma_newUITests.xctest */,
-				6A1B05452D416C3A004D23A8 /* watchapp Watch App.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -173,28 +145,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		6A1B05442D416C3A004D23A8 /* watchapp Watch App */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 6A1B05562D416C3B004D23A8 /* Build configuration list for PBXNativeTarget "watchapp Watch App" */;
-			buildPhases = (
-				6A1B05412D416C3A004D23A8 /* Sources */,
-				6A1B05422D416C3A004D23A8 /* Frameworks */,
-				6A1B05432D416C3A004D23A8 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				6A1B05462D416C3A004D23A8 /* watchapp Watch App */,
-			);
-			name = "watchapp Watch App";
-			packageProductDependencies = (
-			);
-			productName = "watchapp Watch App";
-			productReference = 6A1B05452D416C3A004D23A8 /* watchapp Watch App.app */;
-			productType = "com.apple.product-type.application";
-		};
 		6AA080A62D2D31260087FCBD /* groma_new */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6AA080CE2D2D31270087FCBD /* Build configuration list for PBXNativeTarget "groma_new" */;
@@ -207,7 +157,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				6A1B05512D416C3B004D23A8 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				6AA080A92D2D31260087FCBD /* groma_new */,
@@ -277,9 +226,6 @@
 				LastSwiftUpdateCheck = 1620;
 				LastUpgradeCheck = 1620;
 				TargetAttributes = {
-					6A1B05442D416C3A004D23A8 = {
-						CreatedOnToolsVersion = 16.2;
-					};
 					6AA080A62D2D31260087FCBD = {
 						CreatedOnToolsVersion = 16.0;
 					};
@@ -314,19 +260,11 @@
 				6AA080A62D2D31260087FCBD /* groma_new */,
 				6AA080BA2D2D31260087FCBD /* groma_newTests */,
 				6AA080C42D2D31270087FCBD /* groma_newUITests */,
-				6A1B05442D416C3A004D23A8 /* watchapp Watch App */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		6A1B05432D416C3A004D23A8 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		6AA080A52D2D31260087FCBD /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -352,13 +290,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		6A1B05412D416C3A004D23A8 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		6AA080A32D2D31260087FCBD /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -383,11 +314,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		6A1B05512D416C3B004D23A8 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 6A1B05442D416C3A004D23A8 /* watchapp Watch App */;
-			targetProxy = 6A1B05502D416C3B004D23A8 /* PBXContainerItemProxy */;
-		};
 		6AA080BD2D2D31260087FCBD /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 6AA080A62D2D31260087FCBD /* groma_new */;
@@ -401,67 +327,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		6A1B05542D416C3B004D23A8 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"watchapp Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = 37QAPDY2PR;
-				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = watchapp;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.bananapeso.app;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.bananapeso.app.watchkitapp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 11.2;
-			};
-			name = Debug;
-		};
-		6A1B05552D416C3B004D23A8 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"watchapp Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = 37QAPDY2PR;
-				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = watchapp;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.bananapeso.app;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.bananapeso.app.watchkitapp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				VALIDATE_PRODUCT = YES;
-				WATCHOS_DEPLOYMENT_TARGET = 11.2;
-			};
-			name = Release;
-		};
 		6AA080CF2D2D31270087FCBD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -757,15 +622,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6A1B05562D416C3B004D23A8 /* Build configuration list for PBXNativeTarget "watchapp Watch App" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				6A1B05542D416C3B004D23A8 /* Debug */,
-				6A1B05552D416C3B004D23A8 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		6AA080A22D2D31260087FCBD /* Build configuration list for PBXProject "groma_new" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
